@@ -92,73 +92,91 @@ export type FeaturedGygTour = {
 };
 
 /**
- * Featured tours — prefer search queries that convert for Whitehaven / Airlie
- * until product paths are partner-verified and pinned.
+ * Partner-verified GYG deep links (paths only — partner_id + campaign re-applied at build).
+ * Source: Ian’s Airlie / Whitehaven picks 2026-07. Culled to a conversion ladder (not full catalogue).
+ * Omitted near-duplicate: second Heart Reef flight t259972 (kept t669380).
  */
 export const featuredGygTours: FeaturedGygTour[] = [
   {
-    id: 'whitehaven-day-sail',
-    title: 'Whitehaven Beach & Hill Inlet day tour',
+    id: 'hill-inlet-whitehaven-cruise',
+    title: 'Hill Inlet lookout & Whitehaven Beach cruise',
     summary:
-      'Dominant high-volume path: commercial day trip from Airlie Beach / Shute Harbour to Whitehaven with Hill Inlet lookout when conditions and itinerary allow. Confirm inclusions (snorkel stop, transfer time, walking ability).',
+      'Primary icon-pair product from Airlie Beach: Whitehaven silica sand plus Hill Inlet lookout when conditions allow. Confirm walking ability and live inclusions before you book.',
     tags: ['Day tour', 'Whitehaven', 'Hill Inlet'],
     searchQuery: 'Whitehaven Beach Hill Inlet tour Airlie Beach',
+    path: '/airlie-beach-l868/airlie-beach-hill-inlet-lookout-and-whitehaven-beach-cruise-t410838/',
   },
   {
-    id: 'ocean-rafting',
-    title: 'Ocean rafting / adventure Whitehaven trip',
+    id: 'whitehaven-half-day',
+    title: 'Whitehaven half-day cruise from Airlie',
     summary:
-      'Faster, more active style of day trip — often better for shorter time windows if you tolerate a rougher ride. Check fitness notes and wet-weather cancellation policy.',
-    tags: ['Adventure', 'Whitehaven', 'Airlie Beach'],
-    searchQuery: 'Ocean rafting Whitehaven Beach',
+      'Shorter Whitehaven window for tight schedules — less time on the sand than a full day, lower total commitment. Check fitness and weather cancellation notes.',
+    tags: ['Half day', 'Whitehaven', 'Airlie Beach'],
+    searchQuery: 'Whitehaven half day cruise Airlie Beach',
+    path: '/airlie-beach-l868/from-airlie-whitsundays-and-whitehaven-half-day-cruise-t132276/',
   },
   {
-    id: 'sailing-catamaran',
-    title: 'Sailing or catamaran day cruise',
+    id: 'camira-full-day-sail',
+    title: 'Camira full-day sailing adventure',
     summary:
-      'Slower, more scenic day on the water — often includes snorkel stops and lunch. Best when you want atmosphere over maximum beach minutes.',
-    tags: ['Sailing', 'Day cruise', 'Snorkel'],
-    searchQuery: 'Whitsundays sailing catamaran day trip',
+      'Full-day sailing path: more time on the water, typically Whitehaven-focused with a classic catamaran day structure. Good when you want atmosphere over a pure speedboat tick.',
+    tags: ['Sailing', 'Full day', 'Whitehaven'],
+    searchQuery: 'Camira sailing Whitehaven Airlie Beach',
+    path: '/airlie-beach-l868/airlie-beach-whitsundays-full-day-camira-sailing-adventure-t134625/',
   },
   {
-    id: 'multi-day-sail',
-    title: 'Multi-day sailing charter',
+    id: 'providence-day-sail-snorkel',
+    title: 'Providence Whitehaven day sail with snorkelling',
     summary:
-      'Freedom / immersion path: overnight or multi-day sail through the archipelago. Higher cost, deeper experience than a single day-trip tick.',
-    tags: ['Multi-day', 'Sailing', 'Charter'],
-    searchQuery: 'Whitsundays multi day sailing',
+      'Day sail + snorkel combo toward Whitehaven — conditions decide the snorkel site. Stinger suits recommended in season (typically Nov–May).',
+    tags: ['Sailing', 'Snorkel', 'Whitehaven'],
+    searchQuery: 'Providence Whitehaven day sail snorkel',
+    path: '/airlie-beach-l868/airlie-beach-providence-whitehaven-day-sail-with-snorkeling-t391833/',
   },
   {
-    id: 'scenic-flight',
-    title: 'Scenic flight / Heart Reef & Whitehaven',
+    id: 'islands-snorkel-lunch',
+    title: 'Whitsunday Islands tour with snorkel & lunch',
     summary:
-      'Aerial context for Heart Reef and Whitehaven silica — pairs well with a separate ground day. Choose operators that follow marine park and cultural guidelines.',
-    tags: ['Scenic flight', 'Helicopter', 'Heart Reef'],
-    searchQuery: 'Whitsundays scenic flight Whitehaven Heart Reef',
+      'Broader islands day with snorkelling and lunch framing — useful when you want reef time without a multi-day sail. Confirm exact stops for your departure date.',
+    tags: ['Day tour', 'Snorkel', 'Lunch'],
+    searchQuery: 'Whitsunday Islands snorkel lunch tour',
+    path: '/airlie-beach-l868/whitsunday-whitsunday-islands-tour-with-snorkeling-lunch-t600985/',
   },
   {
-    id: 'snorkel-dive',
-    title: 'Snorkel & dive day trip',
+    id: 'whitehaven-beach-club',
+    title: 'Whitehaven Beach Club day',
     summary:
-      'Fringing reef and pontoon-style products — conditions dependent. Stinger season and weather windows matter; full-body suits recommended Nov–May.',
-    tags: ['Snorkel', 'Dive', 'Reef'],
-    searchQuery: 'Whitsundays snorkel dive tour',
+      'Club-style Whitehaven day from Airlie — more hosted/facility energy than a quiet beach walk. Read inclusions carefully if solitude is your goal.',
+    tags: ['Day tour', 'Whitehaven', 'Club'],
+    searchQuery: 'Whitehaven Beach Club Airlie Beach',
+    path: '/airlie-beach-l868/airlie-beach-whitehaven-beach-club-t1073316/',
   },
   {
-    id: 'camping-transfer-search',
-    title: 'Camping transfer / water taxi (search)',
+    id: 'two-night-sailing-meals',
+    title: '2-night Whitsundays sailing (meals included)',
     summary:
-      'Self-sufficient camping path: boat transfer to Whitehaven or other beaches (e.g. Scamper-style). Book QPWS camping permit separately — never via this site.',
-    tags: ['Camping', 'Transfer', 'Whitehaven'],
-    searchQuery: 'Whitehaven camping transfer Whitsundays',
+      'Multi-day immersion: overnight on the water with meals packaged. Higher cost and weather sensitivity than a single day trip — build buffer time around flights.',
+    tags: ['Multi-day', 'Sailing', 'Overnight'],
+    searchQuery: 'Whitsundays 2 night sailing meals',
+    path: '/airlie-beach-l868/airlie-beach-2-night-whitsundays-sailing-trip-with-meals-t407266/',
   },
   {
-    id: 'hamilton-day',
-    title: 'Hamilton Island base experiences',
+    id: 'two-day-gbr-sailing',
+    title: '2-day / 2-night Great Barrier Reef sailing',
     summary:
-      'Resort-island logistics for those not basing in Airlie — still confirm how you reach Whitehaven and national park beaches from your resort.',
-    tags: ['Hamilton Island', 'Resort'],
-    searchQuery: 'Hamilton Island Whitehaven Beach tour',
+      'Longer sailing package linking Airlie logistics with reef time. Compare cabin style, group size and cancellation policy against the 2-night Whitsundays product above.',
+    tags: ['Multi-day', 'Sailing', 'Reef'],
+    searchQuery: 'Airlie Beach 2 day 2 night sailing reef',
+    path: '/queensland-l567/airlie-beach-great-barrier-reef-2-day-2-night-sailing-tour-t408105/',
+  },
+  {
+    id: 'heart-reef-scenic-flight',
+    title: 'Heart Reef & Whitsunday Islands scenic flight',
+    summary:
+      'Aerial Heart Reef + archipelago context — pairs well after (or instead of stacking) a full boat day. Not a substitute for ground-level Whitehaven time.',
+    tags: ['Scenic flight', 'Heart Reef', 'Airlie Beach'],
+    searchQuery: 'Heart Reef scenic flight Airlie Beach',
+    path: '/airlie-beach-l868/airlie-beach-whitsunday-islands-heart-reef-scenic-flight-t669380/',
   },
 ];
 
@@ -314,14 +332,16 @@ export function tourLinks(): MonetisationLink[] {
 }
 
 function shortenTourLabel(title: string): string {
-  if (title.includes('Whitehaven Beach & Hill')) return 'Whitehaven + Hill Inlet day';
-  if (title.toLowerCase().includes('ocean rafting')) return 'Ocean rafting Whitehaven';
-  if (title.toLowerCase().includes('catamaran')) return 'Sailing / catamaran day';
-  if (title.toLowerCase().includes('multi-day')) return 'Multi-day sailing';
-  if (title.toLowerCase().includes('scenic')) return 'Scenic flight';
-  if (title.toLowerCase().includes('snorkel')) return 'Snorkel & dive day';
-  if (title.toLowerCase().includes('camping')) return 'Camping transfer search';
-  if (title.includes('Hamilton')) return 'Hamilton Island options';
+  if (title.includes('Hill Inlet lookout')) return 'Hill Inlet + Whitehaven';
+  if (title.toLowerCase().includes('half-day')) return 'Whitehaven half-day';
+  if (title.toLowerCase().includes('camira')) return 'Camira full-day sail';
+  if (title.toLowerCase().includes('providence')) return 'Providence day sail';
+  if (title.toLowerCase().includes('beach club')) return 'Whitehaven Beach Club';
+  if (title.includes('2-night')) return '2-night sailing';
+  if (title.includes('2-day')) return '2-day reef sailing';
+  if (title.toLowerCase().includes('heart reef') || title.toLowerCase().includes('scenic flight'))
+    return 'Heart Reef scenic flight';
+  if (title.toLowerCase().includes('snorkel')) return 'Islands snorkel + lunch';
   return title.length > 48 ? `${title.slice(0, 45)}…` : title;
 }
 

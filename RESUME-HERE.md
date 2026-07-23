@@ -16,7 +16,7 @@ Full Astro static site scaffolded from Uluru/Cradle portfolio pattern with Whits
 | Stack | Astro 7 + Tailwind 4, port **4340** |
 | Build | `cd site` → `npm run build` → upload **contents** of `dist/` |
 | Content | Trails ×8, itineraries ×9, park areas ×8, articles ×5 |
-| GYG | Search-based featured tours + campaign slug; pin product paths later |
+| GYG | **9 product deep links** pinned (Airlie/Whitehaven ladder) + campaign slug |
 | Amazon | `PUBLIC_AMAZON_TAG` from portfolio env |
 | Splitforms | From portfolio env when present |
 | Booking / AdSense | Empty until approved |
