@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import AdSense from '../../components/AdSense.astro';
 import OfficialResources from '../../components/OfficialResources.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { blogPosts, getPost } from '../../data/blog';
 import { absoluteUrl } from '../../data/seo';
 
@@ -12,6 +13,12 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const post = getPost(slug!);
 if (!post) throw new Error(`Unknown post: ${slug}`);
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Articles', href: '/articles/' },
+  { name: post.title },
+];
 
 const articleLd = {
   '@context': 'https://schema.org',
@@ -29,21 +36,15 @@ const articleLd = {
   title={post.title}
   fullTitle={`${post.title} · Whitsunday Articles`}
   description={post.description}
-  breadcrumbs={[
-    { name: 'Home', href: '/' },
-    { name: 'Articles', href: '/articles/' },
-    { name: post.title },
-  ]}
+  breadcrumbs={crumbs}
   jsonLd={articleLd}
 >
   <article class="page-container py-10 sm:py-14">
-    <p class="section-label">{post.date}</p>
-    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">{post.title}</h1>
-    <p class="mt-4 max-w-3xl text-mist-700 dark:text-park-200/90">{post.description}</p>
-    <div class="mt-8 max-w-3xl space-y-4 text-mist-700 dark:text-park-200/90">
-      {post.paragraphs.map((p) => <p>{p}</p>)}
-    </div>
-    <div class="mt-6 flex flex-wrap gap-2">
+    <Breadcrumbs items={crumbs} />
+    <p class="section-label mt-4">{post.date} · Unofficial practical guide</p>
+    <h1 class="mt-2 max-w-4xl text-3xl font-bold sm:text-4xl">{post.title}</h1>
+    <p class="mt-4 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{post.description}</p>
+    <div class="mt-4 flex flex-wrap gap-2">
       {
         post.tags.map((t) => (
           <span class="rounded-full bg-park-100 px-3 py-1 text-xs font-semibold text-park-800 dark:bg-park-800 dark:text-park-100">
@@ -52,6 +53,22 @@ const articleLd = {
         ))
       }
     </div>
+
+    <div class="prose-park mt-10 max-w-3xl">
+      {post.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+
+    <div class="mt-10 max-w-3xl rounded-2xl border border-park-200 bg-park-50/80 p-5 text-sm dark:border-park-700 dark:bg-park-900/40">
+      <p class="font-semibold text-park-900 dark:text-park-50">Keep planning</p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-mist-700 dark:text-park-300">
+        <li><a href="/downloads/whitsunday-practical-planner.html">Free Practical Planner</a> (print checklist)</li>
+        <li><a href="/itineraries/">Itineraries</a> with boat and tide timelines</li>
+        <li><a href="/tours/">Tours</a> — Whitehaven / Hill Inlet day products</li>
+        <li><a href="/visit/">Plan your visit</a> for permits, packing and seasons</li>
+        <li><a href="/articles/">All articles</a></li>
+      </ul>
+    </div>
+
     <AdSense unit="inContent" />
     <div class="mt-10">
       <OfficialResources />
