@@ -1,6 +1,7 @@
 ---
 import { navLinks } from '../data/navigation';
 import ThemeToggle from './ThemeToggle.astro';
+import BrandMark from './BrandMark.astro';
 
 const pathname = Astro.url.pathname;
 
@@ -14,13 +15,8 @@ function isActive(href: string): boolean {
   <div class="page-container">
     <div class="flex min-h-[4.5rem] items-center justify-between gap-2 py-2">
       <a href="/" class="group flex min-w-0 flex-1 items-center gap-2.5 sm:flex-none sm:gap-3">
-        <span class="brand-mark-icon shrink-0" aria-hidden="true" title="Whitsunday Islands guide">
-          <svg class="h-9 w-9 sm:h-10 sm:w-10" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="32" height="32" rx="8" fill="#0c4a6e" class="opacity-95 group-hover:opacity-100" />
-            <path d="M4 22 C8 18 12 14 16 13 C20 14 24 18 28 22" stroke="#38bdf8" stroke-width="1.6" stroke-linejoin="round" fill="none" />
-            <path d="M4 24 H28" stroke="#7dd3fc" stroke-width="1.2" opacity=".85" />
-            <circle cx="24" cy="9" r="1.4" fill="#fef9c3" opacity=".9" />
-          </svg>
+        <span class="brand-mark-icon shrink-0">
+          <BrandMark class="h-9 w-9 sm:h-10 sm:w-10" title="Whitsunday Islands National Park guide" />
         </span>
         <span class="min-w-0 leading-tight">
           <span class="block truncate text-[0.95rem] font-bold tracking-tight text-white sm:text-lg">Whitsunday Islands National Park</span>

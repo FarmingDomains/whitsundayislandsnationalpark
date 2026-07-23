@@ -1,7 +1,9 @@
 ---
 /**
  * Compact horizontal live weather via Open-Meteo (no API key).
- * Default: Airlie Beach area, Queensland.
+ * Default: Airlie Beach / Whitsunday Coast, Queensland.
+ *
+ * Icons use Unicode escapes so file encoding never mangles them.
  */
 interface Props {
   latitude?: number;
@@ -11,8 +13,9 @@ interface Props {
 }
 
 const {
-  latitude = -25.3444,
-  longitude = 131.0369,
+  // Airlie Beach (not Uluru)
+  latitude = -20.271,
+  longitude = 148.718,
   label = 'Airlie Beach / Whitsunday Coast',
   class: className = '',
 } = Astro.props;
@@ -33,7 +36,10 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     <div class="wx-strip__brand">
       <p class="wx-strip__eyebrow">Live snapshot</p>
       <p class="wx-strip__place">{label}</p>
-      <p class="wx-strip__note">Model forecast — tropical heat can climb fast after mid-morning. Not Queensland Parks (QPWS) or BOM official advice. Use for planning only.</p>
+      <p class="wx-strip__note">
+        Model forecast — tropical heat and humidity. Not Queensland Parks or BOM official advice. Use for planning only;
+        always check marine weather before boats.
+      </p>
     </div>
 
     <div class="wx-strip__live" id="weather-loading">
@@ -41,7 +47,7 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     </div>
 
     <div class="wx-strip__live hidden" id="weather-content">
-      <span class="wx-strip__icon" id="weather-icon" aria-hidden="true">…</span>
+      <span class="wx-strip__icon" id="weather-icon" aria-hidden="true">—</span>
       <span class="wx-strip__temp" id="weather-temp">—</span>
       <span class="wx-strip__summary" id="weather-summary">—</span>
       <dl class="wx-strip__stats">
@@ -61,13 +67,15 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     </div>
 
     <div class="wx-strip__live hidden" id="weather-error">
-      <span class="wx-strip__muted">Live weather unavailable. Check BOM Airlie Beach / NT forecasts before long walks.</span>
+      <span class="wx-strip__muted"
+        >Live weather unavailable. Check BOM Airlie Beach / Whitsunday forecasts before boat days.</span
+      >
     </div>
   </div>
 
   <div class="wx-strip__footer">
     <a href={bomUrl} target="_blank" rel="noopener noreferrer">BOM Airlie Beach →</a>
-    <a href="/park/marine-safety-seasons/">Heat & safety tips →</a>
+    <a href="/park/marine-safety-seasons/">Marine safety & seasons →</a>
   </div>
 </aside>
 
@@ -75,14 +83,14 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
   .wx-strip {
     margin-top: 1.25rem;
     border-radius: 1rem;
-    border: 1px solid color-mix(in srgb, #2b82bc 30%, #c9d8e4);
-    background: linear-gradient(90deg, #f0f7fc 0%, #fff 45%, #f0f7fc 100%);
+    border: 1px solid color-mix(in srgb, #0f7f8c 28%, #e5dfcf);
+    background: linear-gradient(90deg, #f0fafa 0%, #fbfaf6 45%, #f0fafa 100%);
     padding: 0.85rem 1rem;
-    box-shadow: 0 1px 2px rgb(15 47 74 / 0.06);
+    box-shadow: 0 1px 2px rgb(12 61 69 / 0.06);
   }
   :global(html.dark) .wx-strip {
-    border-color: color-mix(in srgb, #4a9fd4 35%, #19486a);
-    background: linear-gradient(90deg, #0a1f33 0%, #0f2f4a 50%, #0a1f33 100%);
+    border-color: color-mix(in srgb, #5eead4 28%, #11515a);
+    background: linear-gradient(90deg, #06282e 0%, #0c3d45 50%, #06282e 100%);
   }
   .wx-strip__main {
     display: flex;
@@ -100,28 +108,28 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #1e6a9e;
+    color: #0f7f8c;
   }
   :global(html.dark) .wx-strip__eyebrow {
-    color: #7dd3fc;
+    color: #5eead4;
   }
   .wx-strip__place {
     margin: 0.15rem 0 0;
     font-size: 0.95rem;
     font-weight: 700;
-    color: #0f2f4a;
+    color: #0c3d45;
   }
   :global(html.dark) .wx-strip__place {
-    color: #f0f7fc;
+    color: #f0fafa;
   }
   .wx-strip__note {
     margin: 0.2rem 0 0;
     font-size: 0.7rem;
     line-height: 1.35;
-    color: #4a5f73;
+    color: #5c5648;
   }
   :global(html.dark) .wx-strip__note {
-    color: #84c2e6;
+    color: #6dd4db;
   }
   .wx-strip__live {
     display: flex;
@@ -138,20 +146,20 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     font-size: 1.75rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: #0f2f4a;
+    color: #0c3d45;
   }
   :global(html.dark) .wx-strip__temp {
-    color: #f0f7fc;
+    color: #f0fafa;
   }
   .wx-strip__summary {
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: capitalize;
-    color: #1a5580;
+    color: #0f6570;
     min-width: 5.5rem;
   }
   :global(html.dark) .wx-strip__summary {
-    color: #b9dcf1;
+    color: #a8e8eb;
   }
   .wx-strip__stats {
     display: flex;
@@ -163,13 +171,13 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     min-width: 4.25rem;
     padding: 0.35rem 0.55rem;
     border-radius: 0.65rem;
-    border: 1px solid #dceef8;
+    border: 1px solid #a8e8eb;
     background: rgb(255 255 255 / 0.85);
     text-align: center;
   }
   :global(html.dark) .wx-strip__stats > div {
-    border-color: #19486a;
-    background: rgb(10 31 51 / 0.65);
+    border-color: #11515a;
+    background: rgb(6 40 46 / 0.65);
   }
   .wx-strip__stats dt {
     margin: 0;
@@ -186,14 +194,14 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     margin: 0.1rem 0 0;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #0f2f4a;
+    color: #0c3d45;
   }
   :global(html.dark) .wx-strip__stats dd {
     color: #ecfdf5;
   }
   .wx-strip__muted {
     font-size: 0.85rem;
-    color: #4a5f73;
+    color: #5c5648;
   }
   :global(html.dark) .wx-strip__muted {
     color: #9ca3af;
@@ -204,22 +212,22 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
     gap: 0.5rem 1rem;
     margin-top: 0.65rem;
     padding-top: 0.55rem;
-    border-top: 1px solid #dceef8;
+    border-top: 1px solid #a8e8eb;
   }
   :global(html.dark) .wx-strip__footer {
-    border-color: #19486a;
+    border-color: #11515a;
   }
   .wx-strip__footer a {
     font-size: 0.8rem;
     font-weight: 600;
-    color: #1e6a9e;
+    color: #0f7f8c;
     text-decoration: none;
   }
   .wx-strip__footer a:hover {
     text-decoration: underline;
   }
   :global(html.dark) .wx-strip__footer a {
-    color: #7dd3fc;
+    color: #5eead4;
   }
   .hidden {
     display: none !important;
@@ -227,30 +235,32 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
 </style>
 
 <script>
+  // Unicode escapes only — avoids mojibake if the file encoding slips
+  const DEG = '\u00B0';
   const WMO = {
-    0: { label: 'Clear', icon: 'â˜€ï¸' },
-    1: { label: 'Mainly clear', icon: 'ðŸŒ¤ï¸' },
-    2: { label: 'Partly cloudy', icon: 'â›…' },
-    3: { label: 'Overcast', icon: 'â˜ï¸' },
-    45: { label: 'Fog', icon: 'ðŸŒ«ï¸' },
-    48: { label: 'Rime fog', icon: 'ðŸŒ«ï¸' },
-    51: { label: 'Light drizzle', icon: 'ðŸŒ¦ï¸' },
-    53: { label: 'Drizzle', icon: 'ðŸŒ¦ï¸' },
-    55: { label: 'Heavy drizzle', icon: 'ðŸŒ§ï¸' },
-    61: { label: 'Light rain', icon: 'ðŸŒ§ï¸' },
-    63: { label: 'Rain', icon: 'ðŸŒ§ï¸' },
-    65: { label: 'Heavy rain', icon: 'ðŸŒ§ï¸' },
-    71: { label: 'Light snow', icon: 'ðŸŒ¨ï¸' },
-    73: { label: 'Snow', icon: 'â„ï¸' },
-    80: { label: 'Showers', icon: 'ðŸŒ¦ï¸' },
-    81: { label: 'Showers', icon: 'ðŸŒ§ï¸' },
-    82: { label: 'Heavy showers', icon: 'â›ˆï¸' },
-    95: { label: 'Thunderstorm', icon: 'â›ˆï¸' },
-    96: { label: 'Thunderstorm', icon: 'â›ˆï¸' },
+    0: { label: 'Clear', icon: '\u2600' },
+    1: { label: 'Mainly clear', icon: '\u26C5' },
+    2: { label: 'Partly cloudy', icon: '\u26C5' },
+    3: { label: 'Overcast', icon: '\u2601' },
+    45: { label: 'Fog', icon: '\u2591' },
+    48: { label: 'Rime fog', icon: '\u2591' },
+    51: { label: 'Light drizzle', icon: '\u2602' },
+    53: { label: 'Drizzle', icon: '\u2602' },
+    55: { label: 'Heavy drizzle', icon: '\u2614' },
+    61: { label: 'Light rain', icon: '\u2614' },
+    63: { label: 'Rain', icon: '\u2614' },
+    65: { label: 'Heavy rain', icon: '\u2614' },
+    71: { label: 'Light snow', icon: '\u2744' },
+    73: { label: 'Snow', icon: '\u2744' },
+    80: { label: 'Showers', icon: '\u2602' },
+    81: { label: 'Showers', icon: '\u2614' },
+    82: { label: 'Heavy showers', icon: '\u26C8' },
+    95: { label: 'Thunderstorm', icon: '\u26C8' },
+    96: { label: 'Thunderstorm', icon: '\u26C8' },
   };
 
   function wmo(code) {
-    return WMO[code] ?? { label: 'Variable', icon: 'ðŸŒ¡ï¸' };
+    return WMO[code] ?? { label: 'Variable', icon: '\u25CF' };
   }
 
   async function loadParkWeather() {
@@ -297,9 +307,9 @@ const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
       const humidity = document.getElementById('weather-humidity');
 
       if (icon) icon.textContent = now.icon;
-      if (temp) temp.textContent = `${Math.round(current.temperature_2m)}Â°C`;
+      if (temp) temp.textContent = `${Math.round(current.temperature_2m)}${DEG}C`;
       if (summary) summary.textContent = now.label;
-      if (feels) feels.textContent = `${Math.round(current.apparent_temperature)}Â°C`;
+      if (feels) feels.textContent = `${Math.round(current.apparent_temperature)}${DEG}C`;
       if (wind) wind.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
       if (humidity) humidity.textContent = `${current.relative_humidity_2m}%`;
 

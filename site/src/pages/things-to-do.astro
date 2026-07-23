@@ -20,50 +20,51 @@ const hard = trails.filter((t) => t.effort === 'hard');
 
 <Layout
   title="Things to do"
-  fullTitle="Things to Do at Whitsunday Islands · Walks, Culture & Viewing"
-  description="Whitsunday Islands things to do: Ngaro cultural sites, free Mala Walk, Whitehaven Beach, Hill Inlet, sunrise/sunset viewing — filtered by heat, fitness and cultural value."
+  fullTitle="Things to Do at Whitsunday Islands · Whitehaven, Hill Inlet, Snorkel & Camping"
+  description="Whitsunday Islands things to do: Whitehaven Beach, Hill Inlet lookout, short island walks, fringing reef snorkel, camping beaches and Ngaro cultural sites — filtered by boat access, tides and fitness."
   breadcrumbs={crumbs}
 >
   <div class="page-container py-8 sm:py-12">
     <Breadcrumbs items={crumbs} />
     <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Things to do</h1>
     <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
-      Start with culture, then match walks to heat and fitness. Climbing Uluru is banned. Stay on marked tracks.
-      Official activities and live status:{' '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.walks} target="_blank" rel="noopener noreferrer">walks</a>
+      Start with boat logistics, then match beaches, lookouts and snorkel stops to weather, tides and fitness.
+      Everything here is boat-access gated. Official park status:{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks — Whitsunday Islands</a>
       {' · '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.culturalCentre} target="_blank" rel="noopener noreferrer">Ngaro cultural sites</a>.
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.hillInlet} target="_blank" rel="noopener noreferrer">Hill Inlet lookout track</a>.
     </p>
 
     <section class="mt-10">
-      <h2 class="text-xl font-bold">Easy / high cultural value</h2>
+      <h2 class="text-xl font-bold">Easy / high reward</h2>
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         {easy.map((t) => <TrailCard trail={t} />)}
       </div>
     </section>
 
     <section class="mt-10">
-      <h2 class="text-xl font-bold">Moderate (early starts)</h2>
+      <h2 class="text-xl font-bold">Moderate (lookouts &amp; links)</h2>
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         {moderate.map((t) => <TrailCard trail={t} />)}
       </div>
     </section>
 
     <section class="mt-10">
-      <h2 class="text-xl font-bold">Harder / cool-weather only</h2>
+      <h2 class="text-xl font-bold">Harder / multi-day</h2>
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         {hard.map((t) => <TrailCard trail={t} />)}
       </div>
     </section>
 
     <div class="prose-park mt-10 max-w-3xl">
-      <h2>Beyond walks</h2>
+      <h2>Beyond short walks</h2>
       <ul>
-        <li>Designated sunrise and sunset viewing (public zones only)</li>
-        <li>Free ranger-guided activities when scheduled</li>
-        <li>Hop-on hop-off or resort transfers for car-light days</li>
-        <li>Guided cultural products that respect protocols</li>
-        <li>Ethical scenic flights (high-altitude, authorised operators)</li>
+        <li>Whitehaven Beach day trips from Airlie / Shute Harbour</li>
+        <li>Overnight camping with QPWS permit + transfer</li>
+        <li>Fringing reef snorkel stops (conditions-dependent; stinger suits in season)</li>
+        <li>Multi-day sailing / island-hopping</li>
+        <li>Ngaro cultural sites — respectful public tracks only</li>
+        <li>Scenic flights (e.g. Heart Reef / Whitehaven aerial context)</li>
       </ul>
       <p>
         See <a href="/itineraries/">itineraries</a> for full-day structures and <a href="/tours/">tours</a> for optional booking links.

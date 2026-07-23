@@ -5,31 +5,38 @@
 
 @theme {
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  /* Great Barrier Reef World Heritage desert ochre / sandstone (park-* kept for component compatibility) */
-  --color-park-50: #fdf6f1;
-  --color-park-100: #f8e6d8;
-  --color-park-200: #f0c9a8;
-  --color-park-300: #e3a06e;
-  --color-park-400: #d47a42;
-  --color-park-500: #c45f28;
-  --color-park-600: #a84a1f;
-  --color-park-700: #883b1c;
-  --color-park-800: #6b321c;
-  --color-park-900: #3b1410;
-  --color-park-950: #220c09;
-  --color-mist-50: #faf7f4;
-  --color-mist-100: #f0e9e2;
-  --color-mist-200: #dccfbf;
-  --color-mist-700: #6b5748;
-  --color-glow: #f0a060;
-  --color-gold: #c4a35a;
-  --color-gold-light: #e4c97a;
-  --color-gold-dark: #8a7028;
+  /*
+   * Tropical QLD / Whitsunday palette (park-* kept for component compatibility)
+   * Deep lagoon teal + Whitehaven silica sand + turquoise water accent
+   * Avoids: Uluru ochre, generic SaaS sky-blue, neon tourist coral
+   */
+  --color-park-50: #f0fafa;
+  --color-park-100: #d5f5f6;
+  --color-park-200: #a8e8eb;
+  --color-park-300: #6dd4db;
+  --color-park-400: #38bdc8;
+  --color-park-500: #1a9eab;
+  --color-park-600: #0f7f8c;
+  --color-park-700: #0f6570;
+  --color-park-800: #11515a;
+  --color-park-900: #0c3d45;
+  --color-park-950: #06282e;
+  /* Silica sand / warm paper neutrals */
+  --color-mist-50: #fbfaf6;
+  --color-mist-100: #f3f0e6;
+  --color-mist-200: #e5dfcf;
+  --color-mist-700: #5c5648;
+  /* Shallow-water turquoise highlight (links/glow on dark) */
+  --color-glow: #5eead4;
+  /* Soft sand-gold accents (not desert ochre) */
+  --color-gold: #c4a574;
+  --color-gold-light: #e8d4a8;
+  --color-gold-dark: #8a7340;
   --color-warn-50: #fffbeb;
   --color-warn-200: #fde68a;
   --color-warn-800: #92400e;
-  --color-night-900: #0b1220;
-  --color-night-800: #111827;
+  --color-night-900: #041f24;
+  --color-night-800: #0a2f36;
 }
 
 @layer base {
@@ -40,12 +47,15 @@
     @apply font-sans antialiased;
     background-color: var(--color-mist-50);
     background-image:
-      radial-gradient(ellipse 120% 80% at 50% -20%, rgb(186 230 253 / 0.55), transparent 55%), radial-gradient(ellipse 80% 50% at 100% 0%, rgb(56 189 248 / 0.12), transparent 40%);
+      radial-gradient(ellipse 120% 80% at 50% -20%, rgb(168 232 235 / 0.45), transparent 55%),
+      radial-gradient(ellipse 80% 50% at 100% 0%, rgb(56 189 200 / 0.1), transparent 40%),
+      radial-gradient(ellipse 60% 40% at 0% 100%, rgb(232 212 168 / 0.12), transparent 45%);
   }
   html.dark body {
     background-color: var(--color-park-950);
     background-image:
-      radial-gradient(ellipse 100% 60% at 50% -10%, rgb(8 47 73 / 0.75), transparent 50%), radial-gradient(ellipse 50% 40% at 100% 0%, rgb(12 74 110 / 0.45), transparent 45%);
+      radial-gradient(ellipse 100% 60% at 50% -10%, rgb(6 40 46 / 0.9), transparent 50%),
+      radial-gradient(ellipse 50% 40% at 100% 0%, rgb(15 101 112 / 0.35), transparent 45%);
   }
   h1,
   h2,
@@ -193,10 +203,10 @@
     display: block !important;
     margin: 0 0 1rem;
     padding-bottom: 0.65rem;
-    border-bottom: 2px solid #0f2f4a;
+    border-bottom: 2px solid #0c3d45;
     font-size: 0.95rem;
     font-weight: 800;
-    color: #0f2f4a !important;
+    color: #0c3d45 !important;
   }
   .print-site-brand .print-site-url {
     display: block;
@@ -214,10 +224,10 @@
     display: block !important;
     margin-top: 2rem;
     padding-top: 0.75rem;
-    border-top: 2px solid #0f2f4a;
+    border-top: 2px solid #0c3d45;
     font-size: 0.8rem;
     font-weight: 700;
-    color: #0f2f4a !important;
+    color: #0c3d45 !important;
   }
 }
 

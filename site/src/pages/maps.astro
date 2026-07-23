@@ -15,29 +15,30 @@ const crumbs = [
 <Layout
   title="Maps & resources"
   fullTitle="Whitsunday Maps, Downloads & Resources"
-  description="Whitsunday Islands maps, free Practical Planner download, camping permit links and official Queensland Parks (QPWS) resources."
+  description="Whitsunday Islands maps: Whitehaven Beach, Hill Inlet, Airlie Beach and Shute Harbour. Free Practical Planner download and official Queensland Parks resources."
   breadcrumbs={crumbs}
 >
   <div class="page-container py-8 sm:py-12">
     <Breadcrumbs items={crumbs} />
     <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Maps & resources</h1>
     <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
-      Use these orientation maps, then verify track status, closures and facilities on{' '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks (QPWS) — Whitsunday Islands</a>.
-      Official visitor materials and alerts beat any third-party map.
+      Orientation only — then verify track status, camping availability and marine rules on{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks — Whitsunday Islands</a>
+      {' '}and{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.gbrmpaWhitsundays} target="_blank" rel="noopener noreferrer">GBRMPA Whitsundays</a>.
     </p>
 
     <div class="mt-8 grid gap-8">
-      <MapEmbed query="Uluru Ngaro cultural sites Queensland" title="Map — Ngaro cultural sites" zoom={13} />
-      <MapEmbed query="Uluru Whitehaven Beach Queensland" title="Map — Uluru base area" zoom={13} />
-      <MapEmbed query="Hill Inlet Hill Inlet lookout" title="Map — Hill Inlet" zoom={12} />
+      <MapEmbed query="Whitehaven Beach Whitsunday Island Queensland" title="Map — Whitehaven Beach" zoom={12} />
+      <MapEmbed query="Hill Inlet Lookout Whitsunday Island" title="Map — Hill Inlet lookout" zoom={13} />
       <MapEmbed query="Airlie Beach Queensland" title="Map — Airlie Beach" zoom={13} />
+      <MapEmbed query="Shute Harbour Queensland" title="Map — Shute Harbour" zoom={13} />
     </div>
 
     <div class="mt-10">
       <LeadCapture
         heading="Free Whitsunday Islands Practical Planner"
-        blurb="Printable camping permit strategy, Ngaro cultural sites sequence, heat decision tree, walk hierarchy, sunrise plan, packing list and official links."
+        blurb="Printable boat-access decision tree, Whitehaven + Hill Inlet tide notes, camping vs day-trip comparison, stinger packing and official links."
         downloadPath="/downloads/whitsunday-practical-planner.html"
       />
       <p class="mt-4 text-sm text-mist-700 dark:text-park-300">

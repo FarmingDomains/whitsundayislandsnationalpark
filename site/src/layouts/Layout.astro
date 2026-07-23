@@ -6,6 +6,7 @@ import { footerHubLinks, footerLegalLinks, portfolioLinks } from '../data/naviga
 import OfficialBar from '../components/OfficialBar.astro';
 import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
+import BrandMark from '../components/BrandMark.astro';
 
 interface Props {
   title?: string;
@@ -101,12 +102,7 @@ const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT?.trim() || '';
       <div class="page-container py-12 sm:py-16">
         <div class="text-center">
           <div class="mx-auto mb-4 flex w-fit items-center gap-3 opacity-95">
-            <svg class="h-10 w-10" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="32" height="32" rx="8" fill="#0c4a6e" />
-              <path d="M4 22 C8 18 12 14 16 13 C20 14 24 18 28 22" stroke="#38bdf8" stroke-width="1.6" stroke-linejoin="round" fill="none" />
-              <path d="M4 24 H28" stroke="#7dd3fc" stroke-width="1.2" opacity=".85" />
-              <circle cx="24" cy="9" r="1.4" fill="#fef9c3" opacity=".9" />
-            </svg>
+            <BrandMark class="h-10 w-10" title="Whitsunday Islands National Park guide" />
             <div class="text-left leading-tight">
               <p class="text-sm font-bold text-white">Whitsunday Islands National Park</p>
               <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-glow/90">Unofficial guide</p>

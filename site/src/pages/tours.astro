@@ -22,18 +22,17 @@ const tours = featuredTourLinks();
 
 <Layout
   title="Tours & activities"
-  fullTitle="Whitsunday Tours · Sunrise, Cultural Experiences & Hill Inlet"
-  description="Uluru sunrise tours, cultural and Whitehaven Beach experiences, Hill Inlet, hop-on hop-off and multi-day Great Barrier Reef World Heritage packages. Prefer operators that respect Ngaro protocols. GetYourGuide links with disclosure."
+  fullTitle="Whitsunday Tours · Whitehaven, Hill Inlet, Sailing & Snorkel"
+  description="Whitehaven Beach and Hill Inlet day tours, ocean rafting, sailing, snorkel trips, multi-day charters and scenic flights from Airlie Beach. Prefer operators that respect marine park and Ngaro cultural protocols."
   breadcrumbs={crumbs}
 >
   <div class="page-container py-8 sm:py-12">
     <Breadcrumbs items={crumbs} />
     <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Tours & activities</h1>
     <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
-      Tours are optional logistics helpers — not a substitute for the Ngaro cultural sites, camping permit rules or heat decisions.
-      Prefer Ngaro-owned or joint cultural products where available, and operators that stay on marked public tracks.
-      Free ranger-guided activities are the best-value cultural entry when scheduled — see{' '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.culturalCentre} target="_blank" rel="noopener noreferrer">official Ngaro cultural sites info</a>.
+      Tours are optional logistics helpers — not a substitute for weather windows, camping permits or reef etiquette.
+      Read inclusions carefully: not every “Whitehaven” product includes Hill Inlet lookout or a long beach window.
+      Prefer operators that follow marine park rules and cultural protocols.
     </p>
 
     <div class="mt-8 grid gap-4 md:grid-cols-2">
@@ -72,13 +71,14 @@ const tours = featuredTourLinks();
       >
         Whitehaven Beach tours on GetYourGuide
       </a>
-      . Scenic flights: choose high-altitude ethical options that follow park overflight and cultural guidelines.
-      Official commercial tour listings also appear on{' '}
-      <a href={official.park} target="_blank" rel="noopener noreferrer" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">parks.qld.gov.au/parks/whitsunday-islands</a>.
+      . Scenic flights: choose operators that follow marine park and cultural guidelines.
+      Always re-check{' '}
+      <a href={official.alerts} target="_blank" rel="noopener noreferrer" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">park alerts</a>
+      {' '}and your operator’s weather policy.
     </p>
 
     <p class="affiliate-note mt-4">
-      Tour links may earn a commission at no extra cost to you when partner IDs are configured. Camping permits and free ranger activities are never affiliated.
+      Tour links may earn a commission at no extra cost to you when partner IDs are configured. Camping permits and QPWS fees are never affiliated.
       <a href="/affiliate-disclosure/">Affiliate disclosure</a>.
     </p>
 

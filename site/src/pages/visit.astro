@@ -13,29 +13,29 @@ import { faqJsonLd } from '../data/seo';
 
 const faqs = [
   {
-    question: 'Do I need a camping permit for Whitsunday Islands?',
+    question: 'Do I need a camping permit for a Whitehaven day trip?',
     answer:
-      'Yes. A camping permit is required to enter Whitsunday Islands National Park. Purchase online at book.parks.qld.gov.au or at the entry station. This site never sells or affiliates camping permits.',
+      'No. Commercial day tours do not use national park camping permits. Overnight camping on Whitsunday Islands National Park beaches requires a Queensland Parks booking and permit, with fees and a displayed tag. This site never sells permits.',
   },
   {
-    question: 'How much is the camping permit?',
+    question: 'How much is camping?',
     answer:
-      'As published by Queensland Parks (QPWS) for planning orientation: adult (18+) $38 for 3 consecutive days or $50 annual; under 18 free. NT-registered private vehicle annual product is also published. Always verify live prices on parks.qld.gov.au/parks/whitsunday-islands before purchase.',
+      'Fees are set by Queensland Parks and change — commonly cited around $7.75 per adult per night or a family rate (children under 5 free under published policy). Always re-check live prices on parks.qld.gov.au camping bookings before you book.',
   },
   {
-    question: 'Do I need a camping permit for a day trip?',
+    question: 'Can I drive to Whitehaven Beach?',
     answer:
-      'No. Day tours do not need camping permits. Overnight camping does. Plan Ngaro cultural sites visits, base walks, designated viewing areas and Hill Inlet walks on marked tracks instead.',
+      'No. Whitehaven Beach and Hill Inlet are boat-access only. Base in Airlie Beach (or a resort island), then use a day tour, camping transfer, private vessel or multi-day charter.',
   },
   {
     question: 'What is the best time to visit?',
     answer:
-      'Cooler months (roughly April–September) are generally better for longer walks. Summer brings extreme heat risk and more track management. Always check official when-to-come guidance and daily forecasts.',
+      'Dry season (roughly May–October) is generally preferred for more stable weather and whale season opportunities, but it is also peak demand. Wet season brings higher humidity, storm/cyclone risk and stinger awareness if swimming. Build a weather buffer day if Whitehaven is non-negotiable.',
   },
   {
-    question: 'Is a day trip from Proserpine / Whitsunday Coast realistic?',
+    question: 'When is stinger season?',
     answer:
-      'It is a very long day (~450 km each way plus park time). Fatigue and heat risk are high. Overnight at Airlie Beach is strongly recommended for most visitors.',
+      'Marine stinger risk is typically highest from November to May in tropical Queensland. Follow Queensland Health and operator guidance; full-body suits are common for snorkelling in season. Always re-check current advice.',
   },
 ];
 
@@ -48,7 +48,7 @@ const crumbs = [
 <Layout
   title="Plan your visit"
   fullTitle="Plan Your Visit · Whitsunday Islands National Park"
-  description="Uluru camping permit, Ngaro cultural sites first stop, heat safety, packing, best time to visit, Proserpine / Whitsunday Coast drive realism and Airlie Beach base logistics. Always verify with Queensland Parks (QPWS)."
+  description="Plan Whitsunday Islands National Park: boat access from Airlie Beach, camping permits, Hill Inlet tides, stinger season, packing and seasons. Always verify with Queensland Parks (QPWS)."
   breadcrumbs={crumbs}
   jsonLd={faqJsonLd(faqs)}
 >
@@ -56,8 +56,8 @@ const crumbs = [
     <Breadcrumbs items={crumbs} />
     <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Plan your visit to Whitsunday Islands</h1>
     <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
-      Use this page for camping permit logistics, heat realism, packing and access. For live fees, track status and closures, always use{' '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks (QPWS) (parks.qld.gov.au/parks/whitsunday-islands)</a>.
+      Use this page for boat logistics, camping realism, packing and safety. For live fees, track status and alerts, always use{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks — Whitsunday Islands</a>.
       Content reviewed {contentMeta.siteReviewed}.
     </p>
 
@@ -69,96 +69,104 @@ const crumbs = [
       <section>
         <h2>Getting there</h2>
         <p>
-          Most visitors overnight at <strong>Airlie Beach (Hamilton Island / resort islands)</strong>, then enter the park with a valid pass.
-          Flights arrive at <strong>Connellan / Ayers Rock Airport</strong> with resort transfers and car hire options.
-          Self-drive from <strong>Proserpine / Whitsunday Coast</strong> is roughly <strong>450 km / 4.5–5+ hours one way</strong> — a same-day return is extreme for most people.
+          Fly into <strong>Proserpine / Whitsunday Coast (PPP)</strong> or <strong>Hamilton Island (HTI)</strong>, then base for most visitors at{' '}
+          <strong>Airlie Beach</strong> (mainland hub for day tours and camping transfers). <strong>Shute Harbour</strong> is a key departure node for many vessels.
         </p>
         <p>
-          Confirm current advice on the official{' '}
-          <a href={official.gettingHere} target="_blank" rel="noopener noreferrer">getting here</a> page.
-          Hop-on hop-off and tour transfers from Airlie Beach help if you prefer not to drive every leg.
+          There is <strong>no road to Whitehaven Beach or Hill Inlet</strong>. Access is by commercial day tour, camping transfer / water taxi, private vessel, bareboat or multi-day sail charter.
+          Confirm operator check-in times and weather cancellation policies before you lock non-refundable flights tight against a single boat day.
         </p>
       </section>
 
       <section>
-        <h2>Camping permit (mandatory)</h2>
-        <p>
-          Everyone needs a valid Whitsunday Islands camping permit. Published adult products include a <strong>3-consecutive-day</strong> pass and an <strong>annual</strong> pass
-          (commonly referenced as <strong>$38</strong> and <strong>$50</strong> — re-check live prices). Under 18 free under published policy.
-          Buy at{' '}
-          <a href={official.passes} target="_blank" rel="noopener noreferrer">book.parks.qld.gov.au</a>
-          {' '}or see{' '}
-          <a href={official.bookings} target="_blank" rel="noopener noreferrer">buy your pass</a>.
-        </p>
-        <p>
-          Online passes can be printed or saved to phone (including Apple Wallet on iPhone). At the entry station, use the left-hand lane and scan the QR code.
-          Passes can also be bought at the entry station if needed. <strong>We never take commission on camping permits.</strong>
-        </p>
-      </section>
-
-      <section>
-        <h2>Ngaro cultural sites — first stop</h2>
-        <p>
-          Treat the{' '}
-          <a href={official.culturalCentre} target="_blank" rel="noopener noreferrer">Ngaro cultural sites</a>
-          {' '}as mandatory orientation: Ngaro culture, public Sea Country context, and park protocols.
-          Free ranger-guided activities (including Mala Walk sessions when scheduled) are the preferred cultural entry.
-          Confirm hours and guided times officially each day.
-        </p>
-      </section>
-
-      <section id="heat-safety">
-        <h2>Heat, safety & cultural respect</h2>
+        <h2>Boat-access decision hierarchy</h2>
         <ul>
-          <li>Start long walks early; avoid peak heat for Grade 3–4 loops.</li>
-          <li>Carry serious water and electrolytes; shade is scarce.</li>
-          <li>Obey temperature closures (especially Hill Inlet lookout) and any temporary track closures (including Liru after weather events).</li>
-          <li>Boat access only — no drive-up beach. Stay on marked tracks. Follow photography rules.</li>
-          <li>Do not feed or approach dingoes. Secure food and rubbish.</li>
-          <li>Flash flooding risk after rain near waterholes and low areas.</li>
-          <li>Recreational drones require proper authorisation — do not assume you can fly.</li>
+          <li><strong>Day tour</strong> — dominant high-volume path; convenience over solitude</li>
+          <li><strong>Camping transfer</strong> — overnight immersion; requires QPWS permit + full self-sufficiency</li>
+          <li><strong>Private vessel / bareboat / multi-day sail</strong> — freedom path; skills and GBRMPA rules required</li>
         </ul>
         <p>
-          Official orientation:{' '}
-          <a href={official.whenToCome} target="_blank" rel="noopener noreferrer">when to come</a>
-          {' '}and{' '}
-          <a href={official.safety} target="_blank" rel="noopener noreferrer">plan your trip</a>.
+          Deep dive: <a href="/park/boat-access-airlie/">boat access &amp; Airlie Beach hub</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Camping permits (overnight only)</h2>
+        <p>
+          Overnight camping on national park beaches requires a booking through the{' '}
+          <a href={official.bookings} target="_blank" rel="noopener noreferrer">Queensland Parks Booking Service</a>.
+          Fees apply; a tag with your booking number must be displayed. Day tours do not use camping permits.
+        </p>
+        <p>
+          Plan water carefully — <strong>no reliable fresh water on most sites</strong> (commonly plan 5 L+ per person per day; verify official advice).
+          <strong>No campfires</strong> — stove only. Carry out all waste. Run pest-free / biosecurity checks on boats and gear.
+          <strong>We never take commission on camping permits.</strong>
+        </p>
+        <p>
+          Official camping page:{' '}
+          <a href={official.camping} target="_blank" rel="noopener noreferrer">parks.qld.gov.au — Whitsunday camping</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Ngaro culture &amp; respectful visiting</h2>
+        <p>
+          We acknowledge the <strong>Ngaro people</strong> as Traditional Owners of the Whitsunday islands and surrounding Sea Country.
+          Visit public cultural sites only, stay on marked tracks, do not touch rock art, and do not invent restricted stories.
+          Prefer authorised guides and operators that respect cultural and marine park protocols.
+        </p>
+      </section>
+
+      <section id="marine-safety">
+        <h2>Marine safety, stingers, tides &amp; weather</h2>
+        <ul>
+          <li>Wind and swell cancel boats — build a buffer day if Whitehaven is non-negotiable.</li>
+          <li>Stinger season is typically <strong>November–May</strong> — full-body suit or avoid swimming; follow operator rules.</li>
+          <li>Hill Inlet swirl photography is <strong>tide-dependent</strong> — check BOM tides, not only social media.</li>
+          <li>Many landings feel easier mid-to-high tide; trust skippers when they change plans.</li>
+          <li>Reef etiquette: no standing on coral, no taking shells/coral, follow GBRMPA zoning if you skipper yourself.</li>
+          <li>Recreational drones need proper authorisation — do not assume you can fly.</li>
+          <li>Check <a href={official.alerts} target="_blank" rel="noopener noreferrer">park alerts</a> the morning you go.</li>
+        </ul>
+        <p>
+          More detail: <a href="/park/marine-safety-seasons/">marine safety &amp; seasons</a>.
         </p>
       </section>
 
       <section>
         <h2>Best time / seasons</h2>
         <p>
-          <strong>April–September</strong> is generally preferred for longer walks (cooler). Summer can be extremely hot with more closures and medical risk.
-          Colour at sunrise/sunset is weather-dependent year-round. Build itineraries around cool hours, not midday ambition.
+          <strong>Dry season (roughly May–October)</strong> is generally preferred for weather stability and whale opportunities — and peak demand for day tours and Airlie beds.
+          <strong>Wet season</strong> brings humidity, heavy rain risk and cyclone awareness. There is no zero-risk week; choose flexible bookings that match your tolerance.
         </p>
       </section>
 
       <section>
-        <h2>Packing list (desert baseline)</h2>
+        <h2>Packing list (tropical boat + island)</h2>
         <ul>
-          <li>UPF long sleeves and pants, wide-brim hat, high-SPF sunscreen, polarised sunglasses</li>
-          <li>Hydration pack or bottles for 2–3 L+ on longer walks (verify official guidance)</li>
-          <li>Electrolyte tablets, snacks, blister kit</li>
-          <li>Sturdy closed-toe shoes; optional lightweight gaiters</li>
-          <li>Headlamp for pre-dawn sunrise movements</li>
-          <li>Light layer for post-sunset chill; rain cover for sudden storms</li>
-          <li>Seasonal fly net after rain / warm spells</li>
-          <li>Camping permit offline on phone + emergency contacts</li>
+          <li>Dry bag + waterproof phone pouch</li>
+          <li>UPF shirt, wide-brim hat with cord, polarised sunglasses, reef-safe high-SPF sunscreen</li>
+          <li>Closed-toe shoes for Hill Inlet lookout and rocky landings</li>
+          <li>Stinger suit / lycra if swimming or snorkelling in season (typically Nov–May)</li>
+          <li>Water + snacks for day tours (even when lunch is included, pack backup hydration)</li>
+          <li>Campers: collapsible water storage, stove + fuel (no fires), headlamp, waste bags, first aid, comms plan</li>
+          <li>Seasickness plan if you are prone</li>
+          <li>Offline booking QR / screenshots for tours and camping permits</li>
         </ul>
         <p>
-          See the <a href="/gear/">gear essentials</a> page for Amazon AU product searches (affiliate disclosure applies).
+          See <a href="/gear/">gear essentials</a> for Amazon AU product searches (affiliate disclosure applies).
         </p>
       </section>
 
       <section>
         <h2>Where to stay</h2>
         <p>
-          <strong>Airlie Beach</strong> is the near-exclusive practical overnight base (hotels, self-contained, campground options).
-          Inventory is limited and peak seasons sell out. Proserpine / Whitsunday Coast is secondary for multi-day Great Barrier Reef World Heritage routes or budgets.
-          There is no general overnight camping inside the national park for casual visitors.
-          Official overview:{' '}
-          <a href={official.park} target="_blank" rel="noopener noreferrer">Hamilton Island / resort islands & Airlie Beach</a>.
+          <strong>Airlie Beach</strong> is the practical mainland hub (backpackers to resorts and holiday parks) for day tours and camping transfers.
+          Cannonvale extends the bed pool. <strong>Hamilton Island</strong> is the resort-island alternative — still confirm how you reach Whitehaven from your resort base.
+          Peak dry-season inventory sells out; book early.
+        </p>
+        <p>
+          Details: <a href="/stay/">where to stay</a>.
         </p>
       </section>
     </div>
@@ -179,8 +187,8 @@ const crumbs = [
     <div class="mt-12">
       <MonetisationPanel
         primaryStay="airlieBeach"
-        title="Book a Airlie Beach base, then add tours & kit"
-        description="Stay links first — camping permits remain official-only. Peak season: book accommodation early."
+        title="Book an Airlie Beach base, then add tours & kit"
+        description="Stay links first — camping permits remain official-only. Peak season: book accommodation and boats early."
       />
     </div>
 

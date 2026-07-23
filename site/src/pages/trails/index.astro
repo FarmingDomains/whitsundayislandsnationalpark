@@ -10,8 +10,8 @@ import { siteImages } from '../../data/pageImages';
 
 <Layout
   title="Walks & lookouts"
-  fullTitle="Whitsunday Islands Walks · Whitehaven Beach, Mala & Hill Inlet lookout"
-  description="Whitsunday Islands walks: Ngaro cultural sites Mala Walk, Kuniya/Hill Inlet, Whitehaven Beach, Walpa Gorge, Hill Inlet lookout heat rules and sunrise viewing. Verify status with Queensland Parks (QPWS)."
+  fullTitle="Whitsunday Islands Walks · Hill Inlet, Whitehaven & Island Tracks"
+  description="Whitsunday Islands walks and activities: Hill Inlet lookout, Whitehaven Beach, short island tracks, camping beach links, Ngaro Cultural Site and Ngaro Track overview. Verify status with Queensland Parks."
   breadcrumbs={[
     { name: 'Home', href: '/' },
     { name: 'Walks' },
@@ -19,19 +19,21 @@ import { siteImages } from '../../data/pageImages';
 >
   <div class="page-container py-10 sm:py-14">
     <p class="section-label">Walk hierarchy</p>
-    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Walks & lookouts</h1>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Walks, beaches & lookouts</h1>
     <p class="mt-4 max-w-3xl text-mist-700 dark:text-park-200/90">
-      Start with <strong>Ngaro cultural sites + free ranger-guided Mala Walk</strong>, then short Kuniya/Hill Inlet, then Whitehaven Beach only with an early start.
-      Hill Inlet: Walpa Gorge as default; Hill Inlet lookout when cool and open. Distances, grades and times below are planning ranges — always confirm on{' '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.walks} target="_blank" rel="noopener noreferrer">Queensland Parks (QPWS) walks</a>.
-      Liru Walk has had weather-related closures — check live status.
+      Start with boat logistics, then the icon pair <strong>Whitehaven Beach + Hill Inlet lookout</strong> (~1.3 km return, moderate, ~40 min walking)
+      when your tour or transfer includes both. Short island tracks and camping-beach links add depth; multi-day Ngaro Track is advanced and limited.
+      Distances, grades and times below are planning ranges — always confirm on{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks</a>
+      {' '}and the{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.hillInlet} target="_blank" rel="noopener noreferrer">Hill Inlet lookout track</a> page.
     </p>
 
     <div class="mt-8">
       <ContentImage
-        src={siteImages.homeHero.src}
-        alt={siteImages.homeHero.alt}
-        caption={siteImages.homeHero.caption}
+        src={siteImages.hillInlet.src}
+        alt={siteImages.hillInlet.alt}
+        caption={siteImages.hillInlet.caption}
         imgClass="max-h-64 w-full object-cover"
       />
     </div>
