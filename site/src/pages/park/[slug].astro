@@ -177,7 +177,12 @@ const jsonLd = [
       <h2 class="text-2xl font-bold sm:text-3xl">Map</h2>
       <p class="mt-2 text-sm text-mist-700 dark:text-park-300">Orientation only — confirm boat landings, track status and marine conditions before you go (no public road access to the islands).</p>
       <div class="mt-4">
-        <MapEmbed query={area.mapQuery} title={`Map — ${area.name}`} />
+        <MapEmbed
+          query={area.mapQuery}
+          title={`Map — ${area.name}`}
+          zoom={area.slug === 'marine-safety-seasons' || area.slug === 'boat-access-airlie' ? 10 : 12}
+          caption="Orientation only. Island national park sites are boat-access; mainland pins (e.g. Airlie Beach) are logistics hubs, not the beaches themselves."
+        />
       </div>
     </section>
 

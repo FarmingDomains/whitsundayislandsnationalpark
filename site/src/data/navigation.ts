@@ -35,7 +35,7 @@ export const footerLegalLinks = [
 
 /** Cross-promo portfolio parks (Farming Domains) — exclude this site */
 export const portfolioLinks = [
-  { href: 'https://www.whitsundayislandsnationalpark.com.au/', label: 'Whitsunday Islands NP' },
+  { href: 'https://www.ulurukatatjutanationalpark.com.au/', label: 'Uluru-Kata Tjuta NP' },
   { href: 'https://www.cradlemountainnationalpark.com.au/', label: 'Cradle Mountain NP' },
   { href: 'https://www.portcampbellnationalpark.com.au/', label: 'Port Campbell NP' },
   { href: 'https://greatotwaynationalpark.com.au/', label: 'Great Otway NP' },

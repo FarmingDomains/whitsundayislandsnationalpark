@@ -5,8 +5,8 @@ interface Props {
   downloadPath?: string;
   class?: string;
   /**
-   * checklist (default): home/maps — email for checklist + tips, bullets about PDF
-   * tips: visit page — downloads are free elsewhere; email is optional tips only
+   * checklist (default): home/maps — email unlocks checklist + tips
+   * tips: visit page — free planner always visible; email is optional tips only
    */
   mode?: 'checklist' | 'tips';
 }
@@ -26,7 +26,7 @@ const resolvedHeading =
 const resolvedBlurb =
   blurb ??
   (isTips
-    ? 'The checklist above is free — no email required. Leave your address only if you want rare Whitsunday trip-planning tips from this guide.'
+    ? 'The Practical Planner is free — no email required. Leave your address only if you want rare Whitsunday trip-planning tips from this guide.'
     : 'Printable boat-access decision tree, Whitehaven + Hill Inlet tide notes, camping vs day-trip comparison, stinger packing and official Queensland Parks links.');
 
 const accessKey = import.meta.env.PUBLIC_SPLITFORMS_ACCESS_KEY?.trim() || '';
@@ -40,7 +40,7 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
 
 <section
   class:list={[
-    'card no-print p-5 sm:p-6',
+    'card no-print not-prose p-5 sm:p-6',
     isTips
       ? 'border-mist-200 bg-white dark:border-park-700 dark:bg-park-900/40'
       : 'border-park-200 bg-gradient-to-br from-park-50 to-white dark:border-park-700 dark:from-park-900/80 dark:to-park-950',
@@ -54,10 +54,22 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
     !isTips && (
       <ul class="mt-3 list-disc space-y-1 pl-5 text-xs text-mist-700 dark:text-park-300">
         <li>Boat access: day tour vs camping transfer vs private</li>
-        <li>Whitehaven + Hill Inlet tide & lookout checklist</li>
+        <li>Whitehaven + Hill Inlet tide &amp; lookout checklist</li>
         <li>Stinger season + self-sufficient camping packing</li>
         <li>Official QPWS / GBRMPA links to verify conditions</li>
       </ul>
+    )
+  }
+
+  {/* Free planner always available in tips mode (visit page) */}
+  {
+    isTips && (
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a class="btn-primary !text-sm" href={downloadPath}>Open free Practical Planner</a>
+        <a class="btn-secondary !text-sm" href={downloadPath} target="_blank" rel="noopener noreferrer">
+          View / print HTML
+        </a>
+      </div>
     )
   }
 
@@ -65,27 +77,23 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
     {
       isTips ? (
         <>
-          <p class="font-semibold text-park-800 dark:text-park-100">Thanks — you're on the tips list.</p>
+          <p class="font-semibold text-park-800 dark:text-park-100">Thanks — you’re on the tips list.</p>
           <p class="mt-2 text-sm text-mist-700 dark:text-park-300">
-            Grab the free checklist anytime below or from{' '}
-            <a href="/maps/" class="underline">Maps & resources</a>.
+            Grab the free planner anytime above or from{' '}
+            <a href="/maps/" class="underline">Maps &amp; resources</a>.
           </p>
-          <div class="mt-3 flex flex-wrap gap-3">
-            <a class="btn-secondary !text-sm" href={downloadPath}>Checklist PDF</a>
-            <a class="btn-secondary !text-sm" href="/downloads/whitsunday-practical-planner.html">Print HTML</a>
-          </div>
         </>
       ) : (
         <>
-          <p class="font-semibold text-park-800 dark:text-park-100">You're in — download your checklist:</p>
+          <p class="font-semibold text-park-800 dark:text-park-100">You’re in — download your checklist:</p>
           <div class="mt-3 flex flex-wrap gap-3">
-            <a class="btn-primary inline-flex" href={downloadPath}>Download PDF</a>
-            <a class="btn-secondary inline-flex !text-sm" href="/downloads/whitsunday-practical-planner.html">
+            <a class="btn-primary inline-flex" href={downloadPath}>Open Practical Planner</a>
+            <a class="btn-secondary inline-flex !text-sm" href={downloadPath} target="_blank" rel="noopener noreferrer">
               View / print HTML
             </a>
           </div>
           <p class="affiliate-note mt-3">
-            Also available anytime from <a href="/maps/" class="underline">Maps & resources</a>.
+            Also available anytime from <a href="/maps/" class="underline">Maps &amp; resources</a>.
           </p>
         </>
       )
@@ -96,7 +104,7 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
 
   {
     formReady ? (
-      <form id={formId} class="mt-4 space-y-3" action="https://splitforms.com/api/submit" method="POST">
+      <form id={formId} class="mt-5 space-y-3 border-t border-mist-200 pt-5 dark:border-park-700" action="https://splitforms.com/api/submit" method="POST">
         <input type="hidden" name="access_key" value={accessKey} />
         <input
           type="hidden"
@@ -105,8 +113,18 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
         />
         <input type="hidden" name="from_name" value="Whitsunday Islands National Park guide" />
         <input type="hidden" name="form_type" value={isTips ? 'tips_opt_in' : 'lead_magnet'} />
-        {/* Splitforms honeypot — leave empty */}
-        <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        {/* Splitforms honeypot — leave empty; do not use Tailwind "hidden" alone for bots */}
+        <div aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden">
+          <label>
+            Leave blank
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
+        {
+          isTips && (
+            <p class="text-sm font-semibold text-park-900 dark:text-park-50">Optional email for tips</p>
+          )
+        }
         <div>
           <label for={emailId} class="contact-label">Email</label>
           <input id={emailId} name="email" type="email" required autocomplete="email" class="contact-input" placeholder="you@example.com" />
@@ -140,12 +158,12 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
         </p>
       </form>
     ) : (
-      <div class="mt-4 space-y-3">
+      <div class="mt-5 space-y-3 border-t border-mist-200 pt-5 dark:border-park-700">
         {
           !isTips && (
             <div class="flex flex-wrap gap-3">
-              <a class="btn-primary" href={downloadPath}>Download checklist (PDF)</a>
-              <a class="btn-secondary !text-sm" href="/downloads/whitsunday-practical-planner.html">
+              <a class="btn-primary" href={downloadPath}>Open free Practical Planner</a>
+              <a class="btn-secondary !text-sm" href={downloadPath} target="_blank" rel="noopener noreferrer">
                 View / print HTML
               </a>
             </div>
@@ -153,7 +171,7 @@ const nameId = isTips ? 'lead-name-tips' : 'lead-name';
         }
         <p class="affiliate-note leading-relaxed">
           Email form activates when <code class="text-[0.7rem]">PUBLIC_SPLITFORMS_ACCESS_KEY</code> is set at build time.
-          {isTips ? ' Tips opt-in only — downloads stay free above.' : ' When live, we may send occasional planning tips — see Privacy.'}
+          {isTips ? ' Tips opt-in only — the planner stays free above.' : ' When live, we may send occasional planning tips — see Privacy.'}
         </p>
       </div>
     )
