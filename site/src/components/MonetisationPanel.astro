@@ -1,0 +1,190 @@
+---
+/**
+ * Reusable Stays · Tours · Gear panel.
+ * Booking / GYG / Amazon IDs from env via affiliates.ts.
+ */
+import {
+  affiliates,
+  affiliateDisclosureShort,
+  externalRel,
+  gearLinks,
+  staysLinks,
+  tourLinks,
+  type BookingDestination,
+} from '../data/affiliates';
+
+interface Props {
+  /** Which stay destination gets the primary CTA */
+  primaryStay?: BookingDestination;
+  showStay?: boolean;
+  showGear?: boolean;
+  showTours?: boolean;
+  title?: string;
+  description?: string;
+  class?: string;
+  /** @deprecated use primaryStay — mapped for older call sites */
+  stayQuery?: string;
+  /** @deprecated ignored — tours come from tourLinks() */
+  tourQuery?: string;
+  /** @deprecated ignored — gear comes from gearLinks() */
+  gearQuery?: string;
+}
+
+const {
+  primaryStay: primaryStayProp,
+  showStay = true,
+  showGear = true,
+  showTours = true,
+  title = 'Stays, tours & gear',
+  description =
+    'Useful booking links for basing in Airlie Beach and exploring Whitsunday Islands National Park. Camping permits and official Queensland Parks bookings stay on official channels.',
+  class: className = '',
+  stayQuery,
+} = Astro.props;
+
+function primaryFromQuery(q?: string): BookingDestination {
+  if (!q) return 'airlieBeach';
+  const lower = q.toLowerCase();
+  if (lower.includes('hamilton')) return 'hamiltonIsland';
+  if (lower.includes('cannon')) return 'cannonvale';
+  if (lower.includes('shute')) return 'shuteHarbour';
+  return 'airlieBeach';
+}
+
+const primaryStay = primaryStayProp ?? primaryFromQuery(stayQuery);
+const stays = showStay ? staysLinks(primaryStay) : [];
+const tours = showTours ? tourLinks() : [];
+const gear = showGear ? gearLinks() : [];
+
+const colCount = [showStay, showTours, showGear].filter(Boolean).length;
+---
+
+<section class:list={['not-prose monetisation-panel no-print', className]}>
+  <div class="rounded-3xl border border-park-200/80 bg-white p-6 shadow-sm sm:p-8 dark:border-park-700 dark:bg-park-900">
+    <div class="mb-6 max-w-3xl">
+      <h2 class="mb-2 text-2xl font-semibold text-park-900 sm:text-3xl dark:text-park-50">{title}</h2>
+      <p class="text-sm text-mist-700 dark:text-park-200/85">{description}</p>
+    </div>
+
+    <div
+      class:list={[
+        'grid gap-6',
+        colCount >= 3 ? 'lg:grid-cols-3' : colCount === 2 ? 'md:grid-cols-2' : 'grid-cols-1',
+      ]}
+    >
+      {
+        showStay && (
+          <div class="flex flex-col rounded-2xl bg-park-50/80 p-5 dark:bg-park-950 dark:ring-1 dark:ring-park-700">
+            <h3 class="mb-1 text-lg font-semibold text-park-800 dark:text-park-100">Nearby stays</h3>
+            <p class="mb-4 text-sm text-mist-700 dark:text-park-300">
+              Airlie Beach (primary) · Proserpine / Whitsunday Coast · Shute Harbour area
+            </p>
+            <ul class="flex flex-1 flex-col gap-2">
+              {stays.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel={externalRel(link.sponsored)}
+                    class:list={[
+                      'block rounded-xl px-4 py-2.5 text-sm font-semibold transition',
+                      link.primary
+                        ? 'bg-park-600 text-white hover:bg-park-700'
+                        : 'border border-park-200 bg-white text-park-900 hover:border-park-400 hover:bg-park-50 dark:border-park-600 dark:bg-park-900 dark:text-park-50 dark:hover:bg-park-800',
+                    ]}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            {!affiliates.hasBookingAffiliate && (
+              <p class="mt-3 text-xs text-mist-700 dark:text-park-400">
+                Convenience links — add <code class="text-[0.65rem]">PUBLIC_BOOKING_AID</code> when your partner account
+                is ready.
+              </p>
+            )}
+          </div>
+        )
+      }
+
+      {
+        showTours && (
+          <div class="flex flex-col rounded-2xl bg-park-50/80 p-5 dark:bg-park-950 dark:ring-1 dark:ring-park-700">
+            <h3 class="mb-1 text-lg font-semibold text-park-800 dark:text-park-100">Guided tours</h3>
+            <p class="mb-4 text-sm text-mist-700 dark:text-park-300">
+              Sunrise, cultural experiences, Hill Inlet and hop-on options — prioritise protocol-respecting operators
+            </p>
+            <ul class="flex flex-1 flex-col gap-2">
+              {tours.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel={externalRel(link.sponsored)}
+                    class:list={[
+                      'block rounded-xl px-4 py-2.5 text-sm font-semibold transition',
+                      link.primary
+                        ? 'bg-park-600 text-white hover:bg-park-700'
+                        : 'border border-park-200 bg-white text-park-900 hover:border-park-400 hover:bg-park-50 dark:border-park-600 dark:bg-park-900 dark:text-park-50 dark:hover:bg-park-800',
+                    ]}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-3 text-sm text-mist-700 dark:text-park-300">
+              A tour does not replace checking Queensland Parks (QPWS) advice, marine conditions, camping permit rules or cultural protocols yourself.
+            </p>
+            {!affiliates.hasGygAffiliate && (
+              <p class="mt-2 text-xs text-mist-700 dark:text-park-400">
+                Convenience links — add <code class="text-[0.65rem]">PUBLIC_GETYOURGUIDE_PARTNER</code> when approved.
+              </p>
+            )}
+          </div>
+        )
+      }
+
+      {
+        showGear && (
+          <div class="flex flex-col rounded-2xl bg-park-50/80 p-5 dark:bg-park-950 dark:ring-1 dark:ring-park-700">
+            <h3 class="mb-1 text-lg font-semibold text-park-800 dark:text-park-100">What to bring</h3>
+            <p class="mb-4 text-sm text-mist-700 dark:text-park-300">
+              Tropical boat kit: stinger suits, dry bags, reef-safe sun and camping water
+            </p>
+            <ul class="flex flex-1 flex-col gap-3">
+              {gear.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel={externalRel(item.sponsored)}
+                    class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                  >
+                    {item.label}
+                  </a>
+                  <span class="mt-0.5 block text-sm text-mist-700 dark:text-park-400">{item.note}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+
+    <p class="mt-6 border-t border-park-100 pt-4 text-xs text-mist-700 dark:border-park-800 dark:text-park-400">
+      {affiliateDisclosureShort}{' '}
+      <a
+        href="/affiliate-disclosure/"
+        class="underline decoration-park-300 underline-offset-2 hover:text-park-700 dark:hover:text-park-200"
+      >
+        Affiliate disclosure
+      </a>
+      {' · '}
+      <a href="/privacy/" class="underline decoration-park-300 underline-offset-2 hover:text-park-700 dark:hover:text-park-200">
+        Privacy
+      </a>
+    </p>
+  </div>
+</section>

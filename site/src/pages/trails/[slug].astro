@@ -1,0 +1,160 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FactChips from '../../components/FactChips.astro';
+import DontGetThisWrong from '../../components/DontGetThisWrong.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import MonetisationPanel from '../../components/MonetisationPanel.astro';
+import MapEmbed from '../../components/MapEmbed.astro';
+import ContentImage from '../../components/ContentImage.astro';
+import { trails, getTrail } from '../../data/trails';
+import { getArea } from '../../data/areas';
+import { touristAttractionJsonLd } from '../../data/seo';
+import { imageForTrail } from '../../data/pageImages';
+
+export function getStaticPaths() {
+  return trails.map((t) => ({ params: { slug: t.slug } }));
+}
+
+const { slug } = Astro.params;
+const trail = getTrail(slug!);
+if (!trail) throw new Error(`Unknown trail: ${slug}`);
+
+const area = getArea(trail.areaSlug);
+const pair = trail.pairWith ? getTrail(trail.pairWith) : undefined;
+const trailImage = imageForTrail(trail.slug);
+
+const jsonLd = touristAttractionJsonLd({
+  name: trail.name,
+  description: trail.summary,
+  url: `/trails/${trail.slug}/`,
+});
+
+const stayQuery = 'Airlie Beach, Queensland, Australia';
+---
+
+<Layout
+  title={trail.shortName}
+  fullTitle={`${trail.name} · Whitsunday Islands National Park`}
+  description={trail.summary}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Trails', href: '/trails/' },
+    { name: trail.shortName },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="page-container py-10 sm:py-14">
+    <p class="section-label">{area?.name ?? 'Trail guide'}</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">{trail.name}</h1>
+    <p class="mt-4 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{trail.summary}</p>
+
+    <div class="mt-6">
+      <FactChips
+        items={[
+          trail.gradeLabel,
+          trail.time,
+          trail.distance,
+          `Effort: ${trail.effort}`,
+          `Best for: ${trail.bestFor}`,
+        ]}
+      />
+    </div>
+
+    <p class="mt-4 text-sm text-amber-900 dark:text-amber-100/90">{trail.verifyNote}</p>
+    <a class="btn-primary mt-4 !text-sm" href={trail.officialUrl} target="_blank" rel="noopener noreferrer">
+      Official Queensland Parks info (verify status)
+    </a>
+
+    <div class="mt-8">
+      <ContentImage
+        src={trailImage.src}
+        alt={trailImage.alt}
+        caption={`${trail.shortName} — ${trailImage.caption}`}
+        imgClass="max-h-80 w-full object-cover"
+      />
+    </div>
+
+    <!-- Start point — clear emphasis -->
+    <section id="start" class="mt-10 scroll-mt-28 rounded-2xl border-2 border-park-300 bg-park-50 p-5 sm:p-6 dark:border-park-600 dark:bg-park-900/50">
+      <p class="text-xs font-bold uppercase tracking-[0.16em] text-park-600 dark:text-park-300">Where you start</p>
+      <h2 class="mt-2 text-2xl font-bold text-park-900 dark:text-park-50">{trail.startName}</h2>
+      <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200/90">{trail.startDetail}</p>
+    </section>
+
+    <section id="getting-there" class="mt-10 scroll-mt-28">
+      <h2 class="text-2xl font-bold">How to get there</h2>
+      <ol class="mt-4 list-decimal space-y-3 pl-5 text-mist-700 dark:text-park-200/90">
+        {trail.gettingThere.map((step) => <li class="pl-1">{step}</li>)}
+      </ol>
+    </section>
+
+    <section id="how-to" class="mt-10 scroll-mt-28">
+      <h2 class="text-2xl font-bold">How to do it (step by step)</h2>
+      <ol class="mt-4 list-decimal space-y-3 pl-5 text-mist-700 dark:text-park-200/90">
+        {trail.howToDoIt.map((step) => <li class="pl-1">{step}</li>)}
+      </ol>
+    </section>
+
+    <DontGetThisWrong items={trail.hazards} title="Hazards & hard truths" />
+
+    {
+      trail.body?.map((block) => (
+        <section id={block.id} class="mt-10 scroll-mt-28">
+          <h2 class="text-2xl font-bold">{block.title}</h2>
+          {block.paragraphs.map((p) => (
+            <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200/90">{p}</p>
+          ))}
+        </section>
+      ))
+    }
+
+    <section id="map" class="mt-10 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Map (orientation)</h2>
+      <p class="mt-2 text-sm text-mist-700 dark:text-park-300">
+        Pin may be approximate. Confirm trailheads, parking and track status on Queensland Parks before you drive.
+      </p>
+      <div class="mt-4">
+        <MapEmbed query={trail.mapQuery} title={`Map — ${trail.shortName}`} zoom={14} />
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Extra tips</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-mist-700 dark:text-park-200/90">
+        {trail.tips.map((t) => <li>{t}</li>)}
+      </ul>
+    </section>
+
+    {
+      pair && (
+        <p class="mt-8 text-sm">
+          Often paired with{' '}
+          <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={`/trails/${pair.slug}/`}>
+            {pair.shortName}
+          </a>
+          — only if energy and weather allow.
+        </p>
+      )
+    }
+
+    {
+      area && (
+        <p class="mt-4 text-sm">
+          Area guide:{' '}
+          <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={`/park/${area.slug}/`}>
+            {area.name}
+          </a>
+        </p>
+      )
+    }
+
+    <section class="mt-12 space-y-6 no-print" aria-label="Stays, tours, gear and official resources">
+      <MonetisationPanel
+        title="Tours & gear for this kind of day"
+        stayQuery={stayQuery}
+        description="Optional stays, guided options and practical kit — after you have checked conditions yourself."
+      />
+      <OfficialResources extraLinks={[{ href: trail.officialUrl, label: 'Official park / track context' }]} />
+    </section>
+  </div>
+</Layout>

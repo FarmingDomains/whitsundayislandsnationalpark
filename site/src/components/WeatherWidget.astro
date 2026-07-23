@@ -1,0 +1,316 @@
+---
+/**
+ * Compact horizontal live weather via Open-Meteo (no API key).
+ * Default: Airlie Beach area, Queensland.
+ */
+interface Props {
+  latitude?: number;
+  longitude?: number;
+  label?: string;
+  class?: string;
+}
+
+const {
+  latitude = -25.3444,
+  longitude = 131.0369,
+  label = 'Airlie Beach / Whitsunday Coast',
+  class: className = '',
+} = Astro.props;
+
+const bomUrl = 'https://www.bom.gov.au/qld/forecasts/airliebeach.shtml';
+---
+
+<aside
+  class:list={['wx-strip no-print', className]}
+  id="park-weather"
+  data-lat={String(latitude)}
+  data-lon={String(longitude)}
+  aria-live="polite"
+  aria-busy="true"
+  aria-label="Live tropical weather snapshot"
+>
+  <div class="wx-strip__main">
+    <div class="wx-strip__brand">
+      <p class="wx-strip__eyebrow">Live snapshot</p>
+      <p class="wx-strip__place">{label}</p>
+      <p class="wx-strip__note">Model forecast — tropical heat can climb fast after mid-morning. Not Queensland Parks (QPWS) or BOM official advice. Use for planning only.</p>
+    </div>
+
+    <div class="wx-strip__live" id="weather-loading">
+      <span class="wx-strip__muted">Loading…</span>
+    </div>
+
+    <div class="wx-strip__live hidden" id="weather-content">
+      <span class="wx-strip__icon" id="weather-icon" aria-hidden="true">…</span>
+      <span class="wx-strip__temp" id="weather-temp">—</span>
+      <span class="wx-strip__summary" id="weather-summary">—</span>
+      <dl class="wx-strip__stats">
+        <div>
+          <dt>Feels</dt>
+          <dd id="weather-feels">—</dd>
+        </div>
+        <div>
+          <dt>Wind</dt>
+          <dd id="weather-wind">—</dd>
+        </div>
+        <div>
+          <dt>Humidity</dt>
+          <dd id="weather-humidity">—</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="wx-strip__live hidden" id="weather-error">
+      <span class="wx-strip__muted">Live weather unavailable. Check BOM Airlie Beach / NT forecasts before long walks.</span>
+    </div>
+  </div>
+
+  <div class="wx-strip__footer">
+    <a href={bomUrl} target="_blank" rel="noopener noreferrer">BOM Airlie Beach →</a>
+    <a href="/park/marine-safety-seasons/">Heat & safety tips →</a>
+  </div>
+</aside>
+
+<style>
+  .wx-strip {
+    margin-top: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in srgb, #2b82bc 30%, #c9d8e4);
+    background: linear-gradient(90deg, #f0f7fc 0%, #fff 45%, #f0f7fc 100%);
+    padding: 0.85rem 1rem;
+    box-shadow: 0 1px 2px rgb(15 47 74 / 0.06);
+  }
+  :global(html.dark) .wx-strip {
+    border-color: color-mix(in srgb, #4a9fd4 35%, #19486a);
+    background: linear-gradient(90deg, #0a1f33 0%, #0f2f4a 50%, #0a1f33 100%);
+  }
+  .wx-strip__main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+  }
+  .wx-strip__brand {
+    min-width: min(100%, 14rem);
+    flex: 1 1 12rem;
+  }
+  .wx-strip__eyebrow {
+    margin: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #1e6a9e;
+  }
+  :global(html.dark) .wx-strip__eyebrow {
+    color: #7dd3fc;
+  }
+  .wx-strip__place {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f2f4a;
+  }
+  :global(html.dark) .wx-strip__place {
+    color: #f0f7fc;
+  }
+  .wx-strip__note {
+    margin: 0.2rem 0 0;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    color: #4a5f73;
+  }
+  :global(html.dark) .wx-strip__note {
+    color: #84c2e6;
+  }
+  .wx-strip__live {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.85rem;
+    flex: 2 1 16rem;
+  }
+  .wx-strip__icon {
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+  .wx-strip__temp {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #0f2f4a;
+  }
+  :global(html.dark) .wx-strip__temp {
+    color: #f0f7fc;
+  }
+  .wx-strip__summary {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #1a5580;
+    min-width: 5.5rem;
+  }
+  :global(html.dark) .wx-strip__summary {
+    color: #b9dcf1;
+  }
+  .wx-strip__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin: 0;
+  }
+  .wx-strip__stats > div {
+    min-width: 4.25rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 0.65rem;
+    border: 1px solid #dceef8;
+    background: rgb(255 255 255 / 0.85);
+    text-align: center;
+  }
+  :global(html.dark) .wx-strip__stats > div {
+    border-color: #19486a;
+    background: rgb(10 31 51 / 0.65);
+  }
+  .wx-strip__stats dt {
+    margin: 0;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b7280;
+  }
+  :global(html.dark) .wx-strip__stats dt {
+    color: #9ca3af;
+  }
+  .wx-strip__stats dd {
+    margin: 0.1rem 0 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #0f2f4a;
+  }
+  :global(html.dark) .wx-strip__stats dd {
+    color: #ecfdf5;
+  }
+  .wx-strip__muted {
+    font-size: 0.85rem;
+    color: #4a5f73;
+  }
+  :global(html.dark) .wx-strip__muted {
+    color: #9ca3af;
+  }
+  .wx-strip__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid #dceef8;
+  }
+  :global(html.dark) .wx-strip__footer {
+    border-color: #19486a;
+  }
+  .wx-strip__footer a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1e6a9e;
+    text-decoration: none;
+  }
+  .wx-strip__footer a:hover {
+    text-decoration: underline;
+  }
+  :global(html.dark) .wx-strip__footer a {
+    color: #7dd3fc;
+  }
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script>
+  const WMO = {
+    0: { label: 'Clear', icon: 'â˜€ï¸' },
+    1: { label: 'Mainly clear', icon: 'ðŸŒ¤ï¸' },
+    2: { label: 'Partly cloudy', icon: 'â›…' },
+    3: { label: 'Overcast', icon: 'â˜ï¸' },
+    45: { label: 'Fog', icon: 'ðŸŒ«ï¸' },
+    48: { label: 'Rime fog', icon: 'ðŸŒ«ï¸' },
+    51: { label: 'Light drizzle', icon: 'ðŸŒ¦ï¸' },
+    53: { label: 'Drizzle', icon: 'ðŸŒ¦ï¸' },
+    55: { label: 'Heavy drizzle', icon: 'ðŸŒ§ï¸' },
+    61: { label: 'Light rain', icon: 'ðŸŒ§ï¸' },
+    63: { label: 'Rain', icon: 'ðŸŒ§ï¸' },
+    65: { label: 'Heavy rain', icon: 'ðŸŒ§ï¸' },
+    71: { label: 'Light snow', icon: 'ðŸŒ¨ï¸' },
+    73: { label: 'Snow', icon: 'â„ï¸' },
+    80: { label: 'Showers', icon: 'ðŸŒ¦ï¸' },
+    81: { label: 'Showers', icon: 'ðŸŒ§ï¸' },
+    82: { label: 'Heavy showers', icon: 'â›ˆï¸' },
+    95: { label: 'Thunderstorm', icon: 'â›ˆï¸' },
+    96: { label: 'Thunderstorm', icon: 'â›ˆï¸' },
+  };
+
+  function wmo(code) {
+    return WMO[code] ?? { label: 'Variable', icon: 'ðŸŒ¡ï¸' };
+  }
+
+  async function loadParkWeather() {
+    const root = document.getElementById('park-weather');
+    if (!root) return;
+
+    const lat = root.dataset.lat;
+    const lon = root.dataset.lon;
+    if (!lat || !lon) return;
+
+    const loading = document.getElementById('weather-loading');
+    const content = document.getElementById('weather-content');
+    const error = document.getElementById('weather-error');
+
+    const show = (el) => {
+      loading?.classList.add('hidden');
+      content?.classList.add('hidden');
+      error?.classList.add('hidden');
+      el?.classList.remove('hidden');
+    };
+
+    try {
+      const url = new URL('https://api.open-meteo.com/v1/forecast');
+      url.searchParams.set('latitude', lat);
+      url.searchParams.set('longitude', lon);
+      url.searchParams.set(
+        'current',
+        'temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature',
+      );
+      url.searchParams.set('timezone', 'Australia/Brisbane');
+      url.searchParams.set('wind_speed_unit', 'kmh');
+
+      const res = await fetch(url.toString());
+      if (!res.ok) throw new Error('forecast failed');
+      const data = await res.json();
+      const current = data.current;
+      const now = wmo(current.weather_code);
+
+      const icon = document.getElementById('weather-icon');
+      const temp = document.getElementById('weather-temp');
+      const summary = document.getElementById('weather-summary');
+      const feels = document.getElementById('weather-feels');
+      const wind = document.getElementById('weather-wind');
+      const humidity = document.getElementById('weather-humidity');
+
+      if (icon) icon.textContent = now.icon;
+      if (temp) temp.textContent = `${Math.round(current.temperature_2m)}Â°C`;
+      if (summary) summary.textContent = now.label;
+      if (feels) feels.textContent = `${Math.round(current.apparent_temperature)}Â°C`;
+      if (wind) wind.textContent = `${Math.round(current.wind_speed_10m)} km/h`;
+      if (humidity) humidity.textContent = `${current.relative_humidity_2m}%`;
+
+      root.setAttribute('aria-busy', 'false');
+      show(content);
+    } catch {
+      root.setAttribute('aria-busy', 'false');
+      show(error);
+    }
+  }
+
+  loadParkWeather();
+  document.addEventListener('astro:page-load', loadParkWeather);
+</script>

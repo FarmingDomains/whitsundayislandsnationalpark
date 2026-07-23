@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found" fullTitle="404 · Page not found" description="That page could not be found on the Whitsunday Islands National Park guide." noindex>
+  <div class="page-container py-16 text-center">
+    <p class="section-label">404</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Page not found</h1>
+    <p class="mx-auto mt-3 max-w-md text-mist-700 dark:text-park-300">
+      That URL is not on this guide. Try the homepage, walks hub or plan-your-visit page.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/" class="btn-primary">Home</a>
+      <a href="/trails/" class="btn-secondary">Walks</a>
+      <a href="/visit/" class="btn-secondary">Plan visit</a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { searchIndex } from '../data/searchIndex';
+---
+
+<Layout
+  title="Search"
+  fullTitle="Search · Whitsunday Islands National Park Guide"
+  description="Search walks, itineraries, areas and articles on the Whitsunday Islands National Park unofficial guide."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Search' },
+  ]}
+>
+  <div class="page-container py-10 sm:py-14">
+    <p class="section-label">Find a page</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Search</h1>
+    <p class="mt-3 text-sm text-mist-700 dark:text-park-300">Client-side search of this site's pages (Phase 1). Not a live park conditions search.</p>
+
+    <label for="q" class="contact-label mt-8">Query</label>
+    <input id="q" type="search" class="contact-input max-w-xl" placeholder="e.g. dove lake, shuttle, parks pass" autocomplete="off" />
+
+    <ul id="results" class="mt-8 space-y-3" role="list"></ul>
+    <p id="empty" class="mt-6 hidden text-sm text-mist-700 dark:text-park-300" hidden>No matches — try a shorter word or browse <a href="/trails/" class="underline">trails</a>.</p>
+  </div>
+</Layout>
+
+<script define:vars={{ searchIndex }}>
+  const input = document.getElementById('q');
+  const results = document.getElementById('results');
+  const empty = document.getElementById('empty');
+
+  function run() {
+    if (!input || !results || !empty) return;
+    const q = input.value.trim().toLowerCase();
+    results.innerHTML = '';
+    if (!q) {
+      empty.classList.add('hidden');
+      empty.setAttribute('hidden', '');
+      return;
+    }
+    const hits = searchIndex.filter((e) => {
+      const hay = `${e.title} ${e.summary} ${e.keywords}`.toLowerCase();
+      return hay.includes(q);
+    }).slice(0, 40);
+
+    if (!hits.length) {
+      empty.classList.remove('hidden');
+      empty.removeAttribute('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    empty.setAttribute('hidden', '');
+    for (const h of hits) {
+      const li = document.createElement('li');
+      li.className = 'card p-4';
+      li.innerHTML = `<a class="font-bold text-park-800 dark:text-park-100 hover:underline" href="${h.url}">${h.title}</a><p class="mt-1 text-sm text-mist-700 dark:text-park-300">${h.summary}</p>`;
+      results.appendChild(li);
+    }
+  }
+
+  input?.addEventListener('input', run);
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('q') && input) {
+    input.value = params.get('q') || '';
+    run();
+  }
+</script>

@@ -1,0 +1,43 @@
+---
+import { official } from '../data/seo';
+---
+
+<div class="no-print border-b border-park-800/40 bg-park-950 text-white">
+  <div class="page-container flex flex-wrap items-center justify-between gap-2 py-2 text-xs sm:text-sm">
+    <p class="font-semibold text-glow">Unofficial guide · verify with Queensland Parks</p>
+    <nav class="flex flex-wrap items-center gap-x-3 gap-y-1" aria-label="Official park resources">
+      <a
+        class="font-medium text-park-200 underline-offset-2 hover:text-white hover:underline"
+        href={official.alerts}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Park alerts
+      </a>
+      <a
+        class="font-medium text-park-200 underline-offset-2 hover:text-white hover:underline"
+        href={official.park}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Official park site
+      </a>
+      <a
+        class="font-medium text-park-200 underline-offset-2 hover:text-white hover:underline"
+        href={official.camping}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Camping (official)
+      </a>
+      <a
+        class="font-medium text-park-200 underline-offset-2 hover:text-white hover:underline"
+        href={official.hillInlet}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Hill Inlet lookout
+      </a>
+    </nav>
+  </div>
+</div>

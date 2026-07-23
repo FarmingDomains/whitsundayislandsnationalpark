@@ -1,0 +1,113 @@
+---
+import { navLinks } from '../data/navigation';
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return pathname === '/';
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+---
+
+<header class="no-print sticky top-0 z-50 border-b border-white/10 bg-park-900/95 shadow-lg backdrop-blur-md">
+  <div class="page-container">
+    <div class="flex min-h-[4.5rem] items-center justify-between gap-2 py-2">
+      <a href="/" class="group flex min-w-0 flex-1 items-center gap-2.5 sm:flex-none sm:gap-3">
+        <span class="brand-mark-icon shrink-0" aria-hidden="true" title="Whitsunday Islands guide">
+          <svg class="h-9 w-9 sm:h-10 sm:w-10" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="#0c4a6e" class="opacity-95 group-hover:opacity-100" />
+            <path d="M4 22 C8 18 12 14 16 13 C20 14 24 18 28 22" stroke="#38bdf8" stroke-width="1.6" stroke-linejoin="round" fill="none" />
+            <path d="M4 24 H28" stroke="#7dd3fc" stroke-width="1.2" opacity=".85" />
+            <circle cx="24" cy="9" r="1.4" fill="#fef9c3" opacity=".9" />
+          </svg>
+        </span>
+        <span class="min-w-0 leading-tight">
+          <span class="block truncate text-[0.95rem] font-bold tracking-tight text-white sm:text-lg">Whitsunday Islands National Park</span>
+          <span class="block text-[10px] font-semibold uppercase tracking-[0.18em] text-glow/90 sm:text-xs">Unofficial operator's manual</span>
+        </span>
+      </a>
+
+      <div class="flex shrink-0 items-center gap-0.5 sm:gap-1">
+        <nav class="hidden items-center gap-0.5 2xl:flex" aria-label="Main navigation">
+          {
+            navLinks.map((link) => (
+              <a href={link.href} class:list={['nav-link', isActive(link.href) && 'nav-link-active']}>
+                {link.label}
+              </a>
+            ))
+          }
+          <a href="/visit/" class="btn-primary ml-2 !px-4 !py-2 !text-xs">Plan visit</a>
+        </nav>
+
+        <a
+          href="/search/"
+          class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg p-2 text-white/90 transition hover:bg-white/10"
+          aria-label="Search"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.3-4.3m1.8-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+          </svg>
+        </a>
+
+        <ThemeToggle />
+
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg p-2 text-white transition hover:bg-white/10 2xl:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="menu-icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="mobile-menu"
+      class="hidden max-h-[min(75dvh,calc(100dvh-5rem))] overflow-y-auto overscroll-contain border-t border-white/10 pb-4 pt-2 2xl:hidden"
+      hidden
+    >
+      <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class:list={[
+                'rounded-xl px-4 py-3 text-base font-medium text-white/90 transition hover:bg-white/10',
+                isActive(link.href) && 'bg-white/15 text-white',
+              ]}
+            >
+              {link.label}
+            </a>
+          ))
+        }
+        <a href="/visit/" class="btn-primary mt-2 w-full">Plan visit</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      iconOpen?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
+    });
+  }
+</script>

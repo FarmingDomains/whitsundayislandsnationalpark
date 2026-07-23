@@ -1,0 +1,21 @@
+# =============================================================================
+# Blue Mountains National Park ONLY
+# =============================================================================
+# Deploy ONLY into this domain's document root, e.g.:
+#   public_html/bluemountainsnationalpark/
+#
+# Do NOT upload this file to:
+#   public_html/                    (farmingdomains.com root)
+#   public_html/domains/            (Farming Domains portfolio pages)
+#   any other site's folder
+#
+# cPanel addon domains with their own docroot only apply rules from THEIR
+# folder. This file cannot affect farmingdomains.com if it stays in BM's root.
+# =============================================================================
+
+DirectoryIndex index.html
+
+# Astro static 404 (file must exist in this same docroot as 404.html)
+ErrorDocument 404 /404.html
+
+# Do NOT add: Redirect /blog → /domains  (domains/ belongs to farmingdomains.com)

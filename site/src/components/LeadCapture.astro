@@ -1,0 +1,191 @@
+---
+interface Props {
+  heading?: string;
+  blurb?: string;
+  downloadPath?: string;
+  class?: string;
+  /**
+   * checklist (default): home/maps — email for checklist + tips, bullets about PDF
+   * tips: visit page — downloads are free elsewhere; email is optional tips only
+   */
+  mode?: 'checklist' | 'tips';
+}
+
+const {
+  heading,
+  blurb,
+  downloadPath = '/downloads/whitsunday-practical-planner.html',
+  class: className = '',
+  mode = 'checklist',
+} = Astro.props;
+
+const isTips = mode === 'tips';
+
+const resolvedHeading =
+  heading ?? (isTips ? 'Optional: occasional planning tips' : 'Free Whitsunday Islands Practical Planner');
+const resolvedBlurb =
+  blurb ??
+  (isTips
+    ? 'The checklist above is free — no email required. Leave your address only if you want rare Whitsunday trip-planning tips from this guide.'
+    : 'Printable boat-access decision tree, Whitehaven + Hill Inlet tide notes, camping vs day-trip comparison, stinger packing and official Queensland Parks links.');
+
+const accessKey = import.meta.env.PUBLIC_SPLITFORMS_ACCESS_KEY?.trim() || '';
+const formReady = accessKey.length > 0;
+const formId = isTips ? 'lead-form-tips' : 'lead-form';
+const thanksId = isTips ? 'lead-thanks-tips' : 'lead-thanks';
+const errorId = isTips ? 'lead-error-tips' : 'lead-error';
+const emailId = isTips ? 'lead-email-tips' : 'lead-email';
+const nameId = isTips ? 'lead-name-tips' : 'lead-name';
+---
+
+<section
+  class:list={[
+    'card no-print p-5 sm:p-6',
+    isTips
+      ? 'border-mist-200 bg-white dark:border-park-700 dark:bg-park-900/40'
+      : 'border-park-200 bg-gradient-to-br from-park-50 to-white dark:border-park-700 dark:from-park-900/80 dark:to-park-950',
+    className,
+  ]}
+>
+  <h2 class="text-lg font-bold text-park-900 dark:text-park-50">{resolvedHeading}</h2>
+  <p class="mt-2 text-sm text-mist-700 dark:text-park-200/90">{resolvedBlurb}</p>
+
+  {
+    !isTips && (
+      <ul class="mt-3 list-disc space-y-1 pl-5 text-xs text-mist-700 dark:text-park-300">
+        <li>Boat access: day tour vs camping transfer vs private</li>
+        <li>Whitehaven + Hill Inlet tide & lookout checklist</li>
+        <li>Stinger season + self-sufficient camping packing</li>
+        <li>Official QPWS / GBRMPA links to verify conditions</li>
+      </ul>
+    )
+  }
+
+  <div id={thanksId} class="mt-4 hidden" role="status" hidden>
+    {
+      isTips ? (
+        <>
+          <p class="font-semibold text-park-800 dark:text-park-100">Thanks — you're on the tips list.</p>
+          <p class="mt-2 text-sm text-mist-700 dark:text-park-300">
+            Grab the free checklist anytime below or from{' '}
+            <a href="/maps/" class="underline">Maps & resources</a>.
+          </p>
+          <div class="mt-3 flex flex-wrap gap-3">
+            <a class="btn-secondary !text-sm" href={downloadPath}>Checklist PDF</a>
+            <a class="btn-secondary !text-sm" href="/downloads/whitsunday-practical-planner.html">Print HTML</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <p class="font-semibold text-park-800 dark:text-park-100">You're in — download your checklist:</p>
+          <div class="mt-3 flex flex-wrap gap-3">
+            <a class="btn-primary inline-flex" href={downloadPath}>Download PDF</a>
+            <a class="btn-secondary inline-flex !text-sm" href="/downloads/whitsunday-practical-planner.html">
+              View / print HTML
+            </a>
+          </div>
+          <p class="affiliate-note mt-3">
+            Also available anytime from <a href="/maps/" class="underline">Maps & resources</a>.
+          </p>
+        </>
+      )
+    }
+  </div>
+
+  <p id={errorId} class="mt-3 hidden text-sm text-rose-700 dark:text-rose-300" role="alert" hidden></p>
+
+  {
+    formReady ? (
+      <form id={formId} class="mt-4 space-y-3" action="https://splitforms.com/api/submit" method="POST">
+        <input type="hidden" name="access_key" value={accessKey} />
+        <input
+          type="hidden"
+          name="subject"
+          value={isTips ? 'Whitsunday Islands guide — tips list' : 'Whitsunday Islands guide — free checklist (lead)'}
+        />
+        <input type="hidden" name="from_name" value="Whitsunday Islands National Park guide" />
+        <input type="hidden" name="form_type" value={isTips ? 'tips_opt_in' : 'lead_magnet'} />
+        {/* Splitforms honeypot — leave empty */}
+        <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <div>
+          <label for={emailId} class="contact-label">Email</label>
+          <input id={emailId} name="email" type="email" required autocomplete="email" class="contact-input" placeholder="you@example.com" />
+        </div>
+        <div>
+          <label for={nameId} class="contact-label">
+            Name <span class="font-normal text-mist-700 dark:text-park-400">(optional)</span>
+          </label>
+          <input id={nameId} name="name" type="text" autocomplete="name" class="contact-input" placeholder="Your name" />
+        </div>
+        <button type="submit" class="btn-primary w-full sm:w-auto">
+          {isTips ? 'Send me occasional tips' : 'Get the free checklist'}
+        </button>
+        <p class="affiliate-note leading-relaxed">
+          {
+            isTips ? (
+              <>
+                Optional. We may email rare planning tips (not spam). Stop anytime via{' '}
+                <a href="/contact/" class="underline-offset-2 hover:underline">Contact</a>.{' '}
+                <a href="/privacy/" class="underline-offset-2 hover:underline">Privacy</a>.
+              </>
+            ) : (
+              <>
+                Enter your email to unlock the checklist download. We may occasionally send practical Whitsunday Islands
+                trip-planning tips (not spam). Stop anytime via the{' '}
+                <a href="/contact/" class="underline-offset-2 hover:underline">contact form</a>. See our{' '}
+                <a href="/privacy/" class="underline-offset-2 hover:underline">Privacy policy</a>.
+              </>
+            )
+          }
+        </p>
+      </form>
+    ) : (
+      <div class="mt-4 space-y-3">
+        {
+          !isTips && (
+            <div class="flex flex-wrap gap-3">
+              <a class="btn-primary" href={downloadPath}>Download checklist (PDF)</a>
+              <a class="btn-secondary !text-sm" href="/downloads/whitsunday-practical-planner.html">
+                View / print HTML
+              </a>
+            </div>
+          )
+        }
+        <p class="affiliate-note leading-relaxed">
+          Email form activates when <code class="text-[0.7rem]">PUBLIC_SPLITFORMS_ACCESS_KEY</code> is set at build time.
+          {isTips ? ' Tips opt-in only — downloads stay free above.' : ' When live, we may send occasional planning tips — see Privacy.'}
+        </p>
+      </div>
+    )
+  }
+</section>
+
+<script define:vars={{ formReady, formId, thanksId, errorId }}>
+  if (formReady) {
+    const form = document.getElementById(formId);
+    const thanks = document.getElementById(thanksId);
+    const err = document.getElementById(errorId);
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form || !(form instanceof HTMLFormElement)) return;
+      err?.classList.add('hidden');
+      err?.setAttribute('hidden', '');
+      try {
+        const res = await fetch('https://splitforms.com/api/submit', {
+          method: 'POST',
+          body: new FormData(form),
+        });
+        if (!res.ok) throw new Error('Submit failed');
+        form.classList.add('hidden');
+        thanks?.classList.remove('hidden');
+        thanks?.removeAttribute('hidden');
+      } catch {
+        if (err) {
+          err.textContent = 'Something went wrong — try again later or use Contact.';
+          err.classList.remove('hidden');
+          err.removeAttribute('hidden');
+        }
+      }
+    });
+  }
+</script>

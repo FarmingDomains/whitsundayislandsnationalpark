@@ -1,0 +1,21 @@
+---
+/**
+ * Soft operator callout — replaces harsh "Don't get this wrong".
+ * Tone: calm reminder, not scolding.
+ */
+interface Props {
+  title?: string;
+  items: string[];
+}
+const { title = 'Before you go', items } = Astro.props;
+---
+
+<aside
+  class="my-8 rounded-2xl border border-park-200 bg-park-50 px-5 py-5 sm:px-6 dark:border-park-700 dark:bg-park-900/60"
+  aria-label={title}
+>
+  <p class="text-xs font-bold uppercase tracking-[0.16em] text-park-800 dark:text-park-200">{title}</p>
+  <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-park-900/90 sm:text-base dark:text-park-100/90">
+    {items.map((item) => <li set:html={item} />)}
+  </ul>
+</aside>

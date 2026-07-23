@@ -1,0 +1,191 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import WeatherWidget from '../components/WeatherWidget.astro';
+import LeadCapture from '../components/LeadCapture.astro';
+import MonetisationPanel from '../components/MonetisationPanel.astro';
+import OfficialResources from '../components/OfficialResources.astro';
+import AdSense from '../components/AdSense.astro';
+import FaqList from '../components/FaqList.astro';
+import { official } from '../data/seo';
+import { contentMeta } from '../data/contentMeta';
+import { faqJsonLd } from '../data/seo';
+
+const faqs = [
+  {
+    question: 'Do I need a camping permit for Whitsunday Islands?',
+    answer:
+      'Yes. A camping permit is required to enter Whitsunday Islands National Park. Purchase online at book.parks.qld.gov.au or at the entry station. This site never sells or affiliates camping permits.',
+  },
+  {
+    question: 'How much is the camping permit?',
+    answer:
+      'As published by Queensland Parks (QPWS) for planning orientation: adult (18+) $38 for 3 consecutive days or $50 annual; under 18 free. NT-registered private vehicle annual product is also published. Always verify live prices on parks.qld.gov.au/parks/whitsunday-islands before purchase.',
+  },
+  {
+    question: 'Do I need a camping permit for a day trip?',
+    answer:
+      'No. Day tours do not need camping permits. Overnight camping does. Plan Ngaro cultural sites visits, base walks, designated viewing areas and Hill Inlet walks on marked tracks instead.',
+  },
+  {
+    question: 'What is the best time to visit?',
+    answer:
+      'Cooler months (roughly April–September) are generally better for longer walks. Summer brings extreme heat risk and more track management. Always check official when-to-come guidance and daily forecasts.',
+  },
+  {
+    question: 'Is a day trip from Proserpine / Whitsunday Coast realistic?',
+    answer:
+      'It is a very long day (~450 km each way plus park time). Fatigue and heat risk are high. Overnight at Airlie Beach is strongly recommended for most visitors.',
+  },
+];
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Plan your visit' },
+];
+---
+
+<Layout
+  title="Plan your visit"
+  fullTitle="Plan Your Visit · Whitsunday Islands National Park"
+  description="Uluru camping permit, Ngaro cultural sites first stop, heat safety, packing, best time to visit, Proserpine / Whitsunday Coast drive realism and Airlie Beach base logistics. Always verify with Queensland Parks (QPWS)."
+  breadcrumbs={crumbs}
+  jsonLd={faqJsonLd(faqs)}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Plan your visit to Whitsunday Islands</h1>
+    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+      Use this page for camping permit logistics, heat realism, packing and access. For live fees, track status and closures, always use{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks (QPWS) (parks.qld.gov.au/parks/whitsunday-islands)</a>.
+      Content reviewed {contentMeta.siteReviewed}.
+    </p>
+
+    <div class="mt-8">
+      <WeatherWidget />
+    </div>
+
+    <div class="prose-park mt-10 max-w-3xl space-y-10">
+      <section>
+        <h2>Getting there</h2>
+        <p>
+          Most visitors overnight at <strong>Airlie Beach (Hamilton Island / resort islands)</strong>, then enter the park with a valid pass.
+          Flights arrive at <strong>Connellan / Ayers Rock Airport</strong> with resort transfers and car hire options.
+          Self-drive from <strong>Proserpine / Whitsunday Coast</strong> is roughly <strong>450 km / 4.5–5+ hours one way</strong> — a same-day return is extreme for most people.
+        </p>
+        <p>
+          Confirm current advice on the official{' '}
+          <a href={official.gettingHere} target="_blank" rel="noopener noreferrer">getting here</a> page.
+          Hop-on hop-off and tour transfers from Airlie Beach help if you prefer not to drive every leg.
+        </p>
+      </section>
+
+      <section>
+        <h2>Camping permit (mandatory)</h2>
+        <p>
+          Everyone needs a valid Whitsunday Islands camping permit. Published adult products include a <strong>3-consecutive-day</strong> pass and an <strong>annual</strong> pass
+          (commonly referenced as <strong>$38</strong> and <strong>$50</strong> — re-check live prices). Under 18 free under published policy.
+          Buy at{' '}
+          <a href={official.passes} target="_blank" rel="noopener noreferrer">book.parks.qld.gov.au</a>
+          {' '}or see{' '}
+          <a href={official.bookings} target="_blank" rel="noopener noreferrer">buy your pass</a>.
+        </p>
+        <p>
+          Online passes can be printed or saved to phone (including Apple Wallet on iPhone). At the entry station, use the left-hand lane and scan the QR code.
+          Passes can also be bought at the entry station if needed. <strong>We never take commission on camping permits.</strong>
+        </p>
+      </section>
+
+      <section>
+        <h2>Ngaro cultural sites — first stop</h2>
+        <p>
+          Treat the{' '}
+          <a href={official.culturalCentre} target="_blank" rel="noopener noreferrer">Ngaro cultural sites</a>
+          {' '}as mandatory orientation: Ngaro culture, public Sea Country context, and park protocols.
+          Free ranger-guided activities (including Mala Walk sessions when scheduled) are the preferred cultural entry.
+          Confirm hours and guided times officially each day.
+        </p>
+      </section>
+
+      <section id="heat-safety">
+        <h2>Heat, safety & cultural respect</h2>
+        <ul>
+          <li>Start long walks early; avoid peak heat for Grade 3–4 loops.</li>
+          <li>Carry serious water and electrolytes; shade is scarce.</li>
+          <li>Obey temperature closures (especially Hill Inlet lookout) and any temporary track closures (including Liru after weather events).</li>
+          <li>Boat access only — no drive-up beach. Stay on marked tracks. Follow photography rules.</li>
+          <li>Do not feed or approach dingoes. Secure food and rubbish.</li>
+          <li>Flash flooding risk after rain near waterholes and low areas.</li>
+          <li>Recreational drones require proper authorisation — do not assume you can fly.</li>
+        </ul>
+        <p>
+          Official orientation:{' '}
+          <a href={official.whenToCome} target="_blank" rel="noopener noreferrer">when to come</a>
+          {' '}and{' '}
+          <a href={official.safety} target="_blank" rel="noopener noreferrer">plan your trip</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Best time / seasons</h2>
+        <p>
+          <strong>April–September</strong> is generally preferred for longer walks (cooler). Summer can be extremely hot with more closures and medical risk.
+          Colour at sunrise/sunset is weather-dependent year-round. Build itineraries around cool hours, not midday ambition.
+        </p>
+      </section>
+
+      <section>
+        <h2>Packing list (desert baseline)</h2>
+        <ul>
+          <li>UPF long sleeves and pants, wide-brim hat, high-SPF sunscreen, polarised sunglasses</li>
+          <li>Hydration pack or bottles for 2–3 L+ on longer walks (verify official guidance)</li>
+          <li>Electrolyte tablets, snacks, blister kit</li>
+          <li>Sturdy closed-toe shoes; optional lightweight gaiters</li>
+          <li>Headlamp for pre-dawn sunrise movements</li>
+          <li>Light layer for post-sunset chill; rain cover for sudden storms</li>
+          <li>Seasonal fly net after rain / warm spells</li>
+          <li>Camping permit offline on phone + emergency contacts</li>
+        </ul>
+        <p>
+          See the <a href="/gear/">gear essentials</a> page for Amazon AU product searches (affiliate disclosure applies).
+        </p>
+      </section>
+
+      <section>
+        <h2>Where to stay</h2>
+        <p>
+          <strong>Airlie Beach</strong> is the near-exclusive practical overnight base (hotels, self-contained, campground options).
+          Inventory is limited and peak seasons sell out. Proserpine / Whitsunday Coast is secondary for multi-day Great Barrier Reef World Heritage routes or budgets.
+          There is no general overnight camping inside the national park for casual visitors.
+          Official overview:{' '}
+          <a href={official.park} target="_blank" rel="noopener noreferrer">Hamilton Island / resort islands & Airlie Beach</a>.
+        </p>
+      </section>
+    </div>
+
+    <div class="mt-12 max-w-3xl">
+      <h2 id="visit-faq-heading" class="text-xl font-bold">FAQs</h2>
+      <div class="mt-4 not-prose">
+        <FaqList items={faqs} labelledBy="visit-faq-heading" />
+      </div>
+    </div>
+
+    <AdSense unit="inContent" />
+
+    <div class="mt-12">
+      <LeadCapture mode="tips" downloadPath="/downloads/whitsunday-practical-planner.html" />
+    </div>
+
+    <div class="mt-12">
+      <MonetisationPanel
+        primaryStay="airlieBeach"
+        title="Book a Airlie Beach base, then add tours & kit"
+        description="Stay links first — camping permits remain official-only. Peak season: book accommodation early."
+      />
+    </div>
+
+    <div class="mt-10">
+      <OfficialResources />
+    </div>
+  </div>
+</Layout>

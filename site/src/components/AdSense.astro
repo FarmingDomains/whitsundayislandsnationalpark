@@ -1,0 +1,33 @@
+---
+import { adsense, type AdUnitKey } from '../data/adsense';
+
+interface Props {
+  unit?: AdUnitKey;
+  class?: string;
+}
+
+const { unit = 'inContent', class: className = '' } = Astro.props;
+const config = adsense.units[unit];
+const isProd = import.meta.env.PROD;
+const show = isProd && adsense.enabled;
+---
+
+{
+  show ? (
+    <div class:list={['ad-slot no-print not-prose my-8', className]} aria-label="Advertisement">
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client={adsense.client}
+        data-ad-slot={config.slot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <script is:inline>try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}</script>
+    </div>
+  ) : (
+    <div class:list={['no-print my-6 rounded-xl border border-dashed border-mist-200 bg-mist-50/80 px-4 py-6 text-center text-xs text-mist-700 dark:border-park-700 dark:bg-park-900/30 dark:text-park-300', className]} aria-hidden="true">
+      Ad slot ({config.label}) — visible when AdSense client is configured in production
+    </div>
+  )
+}

@@ -1,0 +1,168 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import MonetisationPanel from '../../components/MonetisationPanel.astro';
+import { itineraries, getItinerary } from '../../data/itineraries';
+import { getTrail } from '../../data/trails';
+
+export function getStaticPaths() {
+  return itineraries.map((i) => ({ params: { slug: i.slug } }));
+}
+
+const { slug } = Astro.params;
+const it = getItinerary(slug!);
+if (!it) throw new Error(`Unknown itinerary: ${slug}`);
+
+const relatedTrails = it.relatedTrailSlugs.map((s) => getTrail(s)).filter(Boolean);
+---
+
+<Layout
+  title={it.name}
+  fullTitle={`${it.name} · Whitsunday Islands Itinerary`}
+  description={it.summary}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Itineraries', href: '/itineraries/' },
+    { name: it.name },
+  ]}
+>
+  <div class="page-container py-10 sm:py-14">
+    <div class="print-site-brand" aria-hidden="true">
+      <span class="print-site-url">www.whitsundayislandsnationalpark.com.au</span>
+      <span class="print-site-tag">Unofficial Whitsunday Islands National Park guide · Printable itinerary</span>
+    </div>
+
+    <div class="no-print flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <p class="section-label">{it.duration}</p>
+        <h1 class="mt-2 text-3xl font-bold sm:text-4xl">{it.name}</h1>
+        <p class="mt-2 text-sm font-medium text-park-700 dark:text-park-300">Best for: {it.bestFor}</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" class="btn-secondary !text-sm" onclick="window.print()">Print plan</button>
+        {
+          it.downloadPath && (
+            <a class="btn-primary !text-sm" href={it.downloadPath}>Download checklist PDF</a>
+          )
+        }
+      </div>
+    </div>
+
+    <p class="mt-6 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{it.summary}</p>
+
+    <div class="mt-6 max-w-3xl space-y-4 text-mist-700 dark:text-park-200/90">
+      {it.intro.map((p) => <p>{p}</p>)}
+    </div>
+
+    <p class="mt-6 max-w-3xl text-sm text-mist-700 dark:text-park-400">
+      Track status and weather change — verify on Queensland Parks before you leave, then follow the timeline below.
+    </p>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Timeline</h2>
+      <ol class="mt-6 space-y-4">
+        {
+          it.blocks.map((b) => (
+            <li class="card flex flex-col gap-1 p-4 sm:flex-row sm:gap-6">
+              <p class="shrink-0 text-sm font-bold text-park-600 dark:text-park-300 sm:w-36">{b.time}</p>
+              <div>
+                <h3 class="font-bold text-park-900 dark:text-park-50">{b.title}</h3>
+                <p class="mt-1 text-sm text-mist-700 dark:text-park-200/90">{b.detail}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <section class="card p-5">
+        <h2 class="font-bold">Packing</h2>
+        <ul class="mt-3 list-disc space-y-1 pl-4 text-sm text-mist-700 dark:text-park-200/90">
+          {it.packing.map((p) => <li>{p}</li>)}
+        </ul>
+      </section>
+      <section class="card p-5">
+        <h2 class="font-bold">Parking tips</h2>
+        <ul class="mt-3 list-disc space-y-1 pl-4 text-sm text-mist-700 dark:text-park-200/90">
+          {it.parkingTips.map((p) => <li>{p}</li>)}
+        </ul>
+      </section>
+      <section class="card p-5">
+        <h2 class="font-bold">Skip if short on time</h2>
+        <ul class="mt-3 list-disc space-y-1 pl-4 text-sm text-mist-700 dark:text-park-200/90">
+          {it.skipIfShort.map((p) => <li>{p}</li>)}
+        </ul>
+      </section>
+    </div>
+
+    {
+      it.tipSections && it.tipSections.length > 0 && (
+        <section class="mt-12" aria-labelledby="itinerary-tips-heading">
+          <h2 id="itinerary-tips-heading" class="text-2xl font-bold">
+            Extra tips
+          </h2>
+          <div class="mt-6 space-y-6">
+            {it.tipSections.map((section) => (
+              <div class="card p-5 sm:p-6">
+                <h3 class="text-lg font-bold text-park-900 dark:text-park-50">{section.title}</h3>
+                <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-mist-700 dark:text-park-200/90">
+                  {section.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      relatedTrails.length > 0 && (
+        <section class="mt-10">
+          <h2 class="text-2xl font-bold">Related trail guides</h2>
+          <ul class="mt-3 space-y-2 text-sm">
+            {relatedTrails.map(
+              (t) =>
+                t && (
+                  <li>
+                    <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={`/trails/${t.slug}/`}>
+                      {t.name}
+                    </a>
+                  </li>
+                ),
+            )}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Official links to verify</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        {
+          it.officialUrls.map((url) => (
+            <li>
+              <a class="font-medium text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={url} target="_blank" rel="noopener noreferrer">
+                {url.replace('https://', '')}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="no-print mt-12 space-y-6" aria-label="Stays, tours and official resources">
+      <MonetisationPanel
+        title="Stays, tours & gear for this plan"
+        description="Optional next steps once your timeline is set — park fees and official Queensland Parks bookings are never affiliated."
+      />
+      <OfficialResources />
+    </section>
+
+    <p class="print-site-footer" aria-hidden="true">
+      Source: www.whitsundayislandsnationalpark.com.au · Unofficial guide · Always verify with Queensland Parks
+    </p>
+  </div>
+</Layout>

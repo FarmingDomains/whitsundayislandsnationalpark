@@ -1,0 +1,47 @@
+---
+import { official } from '../data/seo';
+
+interface Props {
+  extraLinks?: { href: string; label: string }[];
+  class?: string;
+}
+
+const { extraLinks = [], class: className = '' } = Astro.props;
+
+const links = [
+  { href: official.park, label: 'Queensland Parks — Whitsunday Islands' },
+  { href: official.about, label: 'About the park (official)' },
+  { href: official.camping, label: 'Camping (official)' },
+  { href: official.bookings, label: 'Camping bookings & fees' },
+  { href: official.hillInlet, label: 'Hill Inlet lookout track (official)' },
+  { href: official.alerts, label: 'Park alerts' },
+  { href: official.gbrmpaWhitsundays, label: 'GBRMPA — Whitsundays access' },
+  { href: official.bomTides, label: 'BOM tide tables' },
+  { href: official.tourismWhitsundays, label: 'Tourism Whitsundays (destination)' },
+  ...extraLinks,
+];
+---
+
+<aside class:list={['card p-5 sm:p-6', className]} aria-label="Official resources">
+  <h2 class="text-lg font-bold text-park-900 dark:text-park-50">Official resources (verify here)</h2>
+  <p class="mt-2 text-sm text-mist-700 dark:text-park-200/85">
+    This website is independent and unofficial. For camping permits, fees, track status, marine rules and alerts, use
+    Queensland Parks and GBRMPA sources:
+  </p>
+  <ul class="mt-4 space-y-2 text-sm">
+    {
+      links.map((link) => (
+        <li>
+          <a
+            class="font-medium text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</aside>

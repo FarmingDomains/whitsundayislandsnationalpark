@@ -1,0 +1,37 @@
+---
+export type Crumb = { name: string; href?: string };
+
+interface Props {
+  items: Crumb[];
+  class?: string;
+}
+const { items, class: className = '' } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class:list={['breadcrumbs', className]}>
+  <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-mist-700 dark:text-park-300 sm:text-sm">
+    {
+      items.map((item, i) => {
+        const last = i === items.length - 1;
+        return (
+          <li class="flex items-center gap-1.5">
+            {i > 0 && (
+              <span class="text-mist-200 dark:text-park-600" aria-hidden="true">
+                /
+              </span>
+            )}
+            {item.href && !last ? (
+              <a href={item.href} class="font-medium text-park-700 underline-offset-2 hover:underline dark:text-glow">
+                {item.name}
+              </a>
+            ) : (
+              <span class="font-semibold text-park-900 dark:text-park-50" aria-current={last ? 'page' : undefined}>
+                {item.name}
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

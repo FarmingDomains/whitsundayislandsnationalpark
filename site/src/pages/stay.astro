@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import MonetisationPanel from '../components/MonetisationPanel.astro';
+import OfficialResources from '../components/OfficialResources.astro';
+import AdSense from '../components/AdSense.astro';
+import { bookingSearchUrl, externalRel, affiliates } from '../data/affiliates';
+import { official } from '../data/seo';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Where to stay' },
+];
+
+const hubs = [
+  {
+    key: 'airlieBeach' as const,
+    title: 'Airlie Beach (primary hub)',
+    blurb:
+      'The practical mainland base for day tours and camping transfers: backpackers to resorts and holiday parks. Peak dry-season inventory sells out around school holidays and Whitehaven demand — book early.',
+    primary: true,
+  },
+  {
+    key: 'cannonvale' as const,
+    title: 'Cannonvale & nearby',
+    blurb:
+      'Extends the Airlie bed pool with apartments and quieter streets. Still convenient for most tour pick-ups — confirm transfer times with your operator.',
+    primary: false,
+  },
+  {
+    key: 'hamiltonIsland' as const,
+    title: 'Hamilton Island (resort logistics)',
+    blurb:
+      'Fly-in resort island alternative when you want packaged stays and on-island amenities. Still confirm how you reach Whitehaven and national park beaches from your resort base.',
+    primary: false,
+  },
+  {
+    key: 'shuteHarbour' as const,
+    title: 'Near Shute Harbour',
+    blurb:
+      'Useful if your vessel departs from Shute Harbour and you want minimal morning transit. Fewer walkable town amenities than central Airlie.',
+    primary: false,
+  },
+];
+---
+
+<Layout
+  title="Where to stay"
+  fullTitle="Where to Stay for Whitsunday Islands · Airlie Beach & Hamilton Island"
+  description="Airlie Beach is the practical base for Whitsunday Islands National Park day tours and camping transfers. Hamilton Island secondary. Booking.com links with affiliate disclosure. Island camping needs QPWS permits."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Where to stay</h1>
+    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+      Base at <strong class="text-park-900 dark:text-park-50">Airlie Beach</strong> for the widest range of day tours, camping transfers and recovery between boat days.
+      National park island camping is available with a <strong>QPWS camping permit</strong> — not the same as a hotel booking. Confirm official camping rules on{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.camping} target="_blank" rel="noopener noreferrer">parks.qld.gov.au camping</a>.
+    </p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {
+        hubs.map((hub) => (
+          <article class="card p-5">
+            <h2 class="text-lg font-bold text-park-900 dark:text-park-50">{hub.title}</h2>
+            <p class="mt-2 text-sm text-mist-700 dark:text-park-300">{hub.blurb}</p>
+            <a
+              href={bookingSearchUrl(hub.key)}
+              target="_blank"
+              rel={externalRel(affiliates.hasBookingAffiliate)}
+              class:list={['mt-4 inline-flex', hub.primary ? 'btn-primary !text-sm' : 'btn-secondary !text-sm']}
+            >
+              Search stays
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="prose-park mt-10 max-w-3xl">
+      <h2>Urgency & honesty</h2>
+      <p>
+        Peak dry season (roughly May–October) and school holidays fill Airlie Beach and popular day tours fast. If Whitehaven is non-negotiable, book beds and boats early — and keep a weather buffer day.
+      </p>
+      <p>
+        Island camping is not “free beach camping.” You need a booking, a displayed tag, packed water, stove cooking (no campfires) and a reliable transfer plan. This site never sells camping permits.
+      </p>
+      <p class="affiliate-note">
+        Stay links may use Booking.com partner tracking when configured. Camping permits are never affiliated.
+        See <a href="/affiliate-disclosure/">affiliate disclosure</a>.
+      </p>
+    </div>
+
+    <AdSense unit="inContent" />
+
+    <div class="mt-12">
+      <MonetisationPanel primaryStay="airlieBeach" showStay={false} title="Tours & gear while you plan a stay" />
+    </div>
+
+    <div class="mt-10">
+      <OfficialResources />
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Privacy' },
+];
+---
+
+<Layout
+  title="Privacy"
+  fullTitle="Privacy Policy · Whitsunday Islands National Park Guide"
+  description="Privacy policy for whitsundayislandsnationalpark.com.au — analytics, forms, affiliates and cookies."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Privacy policy</h1>
+    <div class="prose-park mt-6 max-w-3xl">
+      <p>Last updated: 23 July 2026.</p>
+      <p>
+        This site is operated by Farming Domains / Ian Piggott publishing (independent). It is not operated by Queensland Parks (QPWS).
+      </p>
+      <h2>What we collect</h2>
+      <ul>
+        <li>Contact and lead forms: name, email and message content you submit (via Splitforms or similar when configured)</li>
+        <li>Standard server and analytics logs (if GA4 or similar is enabled)</li>
+        <li>Advertising and affiliate cookies/pixels when AdSense, Booking, GetYourGuide or Amazon tags are active</li>
+      </ul>
+      <h2>How we use information</h2>
+      <p>
+        To respond to enquiries, deliver optional planning tips, improve content, measure traffic and attribute affiliate referrals.
+        We do not sell personal information.
+      </p>
+      <h2>Third parties</h2>
+      <p>
+        Form processors, hosting providers, analytics, ad networks and affiliate networks process data under their own policies when you use those features.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        Privacy questions: use the <a href="/contact/">contact form</a>. Do not send medical emergencies or park incident reports here — call 000 and use official park channels.
+      </p>
+    </div>
+  </div>
+</Layout>

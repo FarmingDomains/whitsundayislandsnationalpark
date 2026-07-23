@@ -1,0 +1,211 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DontGetThisWrong from '../../components/DontGetThisWrong.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import MonetisationPanel from '../../components/MonetisationPanel.astro';
+import TrailCard from '../../components/TrailCard.astro';
+import MapEmbed from '../../components/MapEmbed.astro';
+import ContentImage from '../../components/ContentImage.astro';
+import FactChips from '../../components/FactChips.astro';
+import AdSense from '../../components/AdSense.astro';
+import FaqList from '../../components/FaqList.astro';
+import { areas, getArea } from '../../data/areas';
+import { trailsForArea, getTrail } from '../../data/trails';
+import { getItinerary } from '../../data/itineraries';
+import { touristAttractionJsonLd, faqJsonLd } from '../../data/seo';
+import { imageForArea } from '../../data/pageImages';
+import { official } from '../../data/seo';
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { slug: a.slug } }));
+}
+
+const { slug } = Astro.params;
+const area = getArea(slug!);
+if (!area) throw new Error(`Unknown area: ${slug}`);
+
+const related = area.relatedTrailSlugs.map((s) => getTrail(s)).filter(Boolean);
+const areaTrails = trailsForArea(area.slug);
+const trailCards = (related.length ? related : areaTrails).filter(Boolean);
+const relatedItineraries = area.relatedItinerarySlugs.map((s) => getItinerary(s)).filter(Boolean);
+const areaImage = imageForArea(area.slug);
+
+const jsonLd = [
+  touristAttractionJsonLd({
+    name: `${area.name} — Whitsunday Islands National Park`,
+    description: area.summary,
+    url: `/park/${area.slug}/`,
+  }),
+  faqJsonLd(area.faqs),
+];
+---
+
+<Layout
+  title={area.name}
+  fullTitle={`${area.name} · Whitsunday Islands National Park Guide`}
+  description={area.summary}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Park', href: '/park/' },
+    { name: area.shortName },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="page-container py-10 sm:py-14">
+    <p class="section-label">Park area guide</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">{area.name}</h1>
+    <p class="mt-4 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{area.summary}</p>
+
+    <div class="mt-6">
+      <FactChips
+        items={[
+          `Best for: ${area.bestFor}`,
+          `Time: ${area.timeNeeded}`,
+          area.driveNote,
+        ]}
+      />
+    </div>
+
+    <p class="mt-5 text-sm">
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={area.officialUrl} target="_blank" rel="noopener noreferrer">
+        Verify conditions on Queensland Parks →
+      </a>
+      {' · '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.alerts} target="_blank" rel="noopener noreferrer">
+        Park alerts
+      </a>
+    </p>
+
+    <div class="mt-8">
+      <ContentImage
+        src={areaImage.src}
+        alt={areaImage.alt}
+        caption={`${area.name} — ${areaImage.caption}`}
+        imgClass="max-h-96 w-full object-cover"
+      />
+    </div>
+
+    <DontGetThisWrong items={area.dontGetWrong} />
+
+    <nav class="mt-10 no-print rounded-2xl border border-mist-200 bg-white/80 p-4 text-sm dark:border-park-700 dark:bg-park-900/40" aria-label="On this page">
+      <p class="font-semibold text-park-900 dark:text-park-50">On this page</p>
+      <ul class="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-park-700 dark:text-park-300">
+        {area.body.map((b) => (
+          <li><a class="underline-offset-2 hover:underline" href={`#${b.id}`}>{b.title}</a></li>
+        ))}
+        <li><a class="underline-offset-2 hover:underline" href="#highlights">Highlights</a></li>
+        <li><a class="underline-offset-2 hover:underline" href="#practical">Practical tips</a></li>
+        {trailCards.length > 0 && <li><a class="underline-offset-2 hover:underline" href="#walks">Walks</a></li>}
+        {relatedItineraries.length > 0 && <li><a class="underline-offset-2 hover:underline" href="#itineraries">Itineraries</a></li>}
+        <li><a class="underline-offset-2 hover:underline" href="#map">Map</a></li>
+        <li><a class="underline-offset-2 hover:underline" href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    {
+      area.body.map((block) => (
+        <section id={block.id} class="mt-12 scroll-mt-28">
+          <h2 class="text-2xl font-bold sm:text-3xl">{block.title}</h2>
+          {block.paragraphs.map((p) => (
+            <p class="mt-4 max-w-3xl text-mist-700 dark:text-park-200/90">{p}</p>
+          ))}
+        </section>
+      ))
+    }
+
+    <section id="highlights" class="mt-12 scroll-mt-28">
+      <h2 class="text-2xl font-bold sm:text-3xl">Highlights at a glance</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-mist-700 dark:text-park-200/90">
+        {area.highlights.map((h) => <li>{h}</li>)}
+      </ul>
+    </section>
+
+    <section id="practical" class="mt-12 scroll-mt-28 grid gap-6 lg:grid-cols-2">
+      <div class="card p-5 sm:p-6">
+        <h2 class="text-xl font-bold">Practical tips</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-mist-700 dark:text-park-200/90">
+          {area.practicalTips.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+      <div class="card p-5 sm:p-6">
+        <h2 class="text-xl font-bold">Facilities & services</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-mist-700 dark:text-park-200/90">
+          {area.facilities.map((t) => <li>{t}</li>)}
+        </ul>
+        <p class="mt-3 text-xs text-mist-700 dark:text-park-400">Confirm toilets, parking and open facilities on the day via official sources and on-site signage.</p>
+      </div>
+    </section>
+
+    <AdSense unit="inContent" />
+
+    {
+      trailCards.length > 0 && (
+        <section id="walks" class="mt-12 scroll-mt-28">
+          <h2 class="text-2xl font-bold sm:text-3xl">Walks & lookouts nearby</h2>
+          <p class="mt-3 max-w-3xl text-sm text-mist-700 dark:text-park-300">
+            Grades, times and open/closed status change — open each guide and verify on Queensland Parks before you go.
+          </p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            {trailCards.map((t) => t && <TrailCard trail={t} />)}
+          </div>
+          <a href="/trails/" class="btn-secondary mt-6 !text-sm">All trails</a>
+        </section>
+      )
+    }
+
+    {
+      relatedItineraries.length > 0 && (
+        <section id="itineraries" class="mt-12 scroll-mt-28">
+          <h2 class="text-2xl font-bold sm:text-3xl">Itineraries that use this area</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            {relatedItineraries.map(
+              (it) =>
+                it && (
+                  <a href={`/itineraries/${it.slug}/`} class="card block p-5 transition hover:border-park-400">
+                    <p class="text-xs font-bold uppercase tracking-wide text-park-600 dark:text-park-300">{it.duration}</p>
+                    <h3 class="mt-1 font-bold">{it.name}</h3>
+                    <p class="mt-2 text-sm text-mist-700 dark:text-park-300 line-clamp-3">{it.summary}</p>
+                  </a>
+                ),
+            )}
+          </div>
+        </section>
+      )
+    }
+
+    <section id="map" class="mt-12 scroll-mt-28">
+      <h2 class="text-2xl font-bold sm:text-3xl">Map</h2>
+      <p class="mt-2 text-sm text-mist-700 dark:text-park-300">Orientation only — confirm trailheads and road status before you drive.</p>
+      <div class="mt-4">
+        <MapEmbed query={area.mapQuery} title={`Map — ${area.name}`} />
+      </div>
+    </section>
+
+    <section id="faq" class="mt-12 scroll-mt-28" aria-labelledby="faq-heading">
+      <h2 id="faq-heading" class="text-2xl font-bold sm:text-3xl">FAQ — {area.shortName}</h2>
+      <div class="mt-6">
+        <FaqList items={area.faqs} labelledBy="faq-heading" />
+      </div>
+    </section>
+
+    <section class="mt-12 space-y-6 no-print" aria-label="Stays, tours and official resources">
+      <MonetisationPanel
+        stayQuery={area.stayQuery}
+        title={`Stays, tours & gear near ${area.shortName}`}
+        description="Optional next steps after you plan this area — park fees and official Queensland Parks bookings are never affiliated."
+      />
+      <OfficialResources
+        extraLinks={[
+          { href: area.officialUrl, label: `Official park page — verify ${area.shortName} plans` },
+          { href: official.alerts, label: 'Current park alerts' },
+        ]}
+      />
+    </section>
+
+    <p class="mt-10 text-sm text-mist-700 dark:text-park-400">
+      <a href="/park/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">← All park areas</a>
+      {' · '}
+      <a href="/visit/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">Plan your visit</a>
+    </p>
+  </div>
+</Layout>

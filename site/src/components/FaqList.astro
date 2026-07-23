@@ -1,0 +1,40 @@
+---
+/**
+ * Expandable FAQ list with clear open/close affordance (+ / − pill).
+ * Native <details> for accessibility and no JS dependency.
+ */
+export type FaqItem = { question: string; answer: string };
+
+interface Props {
+  items: FaqItem[];
+  /** Optional heading id for aria-labelledby on the list region */
+  labelledBy?: string;
+  class?: string;
+}
+
+const { items, labelledBy, class: className = '' } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <div class:list={['space-y-3', className]} role="list" aria-labelledby={labelledBy}>
+      <p class="text-sm text-mist-700 dark:text-park-400">Tap a question to expand the answer.</p>
+      {items.map((f) => (
+        <details class="card group p-4 open:border-park-400 open:shadow-sm sm:p-5" role="listitem">
+          <summary class="faq-summary flex cursor-pointer list-none items-start gap-3 font-bold text-park-900 dark:text-park-50">
+            <span
+              class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-park-300 bg-park-50 text-base font-bold leading-none text-park-700 transition group-open:border-park-500 group-open:bg-park-600 group-open:text-white dark:border-park-600 dark:bg-park-900 dark:text-park-200 dark:group-open:bg-park-500"
+              aria-hidden="true"
+              title="Expand or collapse"
+            >
+              <span class="group-open:hidden">+</span>
+              <span class="hidden group-open:inline">−</span>
+            </span>
+            <span class="min-w-0 flex-1 pt-0.5 underline-offset-2 group-open:underline">{f.question}</span>
+          </summary>
+          <p class="mt-3 pl-10 text-sm leading-relaxed text-mist-700 dark:text-park-200/90">{f.answer}</p>
+        </details>
+      ))}
+    </div>
+  )
+}

@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import { areas } from '../../data/areas';
+import { official } from '../../data/seo';
+---
+
+<Layout
+  title="Park overview"
+  fullTitle="Whitsunday Islands National Park Overview · Areas & Gateways"
+  description="Whitsunday Islands areas: Ngaro cultural sites & Uluru base, Hill Inlet, sunrise/sunset, Airlie Beach access, heat safety and Great Barrier Reef World Heritage context — with Queensland Parks (QPWS) links."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Park' },
+  ]}
+>
+  <div class="page-container py-10 sm:py-14">
+    <p class="section-label">Know the park</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Park overview & areas</h1>
+    <p class="mt-4 max-w-3xl text-mist-700 dark:text-park-200/90">
+      Whitsunday Islands National Park covers about 1,325 kmÂ² in Australia's Great Barrier Reef World Heritage and is dual-listed World Heritage for outstanding natural and cultural values.
+      Ngaro are Traditional Owners; the park is jointly managed with Queensland Parks (QPWS). Most successful visits start with the Ngaro cultural sites, not a rushed sunset only.
+      Use this hub to pick a focus, then verify conditions on the{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">official park site</a>.
+    </p>
+    <p class="mt-3 max-w-3xl text-sm text-mist-700 dark:text-park-300">
+      <strong class="text-park-900 dark:text-park-100">Recommended order:</strong> camping permit → Ngaro cultural sites → free Mala / short walks → Whitehaven Beach only if cool and early → Hill Inlet on a cool window → multi-day Airlie Beach base when possible.
+    </p>
+    <p class="mt-3 max-w-3xl text-sm text-mist-700 dark:text-park-300">
+      We acknowledge Ngaro Traditional Owners and their continuing connection to Country. This guide does not retell restricted sacred stories.
+    </p>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      {
+        areas.map((area) => (
+          <a href={`/park/${area.slug}/`} class="card block p-5 transition hover:border-park-400 hover:shadow-md">
+            <h2 class="text-xl font-bold text-park-900 dark:text-park-50">{area.name}</h2>
+            <p class="mt-2 text-sm text-mist-700 dark:text-park-300 line-clamp-3">{area.summary}</p>
+            <p class="mt-3 text-xs font-medium text-park-600 dark:text-park-300">{area.driveNote}</p>
+            <p class="mt-3 text-sm font-semibold text-park-700 dark:text-park-200">Area guide →</p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-12">
+      <OfficialResources />
+    </div>
+  </div>
+</Layout>

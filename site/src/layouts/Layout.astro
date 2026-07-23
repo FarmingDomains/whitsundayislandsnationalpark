@@ -1,0 +1,178 @@
+---
+import '../styles/global.css';
+import { seo, absoluteUrl, websiteJsonLd, organizationJsonLd, breadcrumbJsonLd } from '../data/seo';
+import type { Crumb } from '../data/seo';
+import { footerHubLinks, footerLegalLinks, portfolioLinks } from '../data/navigation';
+import OfficialBar from '../components/OfficialBar.astro';
+import Header from '../components/Header.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+interface Props {
+  title?: string;
+  fullTitle?: string;
+  description?: string;
+  noindex?: boolean;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  breadcrumbs?: Crumb[];
+}
+
+const {
+  title = 'Whitsunday Islands National Park',
+  fullTitle,
+  description = seo.defaultDescription,
+  noindex = false,
+  ogImage = seo.defaultOgImage,
+  jsonLd,
+  breadcrumbs,
+} = Astro.props;
+
+const pageTitle = fullTitle ?? `${title} · ${seo.siteName}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = absoluteUrl(ogImage, seo.siteUrl);
+
+const schemaGraph: Record<string, unknown>[] = [websiteJsonLd(), organizationJsonLd()];
+if (breadcrumbs?.length) {
+  schemaGraph.push(breadcrumbJsonLd(breadcrumbs));
+}
+if (jsonLd) {
+  const extra = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+  schemaGraph.push(...extra);
+}
+
+const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT?.trim() || '';
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <script is:inline>
+      (function () {
+        var key = 'winp-theme';
+        var stored = localStorage.getItem(key);
+        var dark =
+          stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={seo.siteName} />
+    <meta property="og:locale" content={seo.locale} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={seo.ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <JsonLd data={schemaGraph} />
+    {
+      adsenseClient.startsWith('ca-pub-') && (
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
+  </head>
+  <body class="bg-mist-50 text-gray-800 antialiased dark:bg-park-950 dark:text-gray-100">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <OfficialBar />
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="no-print mt-20 border-t border-park-900/40 bg-park-950 text-white">
+      <div class="page-container py-12 sm:py-16">
+        <div class="text-center">
+          <div class="mx-auto mb-4 flex w-fit items-center gap-3 opacity-95">
+            <svg class="h-10 w-10" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="#0c4a6e" />
+              <path d="M4 22 C8 18 12 14 16 13 C20 14 24 18 28 22" stroke="#38bdf8" stroke-width="1.6" stroke-linejoin="round" fill="none" />
+              <path d="M4 24 H28" stroke="#7dd3fc" stroke-width="1.2" opacity=".85" />
+              <circle cx="24" cy="9" r="1.4" fill="#fef9c3" opacity=".9" />
+            </svg>
+            <div class="text-left leading-tight">
+              <p class="text-sm font-bold text-white">Whitsunday Islands National Park</p>
+              <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-glow/90">Unofficial guide</p>
+            </div>
+          </div>
+          <p class="section-label !text-park-300">Great Barrier Reef · Tropical islands</p>
+          <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">Unofficial operator's manual</h2>
+          <p class="mx-auto mt-3 max-w-xl text-sm text-gray-400">
+            Practical planning for Ngaro cultural sites first stops, camping permits, Whitehaven silica sand, Hill Inlet tides, boat access and Airlie Beach logistics. Always confirm with Queensland Parks (QPWS) before you go.
+          </p>
+        </div>
+        <nav class="mt-10 flex flex-wrap justify-center gap-2" aria-label="Guide hubs">
+          {
+            footerHubLinks.map((link) => (
+              <a href={link.href} class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 transition hover:border-park-600/50 hover:bg-park-800/50 hover:text-white">
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+        <nav class="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-gray-400" aria-label="Legal">
+          {
+            footerLegalLinks.map((link) => (
+              <a href={link.href} class="underline-offset-2 hover:text-white hover:underline">
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+        <p class="mt-6 text-center text-xs text-gray-500">
+          Part of the{' '}
+          <a class="underline-offset-2 hover:underline" href="https://farmingdomains.com" target="_blank" rel="noopener noreferrer">Farming Domains</a>
+          {' '}portfolio ·{' '}
+          <a class="underline-offset-2 hover:underline" href="https://ianpiggott.com" target="_blank" rel="noopener noreferrer">ianpiggott.com</a>
+          {' '}· Not affiliated with Queensland Parks (QPWS), the Department of the Environment, Tourism, Science and Innovation, GBRMPA, or Ngaro Traditional Owners
+        </p>
+        <p class="mt-3 text-center text-[11px] text-gray-600">
+          Some stay, tour and gear links may earn a commission. Camping permits and official bookings are never affiliated.{' '}
+          <a href="/affiliate-disclosure/" class="underline-offset-2 hover:underline">Affiliate disclosure</a>
+          {' · '}
+          Some images are AI-generated for illustration — see{' '}
+          <a href="/disclaimer/" class="underline-offset-2 hover:underline">disclaimer</a>
+        </p>
+
+        <nav class="mt-8 border-t border-white/10 pt-6" aria-label="Sister park guides">
+          <p class="text-center text-xs font-semibold uppercase tracking-[0.16em] text-park-300">
+            Other Farming Domains park guides
+          </p>
+          <ul class="mt-3 flex flex-wrap items-center justify-center gap-2">
+            {
+              portfolioLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="inline-block rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-gray-200 transition hover:border-park-400/50 hover:bg-park-800/40 hover:text-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

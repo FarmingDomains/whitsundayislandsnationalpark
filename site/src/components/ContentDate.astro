@@ -1,0 +1,60 @@
+---
+/**
+ * Small freshness stamp — not a banner.
+ * Use under hero / above main content on guides that go stale (trails, visit, glow worms, etc.).
+ */
+import { contentMeta, formatReviewed } from '../data/contentMeta';
+
+interface Props {
+  /** Override ISO date YYYY-MM-DD for this page */
+  date?: string;
+  /** "Last reviewed" | "Updated" */
+  prefix?: string;
+  class?: string;
+  /** Extra note after the date */
+  note?: string;
+}
+
+const {
+  date,
+  prefix = 'Updated',
+  class: className = '',
+  note = '',
+} = Astro.props;
+
+const { iso, label } = formatReviewed(date ?? contentMeta.siteReviewedIso);
+---
+
+<p class:list={['content-date', className]}>
+  <span class="content-date__label">{prefix}</span>
+  {' '}
+  <time datetime={iso}>{label}</time>
+  {note && <span class="content-date__note"> {note}</span>}
+</p>
+
+<style>
+  .content-date {
+    margin: 0 0 1rem;
+    font-size: 0.6875rem; /* 11px — small freshness cue, not a banner */
+    line-height: 1.35;
+    color: #6b7280;
+  }
+  :global(html.dark) .content-date {
+    color: #9ca3af;
+  }
+  .content-date__label {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .content-date time {
+    font-weight: 600;
+    color: #4b5563;
+  }
+  :global(html.dark) .content-date time {
+    color: #d1d5db;
+  }
+  .content-date__note {
+    font-weight: 400;
+    opacity: 0.9;
+  }
+</style>

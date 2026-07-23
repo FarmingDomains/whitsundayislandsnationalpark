@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import MonetisationPanel from '../components/MonetisationPanel.astro';
+import OfficialResources from '../components/OfficialResources.astro';
+import AdSense from '../components/AdSense.astro';
+import {
+  featuredTourLinks,
+  externalRel,
+  affiliates,
+  getYourGuideSearchUrl,
+} from '../data/affiliates';
+import { official } from '../data/seo';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Tours & activities' },
+];
+
+const tours = featuredTourLinks();
+---
+
+<Layout
+  title="Tours & activities"
+  fullTitle="Whitsunday Tours · Sunrise, Cultural Experiences & Hill Inlet"
+  description="Uluru sunrise tours, cultural and Whitehaven Beach experiences, Hill Inlet, hop-on hop-off and multi-day Great Barrier Reef World Heritage packages. Prefer operators that respect Ngaro protocols. GetYourGuide links with disclosure."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Tours & activities</h1>
+    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+      Tours are optional logistics helpers — not a substitute for the Ngaro cultural sites, camping permit rules or heat decisions.
+      Prefer Ngaro-owned or joint cultural products where available, and operators that stay on marked public tracks.
+      Free ranger-guided activities are the best-value cultural entry when scheduled — see{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.culturalCentre} target="_blank" rel="noopener noreferrer">official Ngaro cultural sites info</a>.
+    </p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {
+        tours.map((tour) => (
+          <article class="card flex flex-col p-5">
+            <div class="flex flex-wrap gap-2">
+              {tour.tags.map((tag) => (
+                <span class="rounded-full bg-park-50 px-2.5 py-0.5 text-[11px] font-semibold text-park-800 dark:bg-park-950 dark:text-park-200">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <h2 class="mt-3 text-lg font-bold text-park-900 dark:text-park-50">{tour.label}</h2>
+            <p class="mt-2 flex-1 text-sm text-mist-700 dark:text-park-300">{tour.summary}</p>
+            <a
+              href={tour.href}
+              target="_blank"
+              rel={externalRel(tour.sponsored)}
+              class:list={['mt-4 inline-flex', tour.primary ? 'btn-primary !text-sm' : 'btn-secondary !text-sm']}
+            >
+              View options
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-6 text-sm text-mist-700 dark:text-park-300">
+      Browse more:{' '}
+      <a
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+        href={getYourGuideSearchUrl('Whitehaven Beach Whitsundays')}
+        target="_blank"
+        rel={externalRel(affiliates.hasGygAffiliate)}
+      >
+        Whitehaven Beach tours on GetYourGuide
+      </a>
+      . Scenic flights: choose high-altitude ethical options that follow park overflight and cultural guidelines.
+      Official commercial tour listings also appear on{' '}
+      <a href={official.park} target="_blank" rel="noopener noreferrer" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">parks.qld.gov.au/parks/whitsunday-islands</a>.
+    </p>
+
+    <p class="affiliate-note mt-4">
+      Tour links may earn a commission at no extra cost to you when partner IDs are configured. Camping permits and free ranger activities are never affiliated.
+      <a href="/affiliate-disclosure/">Affiliate disclosure</a>.
+    </p>
+
+    <AdSense unit="inContent" />
+
+    <div class="mt-12">
+      <MonetisationPanel primaryStay="airlieBeach" showTours={false} title="Stays & gear around your tour day" />
+    </div>
+
+    <div class="mt-10">
+      <OfficialResources />
+    </div>
+  </div>
+</Layout>

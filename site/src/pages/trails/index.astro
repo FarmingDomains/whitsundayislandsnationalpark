@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TrailCard from '../../components/TrailCard.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import ContentImage from '../../components/ContentImage.astro';
+import { trails } from '../../data/trails';
+import { official } from '../../data/seo';
+import { siteImages } from '../../data/pageImages';
+---
+
+<Layout
+  title="Walks & lookouts"
+  fullTitle="Whitsunday Islands Walks · Whitehaven Beach, Mala & Hill Inlet lookout"
+  description="Whitsunday Islands walks: Ngaro cultural sites Mala Walk, Kuniya/Hill Inlet, Whitehaven Beach, Walpa Gorge, Hill Inlet lookout heat rules and sunrise viewing. Verify status with Queensland Parks (QPWS)."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Walks' },
+  ]}
+>
+  <div class="page-container py-10 sm:py-14">
+    <p class="section-label">Walk hierarchy</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">Walks & lookouts</h1>
+    <p class="mt-4 max-w-3xl text-mist-700 dark:text-park-200/90">
+      Start with <strong>Ngaro cultural sites + free ranger-guided Mala Walk</strong>, then short Kuniya/Hill Inlet, then Whitehaven Beach only with an early start.
+      Hill Inlet: Walpa Gorge as default; Hill Inlet lookout when cool and open. Distances, grades and times below are planning ranges — always confirm on{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.walks} target="_blank" rel="noopener noreferrer">Queensland Parks (QPWS) walks</a>.
+      Liru Walk has had weather-related closures — check live status.
+    </p>
+
+    <div class="mt-8">
+      <ContentImage
+        src={siteImages.homeHero.src}
+        alt={siteImages.homeHero.alt}
+        caption={siteImages.homeHero.caption}
+        imgClass="max-h-64 w-full object-cover"
+      />
+    </div>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      {trails.map((t) => <TrailCard trail={t} />)}
+    </div>
+
+    <div class="mt-12">
+      <OfficialResources />
+    </div>
+  </div>
+</Layout>

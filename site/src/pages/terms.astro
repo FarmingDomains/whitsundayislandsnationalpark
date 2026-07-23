@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Terms' },
+];
+---
+
+<Layout
+  title="Terms"
+  fullTitle="Terms of Use · Whitsunday Islands National Park Guide"
+  description="Terms of use for whitsundayislandsnationalpark.com.au."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Terms of use</h1>
+    <div class="prose-park mt-6 max-w-3xl">
+      <p>Last updated: 23 July 2026.</p>
+      <p>
+        By using whitsundayislandsnationalpark.com.au you agree these terms. Content is general information only, not professional advice.
+        Outdoor recreation involves risk. You accept responsibility for your safety and decisions.
+      </p>
+      <p>
+        Content is provided "as is" without warranties of accuracy or fitness for purpose. We are not liable for loss arising from reliance on this site,
+        third-party bookings, or conditions in the park.
+      </p>
+      <p>
+        Do not scrape, republish or misuse content at scale without permission. Personal non-commercial use of itineraries for your own trip is fine.
+      </p>
+      <p>
+        See also <a href="/disclaimer/">disclaimer</a>, <a href="/privacy/">privacy</a> and <a href="/affiliate-disclosure/">affiliate disclosure</a>.
+      </p>
+    </div>
+  </div>
+</Layout>

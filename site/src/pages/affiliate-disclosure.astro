@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { official } from '../data/seo';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Affiliate disclosure' },
+];
+---
+
+<Layout
+  title="Affiliate disclosure"
+  fullTitle="Affiliate Disclosure · Whitsunday Islands National Park Guide"
+  description="Affiliate and advertising disclosure for whitsundayislandsnationalpark.com.au — Amazon, Booking.com, GetYourGuide and AdSense."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Affiliate disclosure</h1>
+    <div class="prose-park mt-6 max-w-3xl">
+      <p>
+        This website may earn a commission when you book stays, tours or buy gear through certain links — at no extra cost to you.
+        Commissions help fund independent content. Recommendations prioritise visitor usefulness and cultural respect, not commission rate alone.
+      </p>
+      <h2>Programs we may use</h2>
+      <ul>
+        <li><strong>Booking.com</strong> (via CJ Affiliate or partner aid) — accommodation search links</li>
+        <li><strong>GetYourGuide</strong> — tours and activities</li>
+        <li><strong>Amazon Associates (AU)</strong> — gear and packing product searches</li>
+        <li><strong>Google AdSense</strong> — display advertising when configured</li>
+      </ul>
+      <h2>What we never monetise</h2>
+      <p>
+        We do not take commissions on official <strong>Queensland Parks (QPWS)</strong> park-entry fees, camping permit products,
+        free ranger-guided activities, or other official park payments. Those belong on official channels such as{' '}
+        <a href={official.passes} target="_blank" rel="noopener noreferrer">book.parks.qld.gov.au</a>.
+      </p>
+      <h2>Australian Consumer Law</h2>
+      <p>
+        We aim for clear, accurate, and not-misleading commercial messaging. Sponsored links use appropriate <code>rel</code> attributes when tracking IDs are present.
+        If something looks wrong, <a href="/contact/">contact us</a>.
+      </p>
+      <p>
+        Related: <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/disclaimer/">Disclaimer</a>
+      </p>
+    </div>
+  </div>
+</Layout>

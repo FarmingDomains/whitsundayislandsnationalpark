@@ -1,0 +1,125 @@
+You are an elite full-stack web developer, digital marketer, and affiliate monetization expert with deep specialization in high-converting Australian national park tourism websites and travel affiliate programs (Booking.com via CJ, GetYourGuide, Amazon Associates AU, AdSense).
+
+**Build a complete, production-ready, professional, mobile-responsive website for whitsundayislandsnationalpark.com.au.**
+
+**Core Reference Style:**
+Base it directly on the superior practical, clean “unofficial operator’s manual” approach and structure of:
+- https://bluemountainsnationalpark.com.au/ (the current gold standard — closely match its itineraries depth, lead magnets, visual flow, homepage hierarchy, practical tone, and safety realism)
+- https://springbrooknationalpark.com.au/
+- https://www.royalnationalpark.com.au/
+- https://sydneyharbournationalpark.com.au/
+- https://greatotwaynationalpark.com.au/
+- https://portcampbellnationalpark.com.au/ (sister coastal icon site)
+- https://cradlemountainnationalpark.com.au/ (sister World Heritage logistics-mastery site)
+- https://ulurukatatjutanationalpark.com.au/ (sister cultural + environmental realism mastery site — contrast desert heat/cultural protocols with tropical boat-access + tidal + marine realism)
+- https://www.farmingdomains.com/
+
+**Key Upgrades & Differentiators (Make This the Best in the Portfolio for Iconic Tropical Island / Marine / Great Barrier Reef World Heritage Parks):**
+- Master-level boat-access decision hierarchy and realism: Clear filters by budget, time, desire for solitude vs convenience, fitness, and group size. Dominant high-volume path = commercial day tours from Airlie Beach / Shute Harbour to Whitehaven Beach + Hill Inlet. Overnight immersion path = camping transfers (e.g. Scamper-style water taxis to Whitehaven or other beaches) + self-sufficient camping. Freedom path = private boat, bareboat yacht, or multi-day sail charter. Explicit “day-trip honesty” vs multi-day value.
+- Crystal-clear activity hierarchy and decision trees filtered by tide, season, weather, fitness, and experience level:
+  - Non-negotiable icon pair: Whitehaven Beach (pure silica sand) + Hill Inlet Lookout (1.3–1.4 km return, moderate, ~40 min) — best swirl photography is highly tide-dependent.
+  - Short island walks & lookouts (Solway Circuit, Beach Track, Dugong–Sawmill, Chance Bay, Ngaro Cultural Site track, etc.).
+  - Camping beach hierarchy (Whitehaven for the classic experience; secluded options such as Dugong, Chance Bay, Joes, Curlew, Maureens Cove, Crayfish, etc.).
+  - Snorkelling / fringing reef options (Black Island, Butterfly Bay, Blue Pearl Bay, Border Island, etc.) with conditions and access filters.
+  - Advanced: Ngaro Track (32 km multi-day independent or guided across Whitsunday Island, limited numbers, April–October window) and Whitsunday Ngaro Sea Trail elements.
+- Heavy, honest emphasis on tropical marine realism: boat safety & weather windows, tidal access (many beaches and tracks mid-to-high tide preferred), marine stinger season (typically November–May — full-body suits or avoid swimming), cyclone / wet-season risks, self-sufficient water requirements (minimum 5 litres per person per day for camping — no reliable fresh water on most sites), no campfires, pest-free biosecurity protocols (check boats, gear, clothing), reef etiquette (no touching coral, GBRMPA zoning awareness), and the physical demands of boat + island walking in heat/humidity.
+- Superior mobile UX: fast tap targets, sticky navigation optimised for Airlie Beach planning / on-boat / transfer booking / tide-checking / camping permit QR, excellent touch experience while reviewing weather, tides, or booking last-minute transfers.
+- Larger, higher-quality image galleries with lightbox focused on the iconic Whitehaven silica sand + turquoise water, Hill Inlet tidal swirl from the lookout, island-peak views, hoop pines against blue sea, secluded camping beaches, fringing reef underwater (ethical), practical boat/mooring/transfer context, and respectful cultural interpretive elements.
+- More prominent, naturally integrated SEO-optimized sections targeting high-intent queries: “Whitehaven Beach camping”, “Hill Inlet lookout”, “Whitehaven Beach day trip”, “Whitsunday Islands National Park camping”, “Scamper camping transfer”, “Whitehaven Beach from Airlie Beach”, “Ngaro Cultural Site”, “Whitsunday Island walks”, “best time Whitehaven Beach”, “stinger season Whitsundays”, “Hill Inlet tide times”, etc.
+- Smoother, value-first affiliate flows that feel helpful rather than salesy — especially for day-tour urgency, camping transfer bookings, and Airlie Beach accommodation in peak periods.
+- Explicit pairing logic with broader Whitsundays / Airlie Beach / Hamilton Island experiences where natural, and strong cross-portfolio links to other Farming Domains national park sites (especially Springbrook, Great Otway, Port Campbell, Blue Mountains, Cradle, Uluru) for multi-state Australian itineraries.
+- Note current or recent operational realities (e.g. track or channel maintenance, feral animal control periods, seasonal camping restrictions) — always direct to official for live status.
+
+**Monetization Strategy (Entry-to-Mid Level, Expert-Optimised):**
+- Google AdSense: Responsive, non-intrusive placements (sidebar, content breaks, in-feed) — substantial content first.
+- Amazon Associates (AU-focused): Contextual gear & packing recommendations tailored to boat + island + tropical marine conditions (reef-safe high-SPF sunscreen, full-body stinger suits / lycra, dry bags & waterproof phone cases, wide-brim sun hats, UPF long-sleeve shirts, hydration systems, lightweight camping stoves & fuel, water containers / collapsible jugs, sturdy closed-toe water shoes or trail shoes with good grip, polarised sunglasses, compact binoculars, headlamp, reef-safe insect repellent, day packs with rain covers) with strong disclosure compliance.
+- Booking.com Affiliate (via CJ Affiliate): Prominent but natural placement in accommodation section; use best-practice widgets; priority base: Airlie Beach (full range of hotels, apartments, backpackers, holiday parks) as the practical mainland hub for day tours and camping transfers. Secondary: Hamilton Island and other Whitsunday resort islands for those wanting resort-based access. Highlight peak-season sell-outs and booking urgency for Whitehaven day-tour windows.
+- GetYourGuide / Viator: Whitehaven Beach + Hill Inlet day tours (sailing, catamaran, speedboat, ocean rafting), camping transfer packages, snorkel & dive trips, multi-day sailing charters, scenic flights / helicopter over Heart Reef or Whitehaven, Ngaro cultural experiences where available, and any Traditional Owner or joint products. Bundle where possible with accommodation. Prioritise operators that respect cultural protocols and marine park rules.
+- Natural, ethical placements with full, prominent disclosures on every relevant page (ACL + platform compliant). Never monetise camping permits, official park bookings, or QPWS fees.
+- Lead magnet: Free downloadable “Whitsunday Islands Practical Planner” PDF (Whitehaven + Hill Inlet day-trip decision tree + tide & timing logic + camping vs day-tour comparison + self-sufficient packing checklist + stinger & weather filters + boat access hierarchy + official links + Ngaro cultural respect reminders + safety) via email capture (Mailchimp/Brevo placeholder).
+- Include UTM tracking placeholders and strong cross-promotion to springbrooknationalpark.com.au, greatotwaynationalpark.com.au, portcampbellnationalpark.com.au, bluemountainsnationalpark.com.au, cradlemountainnationalpark.com.au, ulurukatatjutanationalpark.com.au, royalnationalpark.com.au, sydneyharbournationalpark.com.au and the rest of the Farming Domains portfolio.
+- Provide setup instructions, tracking recommendations, and performance optimisation tips.
+
+**Images (Strict Legal & Quality Requirement):**
+- Prioritise royalty-free stock or AI-generated via Grok Imagine for full control and consistency.
+- If high-quality Creative Commons (CC BY or equivalent) images can be found (e.g., from Wikimedia Commons or similar reputable sources with clear attribution and legal use rights), they should be considered and used where they add superior authenticity or visual impact. Always include proper attribution and verify licensing compatibility. Prefer public landscape and beach views; avoid any images that could depict restricted sacred sites, ceremonies, or identifiable Traditional Owners without explicit permission context. Underwater reef images must be ethical and non-damaging in depiction.
+- Deliver a detailed list of 15–20 high-quality image generation prompts (for AI) or sourcing recommendations covering:
+  - Hero banners: Whitehaven Beach pure white silica sand meeting turquoise water under clear tropical sky or dramatic late-afternoon light
+  - Classic Hill Inlet tidal swirl viewed from the lookout (white sand patterns in turquoise water)
+  - Whitehaven Beach long empty or lightly populated stretches with hoop pines
+  - Island peak or headland views over the Whitsunday archipelago and Coral Sea
+  - Secluded camping beach scenes (tents under casuarina or rainforest edge, basic facilities context)
+  - Boat / tender / water-taxi arrival at Tongue Point or Whitehaven
+  - Fringing reef snorkelling context (clear water, coral, fish — ethical)
+  - Ngaro Cultural Site interpretive / lookout area (respectful, no restricted imagery)
+  - Practical Airlie Beach / Shute Harbour departure scene or marina context
+  - Overnight camping under stars on a Whitsunday beach
+  - Seasonal variations (clear dry-season days vs moody wet-season light)
+  - Wildlife at respectful distance (turtles, rays, reef fish, migratory birds, distant whales in season)
+  - Solway Passage or multi-island views from tracks
+  - Gallery images supporting each major short walk, lookout, and camping beach
+- Include optimised alt text for each, usage notes, and attribution details where CC images are recommended. Prioritise the powerful Whitehaven silica + Hill Inlet swirl visual drama and the contrast between iconic day-trip beaches and secluded camping for maximum emotional pull and conversion. Never generate or suggest images that violate cultural protocols or reef protection principles.
+
+**Full Site Structure & Features:**
+1. **Homepage** — Compelling hero with Whitehaven Beach or Hill Inlet at peak visual impact, search/CTA, featured icons (Whitehaven Beach & Hill Inlet, Camping on the Islands, Day Trips from Airlie, Short Walks & Lookouts, Snorkelling & Reefs, Boat Access Decision, Ngaro Culture), quick itineraries teaser, boat/tide/stinger realism callouts, prominent lead magnet, strong cross-link to sister parks.
+2. **Park Overview** — Geography (continental islands ~25 km east of Airlie Beach, part of Great Barrier Reef World Heritage Area, ~170 km²), joint management context, Traditional Owner acknowledgment (Ngaro people — seafaring “canoe people”, ongoing connection to land and Sea Country, rock art and cultural sites including Nara Inlet), access highlights from Airlie Beach / Shute Harbour, Hamilton Island airport, and mainland bases.
+3. **Things to Do / Walks, Beaches & Lookouts** — Categorized by effort, access method, tide sensitivity, and experience type. Dedicated deep coverage of:
+   - Whitehaven Beach (the global icon) + Hill Inlet Lookout track (1.3–1.4 km return, moderate, ~40 min — the essential pair).
+   - Short walks: Solway Circuit, Beach Track, Dugong–Sawmill Track, Chance Bay Track, Whitehaven Headland, Ngaro Cultural Site track, etc.
+   - Camping beaches hierarchy with access notes (Whitehaven, Dugong, Chance Bay, Joes, Curlew, Maureens Cove, Crayfish, Steens, Cairn, Northern Spit, etc.).
+   - Snorkelling and fringing reef highlights (conditions-dependent).
+   - Advanced multi-day: Ngaro Track overview (32 km, limited capacity, seasonal) and Ngaro Sea Trail elements.
+   Practical tips, approximate grades/times/distances where known, safety, tide notes, and “check live status / conditions” for every major activity. Always direct to official QPWS pages.
+4. **Itineraries** — Multiple printable plans (major differentiator):
+   - Classic Whitehaven + Hill Inlet day trip (tour or self-arranged).
+   - Overnight Whitehaven Beach camping (transfer + self-sufficient).
+   - Secluded camping focus (less crowded beaches).
+   - Half-day / short-walk + snorkel combinations.
+   - Photography / tide-optimised Hill Inlet strategy.
+   - Family / lower-mobility (day tours with minimal walking, or short lookouts).
+   - Multi-day sailing or island-hopping sample.
+   - Ngaro Track or multi-day independent walker outline (with strong “book early / limited numbers” realism).
+   - Airlie Beach base + day-trip realism.
+   Realistic timing, tide windows, weather buffers, transfer schedules, and “skip or adjust if conditions poor” notes throughout.
+5. **Plan Your Visit** — Getting there (fly into Hamilton Island or Proserpine/Whitsunday Coast, drive or bus to Airlie Beach / Shute Harbour), boat access realism (commercial day tours, camping transfers, private vessel, kayak for short hops), camping permit process (book online via Queensland Parks Booking Service; fees currently $7.75 per person per night or $31 family rate — children under 5 free; tag must be displayed; no vehicle access), no general park entry fee, self-sufficiency rules (water, cooking, waste, pest-free), safety (boat, weather, stingers Nov–May, tides, currents, reef etiquette, biosecurity, no drones without permit, stay on tracks), best times/seasons (dry season May–October preferred for weather and whales; wet season higher risk of cyclones and stingers), packing list with Amazon links.
+6. **Accommodation** — Booking.com focused with widgets/best practices. Primary practical base: Airlie Beach (full spectrum from backpackers to resorts and holiday parks) for day tours and camping transfers. Secondary: Hamilton Island and other resort islands for those preferring resort logistics. Note peak-season urgency around school holidays and dry-season Whitehaven demand. No general overnight camping inside the national park without a permit and boat access.
+7. **Tours & Activities** — GetYourGuide / Viator integrations for Whitehaven/Hill Inlet day sails and speedboats, ocean rafting, camping transfer packages, snorkel/dive trips, multi-day charters, scenic flights, and culturally respectful experiences. Clearly label operators and prioritise those aligned with marine park and cultural protocols. Ethical placement only.
+8. **Maps & Resources** — Official Queensland Parks embeds or direct links, Whitsunday national parks journey guide PDF, Parks of the Whitsundays map, track maps (Whitehaven/Tongue Point, etc.), public moorings guide, alerts page, camping booking link, downloadable planner.
+9. **Gear Essentials** — Tailored Amazon section for boat + tropical island + marine conditions (stinger protection, sun protection, waterproofing, hydration, self-sufficient camping, reef-safe products).
+10. **Blog / News** — 3–5 starter posts: Whitehaven Beach + Hill Inlet practical day-trip guide + tide timing, Camping on Whitehaven (transfer + self-sufficiency reality), Boat access decision tree (tour vs transfer vs private), Stinger season & packing reality, Ngaro Cultural Site respectful visit, or best photography windows for the Hill Inlet swirl.
+11. **Legal / Contact / About** — Full disclaimers, privacy, affiliate policy, crystal-clear “Not affiliated with Queensland Parks and Wildlife Service (QPWS), the Department of the Environment, Tourism, Science and Innovation, the Great Barrier Reef Marine Park Authority (GBRMPA), Ngaro Traditional Owners, or any government agency”. Strong cultural sensitivity and reef protection statement.
+
+**Technical & Best Practices:**
+- Fast loading, fully SEO-optimized (on-page, schema markup for TouristAttraction / Place / Trip, target keywords, meta descriptions, internal linking, FAQ schema for high-intent queries such as Whitehaven camping, Hill Inlet lookout, day trips, camping permits, stinger season, tide timing).
+- WCAG accessible, secure (HTTPS), mobile-first, performance optimised (lazy loading, compressed images).
+- Consistent Farming Domains branding and footer cross-links to all sister national park sites.
+- Provide complete, maintainable code/structure (simple HTML/CSS/JS preferred for easy updates, or recommend lightweight framework if clearly superior).
+- Custom CSS/JS for differentiators (lightbox galleries, printable itineraries, sticky mobile nav, simple tide/access decision helper or seasonal notes if valuable and lightweight).
+- Setup instructions for all monetization tools, email capture, analytics (GA4 + UTM).
+
+**Deliverables:**
+- Complete site code/structure.
+- Full list of 15–20 AI image prompts (or sourcing recommendations) with alt text, usage notes, and attribution details.
+- Detailed launch + monetization checklist (affiliate signup/approval steps, tracking, compliance, optimisation tactics, realistic earnings context for a high-intent global icon site with very strong domestic + international search volume for Whitehaven Beach / Hill Inlet / Whitsundays).
+- Phase 2 suggestions (deeper seasonal/tide content, user-generated photos with strict attribution and cultural/reef review, email nurturing sequences, A/B testing on day-tour vs camping CTAs, stronger stinger-season and cyclone alerts, multi-day sailing expansions, cross-promotion to other QLD or portfolio sites).
+- Any additional scripts or recommendations for ongoing performance and official alert / track status / weather / tide monitoring.
+
+**Overarching Priorities (Your Goals):**
+- Visitor experience first: Actionable, trustworthy, culturally respectful, and genuinely useful for people who want to experience the Whitsunday Islands properly — not just tick Whitehaven off a list, get caught by tides or stingers, or unintentionally breach marine or cultural protocols.
+- Strong SEO traffic driver for long-tail “Whitehaven Beach camping practical”, “Hill Inlet lookout tide”, “Whitsunday Islands camping permit”, “Whitehaven day trip from Airlie”, and “Ngaro Cultural Site” queries.
+- Sustainable, ethical revenue generation with clear value exchange.
+- Make this the definitive unofficial practical resource for Whitsunday Islands National Park — the tropical island and marine heart of the Great Barrier Reef World Heritage Area.
+
+Always cross-reference official sources for accuracy on conditions, fees, closures, permits, walks, safety, cultural protocols, and marine rules:
+- https://parks.qld.gov.au/parks/whitsunday-islands
+- https://parks.qld.gov.au/parks/whitsunday-islands/camping
+- https://parks.qld.gov.au/camping/bookings (or book.parks.qld.gov.au)
+- https://parks.qld.gov.au/parks/whitsunday-islands/about
+- Specific track / journey pages under the park (e.g. Hill Inlet lookout track)
+- Whitsunday national parks journey guide PDF
+- https://parks.qld.gov.au/park-alerts
+- GBRMPA Whitsundays Plan of Management and zoning information
+- Public moorings and anchoring guides
+- Current weather, tide, and marine stinger information via official or reputable channels
+
+Build it now. Make it better than bluemountainsnationalpark.com.au and the recent Uluru / Cradle sites in boat-access decision depth, tidal & marine realism, camping self-sufficiency clarity, iconic Whitehaven + Hill Inlet strategy, visual drama of silica sand meeting turquoise sea, monetization flow for high-intent Whitsundays / Whitehaven traffic, and overall user value. Deliver everything in a well-organised manner.

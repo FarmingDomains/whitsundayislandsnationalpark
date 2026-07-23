@@ -1,0 +1,33 @@
+---
+/**
+ * Emits JSON-LD. Accepts one object, an array of objects, or a pre-built graph.
+ * Arrays are wrapped as schema.org @graph for cleaner multi-entity pages.
+ */
+interface Props {
+  data: Record<string, unknown> | Record<string, unknown>[];
+}
+const { data } = Astro.props;
+
+function stripContext(obj: Record<string, unknown>) {
+  const { '@context': _c, ...rest } = obj;
+  return rest;
+}
+
+let payload: Record<string, unknown>;
+if (Array.isArray(data)) {
+  if (data.length === 1) {
+    payload = data[0];
+  } else {
+    payload = {
+      '@context': 'https://schema.org',
+      '@graph': data.map((d) => stripContext(d)),
+    };
+  }
+} else {
+  payload = data;
+}
+
+const json = JSON.stringify(payload).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={json} />

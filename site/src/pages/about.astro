@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { official, sisterParks } from '../data/seo';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'About' },
+];
+---
+
+<Layout
+  title="About this guide"
+  fullTitle="About This Guide · Whitsunday Islands National Park"
+  description="About the unofficial Whitsunday Islands National Park guide by Farming Domains — independent planning advice, not Queensland Parks (QPWS) or Ngaro Traditional Owners."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">About this guide</h1>
+    <div class="prose-park mt-6 max-w-3xl">
+      <p>
+        <strong class="text-park-900 dark:text-park-50">whitsundayislandsnationalpark.com.au</strong> is an independent, unofficial visitor guide.
+        We help people plan culturally respectful visits, heat-aware walks, itineraries, stays and tours in and around
+        Whitsunday Islands National Park, Queensland — with a Ngaro cultural sites-first and Airlie Beach-base focus.
+      </p>
+      <p>
+        We are <strong>not</strong> Queensland Parks (QPWS), the Department of the Environment, Tourism, Science and Innovation, GBRMPA,
+        Ngaro Traditional Owners, commercial tour operators, Tourism Whitsundays, or any other government or commercial attraction operator.
+      </p>
+      <p>
+        We acknowledge Ngaro as the Traditional Owners of this Country. Sea Country is the foundation of Ngaro culture and connection to land.
+        This guide does not retell restricted sacred stories. Use public interpretive material, free ranger-guided activities and authorised cultural products only.
+      </p>
+      <p>
+        Always verify fees, track status, temperature closures and safety on the{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">official Queensland Parks (QPWS) pages</a>
+        {' '}before you travel.
+      </p>
+      <h2>Farming Domains portfolio</h2>
+      <p>This site is part of a family of unofficial Australian national park guides:</p>
+      <ul>
+        {
+          sisterParks.map((p) => (
+            <li>
+              <a href={p.href} target="_blank" rel="noopener noreferrer">
+                {p.label}
+              </a>
+              {p.note ? ` — ${p.note}` : ''}
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        Questions about this website (not park emergencies): <a href="/contact/">contact form</a>.
+        For emergencies call <strong>000</strong>. For official park help use Queensland Parks (QPWS) channels.
+      </p>
+    </div>
+  </div>
+</Layout>

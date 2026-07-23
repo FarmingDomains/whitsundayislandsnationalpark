@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { official } from '../data/seo';
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Disclaimer' },
+];
+---
+
+<Layout
+  title="Disclaimer"
+  fullTitle="Disclaimer · Whitsunday Islands National Park Guide"
+  description="Disclaimer for the unofficial Whitsunday Islands National Park guide — independent of Queensland Parks (QPWS), Ngaro Traditional Owners and commercial operators."
+  breadcrumbs={crumbs}
+>
+  <div class="page-container py-8 sm:py-12">
+    <Breadcrumbs items={crumbs} />
+    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Disclaimer</h1>
+    <div class="prose-park mt-6 max-w-3xl">
+      <p>
+        <strong>whitsundayislandsnationalpark.com.au</strong> is an independent, unofficial visitor planning website operated as part of the Farming Domains portfolio.
+        It is <strong>not affiliated with, endorsed by, or representative of</strong> Queensland Parks (QPWS), the Department of the Environment, Tourism, Science and Innovation, GBRMPA,
+        Ngaro Traditional Owners, the Whitsunday Islands Board of Management, commercial tour operators or resorts, Tourism Whitsundays, or any other government agency or commercial operator.
+      </p>
+      <p>
+        Information on fees, track distances, grades, temperature closures, Ngaro cultural sites hours, free ranger-guided activities, safety and access is provided for general orientation only
+        and may be incomplete or out of date. Always rely on{' '}
+        <a href={official.park} target="_blank" rel="noopener noreferrer">official Queensland Parks (QPWS) resources</a>
+        {' '}and on-site advice for the real place.
+      </p>
+      <p>
+        Walking in tropical heat involves risk of injury or death. You are responsible for your decisions, fitness, equipment, hydration and weather judgement.
+        This site does not provide emergency services. In an emergency call <strong>000</strong>.
+      </p>
+      <p>
+        Some images are AI-generated illustrations for atmosphere and planning context. They are not official park photographs and may not match current conditions or exact locations.
+        Cultural protocols prohibit depicting restricted sacred sites, ceremonies, or people without appropriate permission — we aim to avoid such imagery.
+      </p>
+      <p>
+        Affiliate links may earn commissions; see <a href="/affiliate-disclosure/">affiliate disclosure</a>. Camping permits and official bookings are never affiliated.
+      </p>
+    </div>
+  </div>
+</Layout>

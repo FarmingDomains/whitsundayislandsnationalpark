@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdSense from '../../components/AdSense.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import { blogPosts, getPost } from '../../data/blog';
+import { absoluteUrl } from '../../data/seo';
+
+export function getStaticPaths() {
+  return blogPosts.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = getPost(slug!);
+if (!post) throw new Error(`Unknown post: ${slug}`);
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.description,
+  datePublished: post.date,
+  dateModified: post.date,
+  author: { '@type': 'Organization', name: 'Farming Domains' },
+  mainEntityOfPage: absoluteUrl(`/articles/${post.slug}/`),
+};
+---
+
+<Layout
+  title={post.title}
+  fullTitle={`${post.title} · Whitsunday Articles`}
+  description={post.description}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Articles', href: '/articles/' },
+    { name: post.title },
+  ]}
+  jsonLd={articleLd}
+>
+  <article class="page-container py-10 sm:py-14">
+    <p class="section-label">{post.date}</p>
+    <h1 class="mt-2 text-3xl font-bold sm:text-4xl">{post.title}</h1>
+    <p class="mt-4 max-w-3xl text-mist-700 dark:text-park-200/90">{post.description}</p>
+    <div class="mt-8 max-w-3xl space-y-4 text-mist-700 dark:text-park-200/90">
+      {post.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {
+        post.tags.map((t) => (
+          <span class="rounded-full bg-park-100 px-3 py-1 text-xs font-semibold text-park-800 dark:bg-park-800 dark:text-park-100">
+            {t}
+          </span>
+        ))
+      }
+    </div>
+    <AdSense unit="inContent" />
+    <div class="mt-10">
+      <OfficialResources />
+    </div>
+  </article>
+</Layout>
