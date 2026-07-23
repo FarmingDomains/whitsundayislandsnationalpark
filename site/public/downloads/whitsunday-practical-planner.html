@@ -1,84 +1,228 @@
 <!DOCTYPE html>
 <html lang="en-AU">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Whitsunday Islands Practical Planner · Unofficial</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 1.5rem auto; padding: 0 1rem; line-height: 1.55; color: #0f172a; }
-    h1 { font-size: 1.5rem; color: #0c4a6e; }
-    h2 { font-size: 1.1rem; margin-top: 1.5rem; color: #0369a1; border-bottom: 1px solid #bae6fd; padding-bottom: 0.25rem; }
-    ul { padding-left: 1.2rem; }
-    .note { background: #f0f9ff; border: 1px solid #bae6fd; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.9rem; }
-    .warn { background: #fffbeb; border-color: #fde68a; }
-    a { color: #0369a1; }
-    @media print { a[href]::after { content: " (" attr(href) ")"; font-size: 0.75em; } .no-print { display: none; } }
-  </style>
-</head>
-<body>
-  <p class="no-print"><a href="/">← Back to guide</a></p>
-  <h1>Whitsunday Islands Practical Planner</h1>
-  <p><strong>Unofficial checklist</strong> for Whitehaven Beach, Hill Inlet, boat access and camping. Always verify with <a href="https://parks.qld.gov.au/parks/whitsunday-islands">Queensland Parks</a> and your operator before you go.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Whitsunday Islands Practical Planner</title>
+    <style>
+      :root {
+        --ink: #0c3d45;
+        --muted: #5c5648;
+        --line: #a8e8eb;
+        --soft: #f0fafa;
+        --accent: #0f7f8c;
+        --warn: #92400e;
+        --warn-bg: #fffbeb;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        color: var(--ink);
+        line-height: 1.45;
+        font-size: 11pt;
+        background: #fff;
+      }
+      .page { max-width: 800px; margin: 0 auto; padding: 28px 32px 40px; }
+      header { border-bottom: 3px solid var(--ink); padding-bottom: 14px; margin-bottom: 18px; }
+      .site-url { margin: 0 0 8px; font-size: 12pt; font-weight: 800; }
+      .site-url a { color: var(--ink); text-decoration: none; }
+      .eyebrow {
+        font-size: 9pt; font-weight: 700; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--accent); margin: 0 0 6px;
+      }
+      h1 { margin: 0; font-size: 22pt; line-height: 1.15; }
+      .sub { margin: 8px 0 0; color: var(--muted); font-size: 10pt; }
+      .banner {
+        background: var(--warn-bg); border: 1px solid #fde68a; border-radius: 8px;
+        padding: 10px 12px; font-size: 9.5pt; color: var(--warn); margin: 14px 0 18px;
+      }
+      h2 {
+        margin: 18px 0 8px; font-size: 12.5pt; border-bottom: 1px solid var(--line); padding-bottom: 4px;
+      }
+      ul, ol { margin: 0 0 8px; padding-left: 1.2em; }
+      li { margin: 3px 0; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; }
+      @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } .page { padding: 20px 16px 32px; } }
+      .box { background: var(--soft); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+      .box h3 { margin: 0 0 6px; font-size: 11pt; }
+      footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 8.5pt; color: var(--muted); }
+      @media print {
+        .no-print { display: none !important; }
+        body { font-size: 10pt; }
+        .page { padding: 0; max-width: none; }
+      }
+      .btn {
+        display: inline-block; margin-top: 10px; padding: 8px 14px; background: var(--accent);
+        color: #fff !important; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 10pt;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <p class="site-url"><a href="https://www.whitsundayislandsnationalpark.com.au/">www.whitsundayislandsnationalpark.com.au</a></p>
+        <p class="eyebrow">Unofficial free planner</p>
+        <h1>Whitsunday Islands Practical Planner</h1>
+        <p class="sub">
+          Boat access · Whitehaven + Hill Inlet · tides · camping vs day trip · stinger &amp; weather filters · self-sufficient packing · Ngaro respect · official links
+        </p>
+        <p class="no-print"><a class="btn" href="javascript:window.print()">Print this page</a></p>
+      </header>
 
-  <div class="note warn">
-    <strong>Not affiliated</strong> with QPWS, GBRMPA, Ngaro Traditional Owners, or any government agency. Fees, track status and marine conditions change.
-  </div>
+      <div class="banner">
+        <strong>Verify everything officially.</strong> Camping fees, track status, boat access, marine rules and weather windows change.
+        Use Queensland Parks (parks.qld.gov.au/parks/whitsunday-islands), GBRMPA Whitsundays access pages, BOM tides/marine forecasts, and your operator.
+        This is an independent unofficial guide — not affiliated with QPWS, GBRMPA, Ngaro Traditional Owners, or any government agency.
+      </div>
 
-  <h2>1. Boat-access decision</h2>
-  <ul>
-    <li>□ Day tour from Airlie / Shute Harbour (volume path)</li>
-    <li>□ Camping transfer + QPWS permit (immersion path)</li>
-    <li>□ Private vessel / bareboat / multi-day sail (freedom path — skills required)</li>
-    <li>□ Weather buffer day booked if Whitehaven is non-negotiable</li>
-  </ul>
+      <h2>1. Before you leave Airlie Beach</h2>
+      <ul>
+        <li>☐ Boat path chosen: day tour · camping transfer · private / multi-day sail</li>
+        <li>☐ Tour / transfer booking confirmed + offline screenshot / QR</li>
+        <li>☐ Weather buffer day if Whitehaven is non-negotiable (wind cancels boats)</li>
+        <li>☐ Marine forecast + BOM tide tables checked (Hill Inlet swirl is tide-dependent)</li>
+        <li>☐ Park alerts checked: https://parks.qld.gov.au/park-alerts</li>
+        <li>☐ Dry bag packed; phone waterproofed</li>
+        <li>☐ Stinger plan if swimming (typically Nov–May — suit or skip)</li>
+        <li>☐ Someone on the mainland knows your boat times / camp plan</li>
+      </ul>
 
-  <h2>2. Icon pair: Whitehaven + Hill Inlet</h2>
-  <ul>
-    <li>□ Product inclusions checked (does it include Hill Inlet lookout?)</li>
-    <li>□ BOM tide tables checked (swirl is tide-dependent)</li>
-    <li>□ Closed-toe shoes for ~1.3 km return moderate lookout track</li>
-    <li>□ Muster / pick-up times written down</li>
-  </ul>
+      <h2>2. Boat-access decision hierarchy</h2>
+      <div class="grid">
+        <div class="box">
+          <h3>Day tour (volume path)</h3>
+          <ul>
+            <li>Best for first-timers &amp; mixed groups</li>
+            <li>Fixed window; shared beach time</li>
+            <li>Confirm Hill Inlet inclusion</li>
+            <li>Read cancellation policy</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Camping transfer (immersion)</h3>
+          <ul>
+            <li>QPWS permit + displayed tag</li>
+            <li>Pack water in (no reliable taps)</li>
+            <li>Stove only — no campfires</li>
+            <li>Both-way transfer windows fixed</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Private / bareboat / multi-day sail</h3>
+          <ul>
+            <li>Skills + GBRMPA zoning required</li>
+            <li>Public moorings / anchor rules</li>
+            <li>Weather windows stricter</li>
+            <li>Higher cost, higher freedom</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Skip / defer if…</h3>
+          <ul>
+            <li>High winds / cancel SMS</li>
+            <li>No weather buffer on flights</li>
+            <li>Camping gear incomplete</li>
+            <li>Seasickness + rough forecast</li>
+          </ul>
+        </div>
+      </div>
 
-  <h2>3. Camping (if overnight)</h2>
-  <ul>
-    <li>□ QPWS camping booking confirmed + tag display plan</li>
-    <li>□ Water packed (plan generously; no reliable fresh water on most sites)</li>
-    <li>□ Stove + fuel (no campfires)</li>
-    <li>□ Waste pack-out bags</li>
-    <li>□ Pest-free / biosecurity gear check</li>
-    <li>□ Transfer windows confirmed both ways</li>
-  </ul>
+      <h2>3. Icon pair: Whitehaven + Hill Inlet</h2>
+      <ol>
+        <li>Confirm product includes <strong>Hill Inlet lookout</strong> (not every Whitehaven trip does).</li>
+        <li>Check <strong>tides</strong> — mid-to-high often delivers the classic swirl; low tide still beautiful, different look.</li>
+        <li>Closed-toe shoes for lookout (~1.3–1.4 km return, moderate, ~40 min walking — verify officially).</li>
+        <li>Write down <strong>muster / pick-up</strong> time; do not miss the boat for “one more photo”.</li>
+        <li>Beach time: sun protection + hydration; swim only if conditions and stinger guidance allow.</li>
+      </ol>
 
-  <h2>4. Stinger, sun & marine safety</h2>
-  <ul>
-    <li>□ Stinger season awareness (typically Nov–May) — suit or skip swim</li>
-    <li>□ Reef-safe sunscreen + UPF clothing + hat with cord</li>
-    <li>□ Dry bag + waterproof phone pouch</li>
-    <li>□ Seasickness plan if needed</li>
-    <li>□ Reef etiquette: no standing on coral, no taking shells/coral</li>
-  </ul>
+      <h2>4. Day-trip vs overnight camping</h2>
+      <div class="grid">
+        <div class="box">
+          <h3>Day trip honesty</h3>
+          <ul>
+            <li>Shared icon beach in peak season</li>
+            <li>Clock set by the boat</li>
+            <li>Lower gear load</li>
+            <li>Still world-class silica sand</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Overnight camping</h3>
+          <ul>
+            <li>Book: book.parks.qld.gov.au / parks.qld.gov.au camping</li>
+            <li>Fees apply — re-check live $</li>
+            <li>Tag displayed at site</li>
+            <li>Quieter dawn / dusk hours</li>
+          </ul>
+        </div>
+      </div>
+      <ul>
+        <li>☐ Water plan: often 5 L+ per person per day (no reliable fresh water on most sites — verify official advice)</li>
+        <li>☐ Stove + fuel (no campfires)</li>
+        <li>☐ Waste pack-out bags</li>
+        <li>☐ Pest-free / biosecurity gear check (boats, clothes, kit)</li>
+        <li>☐ Transfer both ways confirmed</li>
+      </ul>
 
-  <h2>5. Cultural respect</h2>
-  <ul>
-    <li>□ Stay on marked tracks at cultural sites</li>
-    <li>□ No restricted rock-art photography</li>
-    <li>□ Support operators that respect Ngaro protocols and marine rules</li>
-  </ul>
+      <h2>5. Stinger, sun &amp; marine safety</h2>
+      <ul>
+        <li>☐ Stinger season awareness (typically November–May)</li>
+        <li>☐ Full-body suit / lycra if snorkelling in season (or as operator requires)</li>
+        <li>☐ Reef-safe high-SPF sunscreen + UPF shirt + hat with cord</li>
+        <li>☐ Polarised sunglasses (glare off silica + water)</li>
+        <li>☐ Dry bag + waterproof phone pouch</li>
+        <li>☐ Seasickness plan if needed</li>
+        <li>☐ Reef etiquette: no standing on coral; no taking shells/coral</li>
+        <li>☐ GBRMPA zoning if you skipper yourself</li>
+        <li>☐ No recreational drones without proper authorisation</li>
+      </ul>
 
-  <h2>Official links</h2>
-  <ul>
-    <li><a href="https://parks.qld.gov.au/parks/whitsunday-islands">Park home</a></li>
-    <li><a href="https://parks.qld.gov.au/parks/whitsunday-islands/camping">Camping</a></li>
-    <li><a href="https://parks.qld.gov.au/camping/bookings">Bookings &amp; fees</a></li>
-    <li><a href="https://parks.qld.gov.au/parks/whitsunday-islands/journeys/hill-inlet-lookout-track">Hill Inlet lookout track</a></li>
-    <li><a href="https://parks.qld.gov.au/park-alerts">Park alerts</a></li>
-    <li><a href="https://www.gbrmpa.gov.au/access/whitsundays">GBRMPA Whitsundays</a></li>
-    <li><a href="https://www.bom.gov.au/australia/tides/">BOM tides</a></li>
-  </ul>
+      <h2>6. Ngaro cultural respect</h2>
+      <ul>
+        <li>☐ Stay on marked tracks at cultural sites</li>
+        <li>☐ Do not touch rock art</li>
+        <li>☐ No restricted / ceremony photography</li>
+        <li>☐ Do not invent or retell sacred stories</li>
+        <li>☐ Prefer operators that respect cultural and marine park protocols</li>
+      </ul>
 
-  <p style="margin-top:2rem;font-size:0.85rem;color:#64748b;">
-    From <strong>whitsundayislandsnationalpark.com.au</strong> · Farming Domains portfolio · Print or save as PDF from your browser.
-  </p>
-</body>
+      <h2>7. Packing checklist (tropical boat + island)</h2>
+      <div class="grid">
+        <ul>
+          <li>☐ Dry bag (10–20 L)</li>
+          <li>☐ Waterproof phone case</li>
+          <li>☐ UPF long-sleeve / rash shirt</li>
+          <li>☐ Wide-brim hat with cord</li>
+          <li>☐ Closed-toe shoes (lookout + landings)</li>
+          <li>☐ Stinger suit / lycra (seasonal)</li>
+        </ul>
+        <ul>
+          <li>☐ Water + snacks (even if lunch included)</li>
+          <li>☐ Reef-safe sunscreen</li>
+          <li>☐ Polarised sunglasses</li>
+          <li>☐ Headlamp (if camping)</li>
+          <li>☐ Collapsible water jugs (if camping)</li>
+          <li>☐ Stove + fuel (if camping)</li>
+        </ul>
+      </div>
+
+      <h2>8. Official links to verify</h2>
+      <ul>
+        <li>Park home: https://parks.qld.gov.au/parks/whitsunday-islands</li>
+        <li>About: https://parks.qld.gov.au/parks/whitsunday-islands/about</li>
+        <li>Camping: https://parks.qld.gov.au/parks/whitsunday-islands/camping</li>
+        <li>Bookings &amp; fees: https://parks.qld.gov.au/camping/bookings</li>
+        <li>Hill Inlet lookout track: https://parks.qld.gov.au/parks/whitsunday-islands/journeys/hill-inlet-lookout-track</li>
+        <li>Park alerts: https://parks.qld.gov.au/park-alerts</li>
+        <li>GBRMPA Whitsundays: https://www.gbrmpa.gov.au/access/whitsundays</li>
+        <li>BOM tides: https://www.bom.gov.au/australia/tides/</li>
+      </ul>
+
+      <footer>
+        Unofficial planner from www.whitsundayislandsnationalpark.com.au · Farming Domains portfolio · Not affiliated with Queensland Parks (QPWS), GBRMPA, or Ngaro Traditional Owners · Always verify on-site and officially before you go · Some website stay/tour/gear links may be affiliates; camping permits never are · Print date: fill in ________.
+      </footer>
+    </div>
+  </body>
 </html>
