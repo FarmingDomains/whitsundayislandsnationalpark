@@ -24,7 +24,7 @@ import { official } from '../data/seo';
 import { getTrail } from '../data/trails';
 import { itineraries } from '../data/itineraries';
 import { contentMeta } from '../data/contentMeta';
-import { siteImages } from '../data/pageImages';
+import { siteImages, attributionHtml } from '../data/pageImages';
 
 const featuredTrails = [
   getTrail('hill-inlet-lookout')!,
@@ -251,9 +251,10 @@ const decisionTree = [
           width={siteImages.hillInlet.src.width}
           height={siteImages.hillInlet.src.height}
         />
-        <figcaption class="bg-white px-4 py-3 text-sm text-mist-700 dark:bg-park-900 dark:text-park-300">
-          {siteImages.hillInlet.caption} — tide-dependent; verify conditions officially.
-        </figcaption>
+        <figcaption
+          class="bg-white px-4 py-3 text-sm text-mist-700 dark:bg-park-900 dark:text-park-300 [&_a]:font-semibold [&_a]:text-park-700 dark:[&_a]:text-park-300"
+          set:html={`${attributionHtml(siteImages.hillInlet, { prefix: siteImages.hillInlet.caption })} — tide-dependent; verify conditions officially.`}
+        />
       </figure>
     </section>
 

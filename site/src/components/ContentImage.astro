@@ -1,12 +1,15 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { attributionHtml, type SiteImage } from '../data/pageImages';
 
 interface Props {
   src: ImageMetadata;
   alt: string;
-  /** Shown under the image — should match or echo the section heading */
   caption?: string;
+  captionHtml?: string;
+  /** When set, builds linked CC credit from structured SiteImage fields */
+  imageMeta?: SiteImage;
   class?: string;
   imgClass?: string;
   loading?: 'lazy' | 'eager';
@@ -17,11 +20,20 @@ const {
   src,
   alt,
   caption,
+  captionHtml,
+  imageMeta,
   class: className = '',
   imgClass = 'max-h-80 w-full object-cover',
   loading = 'lazy',
   priority = false,
 } = Astro.props;
+
+const resolvedHtml =
+  captionHtml ??
+  (imageMeta
+    ? imageMeta.captionHtml ??
+      attributionHtml(imageMeta, { prefix: imageMeta.caption })
+    : undefined);
 ---
 
 <figure class:list={['overflow-hidden rounded-2xl border border-mist-200 bg-white shadow-sm dark:border-park-700 dark:bg-park-900/40', className]}>
@@ -35,10 +47,15 @@ const {
     fetchpriority={priority ? 'high' : undefined}
   />
   {
-    caption && (
+    resolvedHtml ? (
+      <figcaption
+        class="border-t border-mist-200 px-4 py-2.5 text-sm leading-snug text-park-800 dark:border-park-700 dark:text-park-100 [&_a]:font-semibold"
+        set:html={resolvedHtml}
+      />
+    ) : caption ? (
       <figcaption class="border-t border-mist-200 px-4 py-2.5 text-sm font-medium text-park-800 dark:border-park-700 dark:text-park-100">
         {caption}
       </figcaption>
-    )
+    ) : null
   }
 </figure>

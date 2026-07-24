@@ -39,32 +39,12 @@ export const official = {
   stingers: 'https://www.health.qld.gov.au/clinical-practice/guidelines-procedures/diseases-infection/diseases/jellyfish',
 };
 
-/** Sister park sites in the Farming Domains portfolio (with short notes for About) */
+/** Sister park sites in the Farming Domains portfolio (with short notes for About) — exclude this site */
 export const sisterParks = [
   {
-    href: 'https://www.ulurukatatjutanationalpark.com.au/',
-    label: 'Uluru-Kata Tjuta NP',
-    note: 'Red Centre · cultural respect',
-  },
-  {
-    href: 'https://www.cradlemountainnationalpark.com.au/',
-    label: 'Cradle Mountain NP',
-    note: 'Alpine World Heritage · TAS',
-  },
-  {
-    href: 'https://www.portcampbellnationalpark.com.au/',
-    label: 'Port Campbell NP',
-    note: 'Shipwreck Coast · Twelve Apostles',
-  },
-  {
-    href: 'https://greatotwaynationalpark.com.au/',
-    label: 'Great Otway NP',
-    note: 'Rainforest & coast (VIC)',
-  },
-  {
-    href: 'https://www.bluemountainsnationalpark.com.au/',
-    label: 'Blue Mountains NP',
-    note: 'Escarpment walks · NSW',
+    href: 'https://www.royalnationalpark.com.au/',
+    label: 'Royal National Park',
+    note: 'Coastal walks · Sydney',
   },
   {
     href: 'https://springbrooknationalpark.com.au/',
@@ -72,14 +52,49 @@ export const sisterParks = [
     note: 'Waterfalls · Gold Coast hinterland',
   },
   {
-    href: 'https://www.royalnationalpark.com.au/',
-    label: 'Royal National Park',
-    note: 'Coastal walks · Sydney',
+    href: 'https://www.bluemountainsnationalpark.com.au/',
+    label: 'Blue Mountains NP',
+    note: 'Escarpment walks · NSW',
   },
   {
     href: 'https://www.sydneyharbournationalpark.com.au/',
     label: 'Sydney Harbour NP',
     note: 'Harbour headlands',
+  },
+  {
+    href: 'https://greatotwaynationalpark.com.au/',
+    label: 'Great Otway NP',
+    note: 'Rainforest & coast (VIC)',
+  },
+  {
+    href: 'https://www.portcampbellnationalpark.com.au/',
+    label: 'Port Campbell NP',
+    note: 'Shipwreck Coast · Twelve Apostles',
+  },
+  {
+    href: 'https://www.cradlemountainnationalpark.com.au/',
+    label: 'Cradle Mountain NP',
+    note: 'Alpine World Heritage · TAS',
+  },
+  {
+    href: 'https://www.ulurukatatjutanationalpark.com.au/',
+    label: 'Uluru-Kata Tjuta NP',
+    note: 'Red Centre · cultural respect',
+  },
+  {
+    href: 'https://www.karijininationalpark.com.au/',
+    label: 'Karijini NP',
+    note: 'Gorges · Pilbara WA',
+  },
+  {
+    href: 'https://www.kuringgaichasenationalpark.com.au/',
+    label: 'Ku-ring-gai Chase NP',
+    note: 'Hawkesbury · sandstone NSW',
+  },
+  {
+    href: 'https://www.grampiansnationalpark.com.au/',
+    label: 'Grampians NP',
+    note: 'Ranges & rock · VIC',
   },
   {
     href: 'https://www.farmingdomains.com/',
