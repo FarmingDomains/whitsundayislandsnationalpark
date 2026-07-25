@@ -4,7 +4,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import MonetisationPanel from '../components/MonetisationPanel.astro';
 import OfficialResources from '../components/OfficialResources.astro';
 import AdSense from '../components/AdSense.astro';
-import { bookingSearchUrl, externalRel, affiliates } from '../data/affiliates';
+import { bookingSearchUrl, externalRel } from '../data/affiliates';
 import { official } from '../data/seo';
 
 const crumbs = [
@@ -19,13 +19,15 @@ const hubs = [
     blurb:
       'The practical mainland base for day tours and camping transfers: backpackers to resorts and holiday parks. Peak dry-season inventory sells out around school holidays and Whitehaven demand — book early.',
     primary: true,
+    sponsored: true,
   },
   {
-    key: 'cannonvale' as const,
-    title: 'Cannonvale & nearby',
+    key: 'proserpine' as const,
+    title: 'Proserpine / Whitsunday Coast',
     blurb:
-      'Extends the Airlie bed pool with apartments and quieter streets. Still convenient for most tour pick-ups — confirm transfer times with your operator.',
+      'Quieter / airport-side option near Whitsunday Coast Airport. Useful if you want mainland beds without full Airlie town energy — confirm tour pick-up coverage.',
     primary: false,
+    sponsored: true,
   },
   {
     key: 'hamiltonIsland' as const,
@@ -33,6 +35,15 @@ const hubs = [
     blurb:
       'Fly-in resort island alternative when you want packaged stays and on-island amenities. Still confirm how you reach Whitehaven and national park beaches from your resort base.',
     primary: false,
+    sponsored: true,
+  },
+  {
+    key: 'cannonvale' as const,
+    title: 'Cannonvale & nearby',
+    blurb:
+      'Extends the Airlie bed pool with apartments and quieter streets. Still convenient for most tour pick-ups — confirm transfer times with your operator.',
+    primary: false,
+    sponsored: false,
   },
   {
     key: 'shuteHarbour' as const,
@@ -40,6 +51,7 @@ const hubs = [
     blurb:
       'Useful if your vessel departs from Shute Harbour and you want minimal morning transit. Fewer walkable town amenities than central Airlie.',
     primary: false,
+    sponsored: false,
   },
 ];
 ---
@@ -68,7 +80,7 @@ const hubs = [
             <a
               href={bookingSearchUrl(hub.key)}
               target="_blank"
-              rel={externalRel(affiliates.hasBookingAffiliate)}
+              rel={externalRel(hub.sponsored)}
               class:list={['mt-4 inline-flex', hub.primary ? 'btn-primary !text-sm' : 'btn-secondary !text-sm']}
             >
               Search stays
@@ -87,7 +99,8 @@ const hubs = [
         Island camping is not “free beach camping.” You need a booking, a displayed tag, packed water, stove cooking (no campfires) and a reliable transfer plan. This site never sells camping permits.
       </p>
       <p class="affiliate-note">
-        Stay links may use Booking.com partner tracking when configured. Camping permits are never affiliated.
+        Primary stay links use Booking.com via CJ Affiliate and may earn a commission at no extra cost to you.
+        Camping permits and official Queensland Parks (QPWS) bookings are never affiliated.
         See <a href="/affiliate-disclosure/">affiliate disclosure</a>.
       </p>
     </div>

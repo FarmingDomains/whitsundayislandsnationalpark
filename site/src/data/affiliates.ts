@@ -2,14 +2,15 @@
  * Affiliate link helpers for whitsundayislandsnationalpark.com.au.
  *
  * Set in site/.env (PUBLIC_* baked at build for static FTP hosts):
- *   PUBLIC_BOOKING_AID=
  *   PUBLIC_GETYOURGUIDE_PARTNER=
  *   PUBLIC_AMAZON_TAG=rero07-22
+ *   PUBLIC_BOOKING_AID= (optional legacy Booking.com aid; CJ deep links preferred)
  *
- * Without Booking/GYG IDs, links still work as convenience links (no rel=sponsored).
- * With IDs, tracking is appended and rel includes sponsored.
+ * Booking.com stays use live CJ Affiliate deep links (always sponsored).
+ * Without GYG partner ID, tour links still work as convenience links (no rel=sponsored).
  */
 
+/** Optional legacy Booking.com aid — CJ deep links below take priority for known hubs. */
 const bookingAid = import.meta.env.PUBLIC_BOOKING_AID?.trim() ?? '';
 const gygPartner = import.meta.env.PUBLIC_GETYOURGUIDE_PARTNER?.trim() ?? '';
 /** GYG Partner “campaign” — multi-site analytics (default = this domain slug). */
@@ -18,19 +19,37 @@ const gygCampaign =
 /** Default AU tag when env empty — Ian’s Associates ID; override via .env if needed */
 const amazonTag = import.meta.env.PUBLIC_AMAZON_TAG?.trim() || 'rero07-22';
 
+/**
+ * Live CJ Affiliate → Booking.com search deep links (partner 101839079 / SID 17293136).
+ * rel=sponsored on all of these.
+ */
+export const bookingCjLinks = {
+  airlieBeach:
+    'https://www.anrdoezrs.net/click-101839079-17293136?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.en-gb.html%3Fss%3DAirlie%2BBeach%252C%2BQueensland%252C%2BAustralia%26dest_type%3Dcity%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0',
+  proserpine:
+    'https://www.anrdoezrs.net/click-101839079-17293136?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.en-gb.html%3Fss%3DProserpine%252C%2BQueensland%252C%2BAustralia%26dest_type%3Dcity%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0',
+  hamiltonIsland:
+    'https://www.jdoqocy.com/click-101839079-17293136?url=https%3A%2F%2Fwww.booking.com%2Fsearchresults.en-gb.html%3Fss%3DHamilton%2BIsland%252C%2BQueensland%252C%2BAustralia%26dest_type%3Dcity%26group_adults%3D2%26no_rooms%3D1%26group_children%3D0',
+} as const;
+
+/** Booking.com stays are active via CJ deep links (not waiting on PUBLIC_BOOKING_AID). */
+const bookingAffiliateActive = true;
+
 export const affiliates = {
   bookingAid,
   gygPartner,
   gygCampaign,
   amazonTag,
-  hasBookingAffiliate: bookingAid.length > 0,
+  hasBookingAffiliate: bookingAffiliateActive,
   hasGygAffiliate: gygPartner.length > 0,
   hasAmazonAffiliate: amazonTag.length > 0,
-  hasAnyAffiliate: bookingAid.length > 0 || gygPartner.length > 0 || amazonTag.length > 0,
+  hasAnyAffiliate:
+    bookingAffiliateActive || gygPartner.length > 0 || amazonTag.length > 0,
 } as const;
 
 export const bookingDestinations = {
   airlieBeach: 'Airlie Beach, Queensland, Australia',
+  proserpine: 'Proserpine, Queensland, Australia',
   cannonvale: 'Cannonvale, Queensland, Australia',
   hamiltonIsland: 'Hamilton Island, Queensland, Australia',
   shuteHarbour: 'Shute Harbour, Queensland, Australia',
@@ -38,8 +57,11 @@ export const bookingDestinations = {
 
 export type BookingDestination = keyof typeof bookingDestinations;
 
-/** Booking.com search URL — appends aid when PUBLIC_BOOKING_AID is set. */
+/** Booking.com URL — prefers live CJ deep links for known hubs. */
 export function bookingSearchUrl(destination: BookingDestination | string): string {
+  if (destination in bookingCjLinks) {
+    return bookingCjLinks[destination as keyof typeof bookingCjLinks];
+  }
   const search =
     typeof destination === 'string' && !(destination in bookingDestinations)
       ? destination
@@ -290,23 +312,40 @@ export type MonetisationLink = {
   external: true;
   sponsored: boolean;
   primary?: boolean;
+  /** Optional short blurb under the link (stays column) */
+  note?: string;
 };
 
-/** Booking destinations — Airlie Beach is default primary hub. */
+/** Primary stays column — CJ Booking.com deep links (Airlie · Proserpine · Hamilton). */
 export function staysLinks(primary: BookingDestination = 'airlieBeach'): MonetisationLink[] {
-  const order: BookingDestination[] = ['airlieBeach', 'cannonvale', 'hamiltonIsland', 'shuteHarbour'];
-  const labels: Record<BookingDestination, string> = {
-    airlieBeach: 'Stays in Airlie Beach',
-    cannonvale: 'Stays in Cannonvale',
-    hamiltonIsland: 'Hamilton Island resorts',
-    shuteHarbour: 'Near Shute Harbour',
-  };
-  return order.map((key) => ({
-    label: labels[key],
-    href: bookingSearchUrl(key),
+  const items: {
+    key: keyof typeof bookingCjLinks;
+    label: string;
+    note: string;
+  }[] = [
+    {
+      key: 'airlieBeach',
+      label: 'Hotels & apartments in Airlie Beach',
+      note: 'main mainland hub for day tours and boat transfers',
+    },
+    {
+      key: 'proserpine',
+      label: 'Proserpine / Whitsunday Coast',
+      note: 'quieter / airport-side option',
+    },
+    {
+      key: 'hamiltonIsland',
+      label: 'Hamilton Island',
+      note: 'resort island alternative with its own airport',
+    },
+  ];
+  return items.map(({ key, label, note }) => ({
+    label,
+    note,
+    href: bookingCjLinks[key],
     external: true as const,
-    sponsored: affiliates.hasBookingAffiliate,
-    primary: primary === key,
+    sponsored: true,
+    primary: primary === key || (primary === 'cannonvale' && key === 'airlieBeach'),
   }));
 }
 
@@ -355,8 +394,13 @@ export function gearLinks(): { label: string; href: string; note: string; sponso
 }
 
 export function externalRel(sponsored: boolean): string {
+  // Booking / GYG / Amazon: sponsored + noopener (noreferrer retained for security)
   return sponsored ? 'sponsored noopener noreferrer' : 'noopener noreferrer';
 }
+
+/** Short note under Nearby stays when Booking.com CJ links are live. */
+export const bookingStaysDisclosure =
+  'All Booking.com links open in a new tab and may earn a commission at no extra cost to you. Camping permits and official Queensland Parks (QPWS) bookings are never affiliated.';
 
 export const affiliateDisclosureShort =
   'Some stay, tour and gear links may earn a commission at no extra cost to you. Camping permits, QPWS fees and official park bookings are never affiliated.';

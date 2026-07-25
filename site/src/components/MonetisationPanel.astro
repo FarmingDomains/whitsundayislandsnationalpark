@@ -6,6 +6,7 @@
 import {
   affiliates,
   affiliateDisclosureShort,
+  bookingStaysDisclosure,
   externalRel,
   gearLinks,
   staysLinks,
@@ -46,6 +47,7 @@ function primaryFromQuery(q?: string): BookingDestination {
   if (!q) return 'airlieBeach';
   const lower = q.toLowerCase();
   if (lower.includes('hamilton')) return 'hamiltonIsland';
+  if (lower.includes('proserpine')) return 'proserpine';
   if (lower.includes('cannon')) return 'cannonvale';
   if (lower.includes('shute')) return 'shuteHarbour';
   return 'airlieBeach';
@@ -77,9 +79,9 @@ const colCount = [showStay, showTours, showGear].filter(Boolean).length;
           <div class="flex flex-col rounded-2xl bg-park-50/80 p-5 dark:bg-park-950 dark:ring-1 dark:ring-park-700">
             <h3 class="mb-1 text-lg font-semibold text-park-800 dark:text-park-100">Nearby stays</h3>
             <p class="mb-4 text-sm text-mist-700 dark:text-park-300">
-              Airlie Beach (primary) · Proserpine / Whitsunday Coast · Shute Harbour area
+              Airlie Beach (primary) · Proserpine · Hamilton Island
             </p>
-            <ul class="flex flex-1 flex-col gap-2">
+            <ul class="flex flex-1 flex-col gap-3">
               {stays.map((link) => (
                 <li>
                   <a
@@ -95,15 +97,13 @@ const colCount = [showStay, showTours, showGear].filter(Boolean).length;
                   >
                     {link.label}
                   </a>
+                  {link.note && (
+                    <span class="mt-1 block px-1 text-sm text-mist-700 dark:text-park-400">— {link.note}</span>
+                  )}
                 </li>
               ))}
             </ul>
-            {!affiliates.hasBookingAffiliate && (
-              <p class="mt-3 text-xs text-mist-700 dark:text-park-400">
-                Convenience links — add <code class="text-[0.65rem]">PUBLIC_BOOKING_AID</code> when your partner account
-                is ready.
-              </p>
-            )}
+            <p class="mt-3 text-xs text-mist-700 dark:text-park-400">{bookingStaysDisclosure}</p>
           </div>
         )
       }
