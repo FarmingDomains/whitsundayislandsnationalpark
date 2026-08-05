@@ -1,6 +1,6 @@
 # Resume here — Whitsunday Islands National Park guide
 
-**Last updated:** 2026-08-06  
+**Last updated:** 2026-08-06 (LeadCapture: free download only — no email form)  
 **Status:** NP-SISTER-UPGRADE applied 2026-08-06 — structure PASS (token gate + evidence pack + smell-check)  
 **Repo:** https://github.com/FarmingDomains/whitsundayislandsnationalpark  
 **Domain:** https://www.whitsundayislandsnationalpark.com.au/  
@@ -26,9 +26,11 @@ Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPN
 | Phase | Done |
 |-------|------|
 | 0 Orient | WINP identity, QPWS/GBRMPA, RESUME, leftovers grepped |
-| 1 Chrome | Layout **renders** Breadcrumbs; NPG hub footer; Lachlan FaqList; contact Show email; interior pt-4 |
+| 1 Chrome | Layout **renders** Breadcrumbs; NPG hub footer; Lachlan FaqList; contact Show email; interior pt-4; **LeadCapture free download only (no Splitforms form)** |
 | 2 Trust | About Person schema + NPG; disclosure affiliate flags; privacy ungated downloads; terms fresh date; disclaimer #images kept |
 | 3 Mon | affiliates.ts Booking CJ / GYG campaign / Amazon; gear showTours false; stay lower showStay false; trail showTours false |
+
+**Follow-up 2026-08-06:** Home/maps/visit LeadCapture was still email-gated via Splitforms when key present. Replaced with BM gold pattern — direct “Open free Practical Planner” + contact reveal for tips.
 
 ### Phase 4 decision table
 
