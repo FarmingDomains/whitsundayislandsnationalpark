@@ -2,9 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import AdSense from '../../components/AdSense.astro';
 import OfficialResources from '../../components/OfficialResources.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { blogPosts, getPost } from '../../data/blog';
-import { absoluteUrl } from '../../data/seo';
+import ContentDate from '../../components/ContentDate.astro';
+import ContentImage from '../../components/ContentImage.astro';
+import FaqList from '../../components/FaqList.astro';
+import MonetisationPanel from '../../components/MonetisationPanel.astro';
+import { blogPosts, getPost, resolveBlogImage } from '../../data/blog';
+import { absoluteUrl, faqJsonLd } from '../../data/seo';
+import { affiliateDisclosureShort } from '../../data/affiliates';
 
 export function getStaticPaths() {
   return blogPosts.map((p) => ({ params: { slug: p.slug } }));
@@ -13,6 +17,12 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const post = getPost(slug!);
 if (!post) throw new Error(`Unknown post: ${slug}`);
+
+const hero = resolveBlogImage(post.heroImageKey);
+const bodyParas =
+  post.intro?.length && post.paragraphs[0] === post.intro[0]
+    ? post.paragraphs.slice(1)
+    : post.paragraphs;
 
 const crumbs = [
   { name: 'Home', href: '/' },
@@ -26,10 +36,12 @@ const articleLd = {
   headline: post.title,
   description: post.description,
   datePublished: post.date,
-  dateModified: post.date,
+  dateModified: post.dateModified ?? post.date,
   author: { '@type': 'Organization', name: 'Farming Domains' },
   mainEntityOfPage: absoluteUrl(`/articles/${post.slug}/`),
 };
+
+const jsonLd = post.faqs?.length ? [articleLd, faqJsonLd(post.faqs)] : articleLd;
 ---
 
 <Layout
@@ -37,13 +49,13 @@ const articleLd = {
   fullTitle={`${post.title} · Whitsunday Articles`}
   description={post.description}
   breadcrumbs={crumbs}
-  jsonLd={articleLd}
+  jsonLd={jsonLd}
 >
-  <article class="page-container py-10 sm:py-14">
-    <Breadcrumbs items={crumbs} />
-    <p class="section-label mt-4">{post.date} · Unofficial practical guide</p>
-    <h1 class="mt-2 max-w-4xl text-3xl font-bold sm:text-4xl">{post.title}</h1>
+  <article class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 max-w-4xl text-3xl font-bold sm:text-4xl">{post.title}</h1>
+    <ContentDate prefix="Published" class="mt-3" note={`· ~${post.readMinutes} min read · Unofficial practical guide`} />
     <p class="mt-4 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{post.description}</p>
+    <p class="mt-2 text-sm font-medium text-park-800 dark:text-park-200">Best for: {post.bestFor}</p>
     <div class="mt-4 flex flex-wrap gap-2">
       {
         post.tags.map((t) => (
@@ -53,15 +65,59 @@ const articleLd = {
         ))
       }
     </div>
+    <p class="affiliate-note mt-3 max-w-3xl">{affiliateDisclosureShort}</p>
+
+    <div class="mt-8">
+      <ContentImage
+        src={hero.src}
+        alt={hero.alt}
+        imageMeta={hero}
+        imgClass="max-h-96 w-full object-cover"
+      />
+    </div>
+
+    {
+      post.intro?.length > 0 && (
+        <div class="prose-park mt-8 max-w-3xl">
+          {post.intro.map((p) => (
+            <p class="text-base leading-relaxed sm:text-lg">{p}</p>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      post.keyTakeaways?.length > 0 && (
+        <section class="mt-8 max-w-3xl rounded-2xl border border-park-200 bg-park-50/80 p-5 dark:border-park-700 dark:bg-park-900/40">
+          <h2 class="text-lg font-bold text-park-900 dark:text-park-50">Key takeaways</h2>
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-300">
+            {post.keyTakeaways.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
 
     <div class="prose-park mt-10 max-w-3xl">
-      {post.paragraphs.map((p) => <p>{p}</p>)}
+      {bodyParas.map((p) => <p>{p}</p>)}
     </div>
+
+    {
+      post.faqs && post.faqs.length > 0 && (
+        <section id="faq" class="mt-12 max-w-3xl scroll-mt-28" aria-labelledby="article-faq-heading">
+          <h2 id="article-faq-heading" class="text-2xl font-bold">FAQ</h2>
+          <div class="mt-4">
+            <FaqList items={post.faqs} labelledBy="article-faq-heading" />
+          </div>
+        </section>
+      )
+    }
 
     <div class="mt-10 max-w-3xl rounded-2xl border border-park-200 bg-park-50/80 p-5 text-sm dark:border-park-700 dark:bg-park-900/40">
       <p class="font-semibold text-park-900 dark:text-park-50">Keep planning</p>
       <ul class="mt-2 list-disc space-y-1 pl-5 text-mist-700 dark:text-park-300">
-        <li><a href="/downloads/whitsunday-practical-planner.html">Free Practical Planner</a> (print checklist)</li>
+        <li><a href="/downloads/whitsunday-practical-planner.html">Free Practical Planner</a> (print checklist · no email gate)</li>
         <li><a href="/itineraries/">Itineraries</a> with boat and tide timelines</li>
         <li><a href="/tours/">Tours</a> — Whitehaven / Hill Inlet day products</li>
         <li><a href="/visit/">Plan your visit</a> for permits, packing and seasons</li>
@@ -70,6 +126,9 @@ const articleLd = {
     </div>
 
     <AdSense unit="inContent" />
+    <div class="mt-10">
+      <MonetisationPanel primaryStay="airlieBeach" title="Stays, tours & gear for this topic" />
+    </div>
     <div class="mt-10">
       <OfficialResources />
     </div>

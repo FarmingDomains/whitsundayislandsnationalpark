@@ -1,59 +1,68 @@
 ---
+/**
+ * Stay hub — honesty + image commercial cards + lower tours/gear only.
+ */
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import MonetisationPanel from '../components/MonetisationPanel.astro';
 import OfficialResources from '../components/OfficialResources.astro';
 import AdSense from '../components/AdSense.astro';
-import { bookingSearchUrl, externalRel } from '../data/affiliates';
+import ContentDate from '../components/ContentDate.astro';
+import {
+  bookingSearchUrl,
+  externalRel,
+  affiliateDisclosureShort,
+  type BookingDestination,
+} from '../data/affiliates';
 import { official } from '../data/seo';
+import { imageForStay, siteImages } from '../data/pageImages';
 
 const crumbs = [
   { name: 'Home', href: '/' },
   { name: 'Where to stay' },
 ];
 
-const hubs = [
+const hubs: {
+  key: BookingDestination;
+  title: string;
+  ctaLabel: string;
+  blurb: string;
+  imageNote: string;
+  primary: boolean;
+  sponsored: boolean;
+}[] = [
   {
-    key: 'airlieBeach' as const,
-    title: 'Airlie Beach (primary hub)',
+    key: 'airlieBeach',
+    title: 'Airlie Beach',
+    ctaLabel: 'Airlie Beach',
     blurb:
-      'The practical mainland base for day tours and camping transfers: backpackers to resorts and holiday parks. Peak dry-season inventory sells out around school holidays and Whitehaven demand — book early.',
+      'The practical mainland base for day tours and camping transfers: backpackers to resorts and holiday parks. Peak dry-season inventory sells out around school holidays — book early.',
+    imageNote: 'Whitehaven context — place photo, not a specific hotel exterior',
     primary: true,
     sponsored: true,
   },
   {
-    key: 'proserpine' as const,
+    key: 'proserpine',
     title: 'Proserpine / Whitsunday Coast',
+    ctaLabel: 'Proserpine',
     blurb:
       'Quieter / airport-side option near Whitsunday Coast Airport. Useful if you want mainland beds without full Airlie town energy — confirm tour pick-up coverage.',
+    imageNote: 'Mainland gateway logistics context',
     primary: false,
     sponsored: true,
   },
   {
-    key: 'hamiltonIsland' as const,
-    title: 'Hamilton Island (resort logistics)',
+    key: 'hamiltonIsland',
+    title: 'Hamilton Island',
+    ctaLabel: 'Hamilton Island',
     blurb:
       'Fly-in resort island alternative when you want packaged stays and on-island amenities. Still confirm how you reach Whitehaven and national park beaches from your resort base.',
+    imageNote: 'Boat / island arrival context — not resort branding',
     primary: false,
     sponsored: true,
   },
-  {
-    key: 'cannonvale' as const,
-    title: 'Cannonvale & nearby',
-    blurb:
-      'Extends the Airlie bed pool with apartments and quieter streets. Still convenient for most tour pick-ups — confirm transfer times with your operator.',
-    primary: false,
-    sponsored: false,
-  },
-  {
-    key: 'shuteHarbour' as const,
-    title: 'Near Shute Harbour',
-    blurb:
-      'Useful if your vessel departs from Shute Harbour and you want minimal morning transit. Fewer walkable town amenities than central Airlie.',
-    primary: false,
-    sponsored: false,
-  },
 ];
+
+const hardRuleImg = siteImages.campingBeach;
 ---
 
 <Layout
@@ -62,53 +71,103 @@ const hubs = [
   description="Airlie Beach is the practical base for Whitsunday Islands National Park day tours and camping transfers. Hamilton Island secondary. Booking.com links with affiliate disclosure. Island camping needs QPWS permits."
   breadcrumbs={crumbs}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Where to stay</h1>
-    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-bold tracking-tight sm:text-4xl">Where to stay</h1>
+    <ContentDate prefix="Guide updated" class="mt-3" note="· verify live park camping rules with Queensland Parks" />
+    <p class="mt-4 max-w-3xl body-copy">
       Base at <strong class="text-park-900 dark:text-park-50">Airlie Beach</strong> for the widest range of day tours, camping transfers and recovery between boat days.
       National park island camping is available with a <strong>QPWS camping permit</strong> — not the same as a hotel booking. Confirm official camping rules on{' '}
       <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.camping} target="_blank" rel="noopener noreferrer">parks.qld.gov.au camping</a>.
     </p>
+    <p class="affiliate-note mt-3">{affiliateDisclosureShort}</p>
 
-    <div class="mt-8 grid gap-4 md:grid-cols-2">
+    <div class="mt-8 overflow-hidden rounded-2xl border border-park-200 bg-park-50/80 dark:border-park-700 dark:bg-park-900/40">
+      <div class="grid gap-0 sm:grid-cols-5">
+        <div class="sm:col-span-2">
+          <img
+            src={hardRuleImg.src.src}
+            alt={hardRuleImg.alt}
+            class="h-48 w-full object-cover sm:h-full sm:min-h-[12rem]"
+            loading="eager"
+          />
+          <p class="border-t border-park-200/80 px-3 py-1.5 text-[10px] text-mist-700 dark:border-park-700 dark:text-park-400">
+            {hardRuleImg.caption} — place context only
+          </p>
+        </div>
+        <div class="p-5 sm:col-span-3 sm:p-6">
+          <p class="text-xs font-bold uppercase tracking-wide text-park-600 dark:text-park-300">Island camping</p>
+          <h2 class="mt-1 text-xl font-bold text-park-900 dark:text-park-50">QPWS permits only — never affiliated</h2>
+          <p class="mt-2 text-base text-mist-700 dark:text-park-300">
+            Overnight beach camping needs an official Queensland Parks booking, displayed tag, packed water and stove cooking (no campfires).
+            This site never sells permits or takes commission on park fees. Commercial beds on the mainland (or Hamilton Island) are separate from national park camping rights.
+          </p>
+          <a class="btn-secondary mt-4 inline-flex !text-sm" href={official.camping} target="_blank" rel="noopener noreferrer">
+            Official camping →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mt-12 text-2xl font-bold">Gateway commercial stays</h2>
+    <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+      Booking.com searches below may earn a commission. Card photos are real place-context images for orientation —{' '}
+      <strong>not</strong> the specific hotels or rooms on Booking.com.
+    </p>
+
+    <div class="mt-8 grid gap-5 md:grid-cols-3">
       {
-        hubs.map((hub) => (
-          <article class="card p-5">
-            <h2 class="text-lg font-bold text-park-900 dark:text-park-50">{hub.title}</h2>
-            <p class="mt-2 text-sm text-mist-700 dark:text-park-300">{hub.blurb}</p>
-            <a
-              href={bookingSearchUrl(hub.key)}
-              target="_blank"
-              rel={externalRel(hub.sponsored)}
-              class:list={['mt-4 inline-flex', hub.primary ? 'btn-primary !text-sm' : 'btn-secondary !text-sm']}
-            >
-              Search stays
-            </a>
-          </article>
-        ))
+        hubs.map((hub) => {
+          const img = imageForStay(hub.key);
+          return (
+            <article class="card overflow-hidden">
+              <img
+                src={img.src.src}
+                alt={img.alt}
+                class="h-44 w-full object-cover"
+                loading="lazy"
+              />
+              <div class="p-5">
+                <p class="text-[10px] text-mist-700 dark:text-park-400">{img.caption}</p>
+                <h3 class="mt-1 text-lg font-bold text-park-900 dark:text-park-50">{hub.title}</h3>
+                <p class="mt-2 text-base text-mist-700 dark:text-park-300">{hub.blurb}</p>
+                <p class="mt-2 text-xs italic text-mist-700 dark:text-park-400">{hub.imageNote}</p>
+                <a
+                  href={bookingSearchUrl(hub.key)}
+                  target="_blank"
+                  rel={externalRel(hub.sponsored)}
+                  class:list={['mt-4 inline-flex', hub.primary ? 'btn-primary !text-sm' : 'btn-secondary !text-sm']}
+                >
+                  Search stays — {hub.ctaLabel}
+                </a>
+              </div>
+            </article>
+          );
+        })
       }
     </div>
 
-    <div class="prose-park mt-10 max-w-3xl">
+    <p class="mt-6 text-xs text-mist-700 dark:text-park-400">
+      Full photo credits:{' '}
+      <a href="/disclaimer/#images" class="font-semibold underline-offset-2 hover:underline">
+        Disclaimer · Images
+      </a>
+      .
+    </p>
+
+    <div class="prose-park mt-12 max-w-3xl">
       <h2>Urgency & honesty</h2>
       <p>
         Peak dry season (roughly May–October) and school holidays fill Airlie Beach and popular day tours fast. If Whitehaven is non-negotiable, book beds and boats early — and keep a weather buffer day.
       </p>
       <p>
-        Island camping is not “free beach camping.” You need a booking, a displayed tag, packed water, stove cooking (no campfires) and a reliable transfer plan. This site never sells camping permits.
-      </p>
-      <p class="affiliate-note">
-        Primary stay links use Booking.com via CJ Affiliate and may earn a commission at no extra cost to you.
-        Camping permits and official Queensland Parks (QPWS) bookings are never affiliated.
-        See <a href="/affiliate-disclosure/">affiliate disclosure</a>.
+        Cannonvale and near Shute Harbour extend the bed pool for quieter streets or early vessel departures — still confirm transfer times with your operator. Use Airlie as the default planning hub unless you already know Hamilton Island logistics.
       </p>
     </div>
 
     <AdSense unit="inContent" />
 
     <div class="mt-12">
-      <MonetisationPanel primaryStay="airlieBeach" showStay={false} title="Tours & gear while you plan a stay" />
+      <MonetisationPanel primaryStay="airlieBeach" showStay={false} title="Tours & gear around your stay" />
     </div>
 
     <div class="mt-10">

@@ -33,18 +33,5 @@ export const footerLegalLinks = [
   { href: '/contact/', label: 'Contact' },
 ];
 
-/** Cross-promo portfolio parks (Farming Domains) — exclude this site */
-export const portfolioLinks = [
-  { href: 'https://www.royalnationalpark.com.au/', label: 'Royal National Park' },
-  { href: 'https://springbrooknationalpark.com.au/', label: 'Springbrook NP' },
-  { href: 'https://www.bluemountainsnationalpark.com.au/', label: 'Blue Mountains NP' },
-  { href: 'https://www.sydneyharbournationalpark.com.au/', label: 'Sydney Harbour NP' },
-  { href: 'https://greatotwaynationalpark.com.au/', label: 'Great Otway NP' },
-  { href: 'https://www.portcampbellnationalpark.com.au/', label: 'Port Campbell NP' },
-  { href: 'https://www.cradlemountainnationalpark.com.au/', label: 'Cradle Mountain NP' },
-  { href: 'https://www.ulurukatatjutanationalpark.com.au/', label: 'Uluru-Kata Tjuta NP' },
-  { href: 'https://www.karijininationalpark.com.au/', label: 'Karijini NP' },
-  { href: 'https://www.kuringgaichasenationalpark.com.au/', label: 'Ku-ring-gai Chase NP' },
-  { href: 'https://www.grampiansnationalpark.com.au/', label: 'Grampians NP' },
-  { href: 'https://www.farmingdomains.com/', label: 'Farming Domains' },
-];
+/** Re-export portfolio hub + related chips for Layout footer */
+export { portfolioHub, relatedSisterParks as portfolioLinks } from './portfolio';

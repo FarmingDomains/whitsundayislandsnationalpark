@@ -1,12 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { official, sisterParks } from '../data/seo';
+import ContentDate from '../components/ContentDate.astro';
+import { official } from '../data/seo';
+import { contentMeta, publisher } from '../data/contentMeta';
+import { portfolioHub, relatedSisterParks } from '../data/portfolio';
 
 const crumbs = [
   { name: 'Home', href: '/' },
   { name: 'About' },
 ];
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: publisher.name,
+  url: publisher.url,
+  jobTitle: publisher.role,
+  worksFor: {
+    '@type': 'Organization',
+    name: publisher.org,
+    url: publisher.orgUrl,
+  },
+};
 ---
 
 <Layout
@@ -14,10 +29,12 @@ const crumbs = [
   fullTitle="About This Guide · Whitsunday Islands National Park"
   description="About the unofficial Whitsunday Islands National Park guide by Farming Domains — independent planning advice, not Queensland Parks (QPWS), GBRMPA or Ngaro Traditional Owners."
   breadcrumbs={crumbs}
+  jsonLd={personLd}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">About this guide</h1>
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">About this guide</h1>
+    <ContentDate prefix="Last reviewed" class="mt-3" note={`· publisher ${publisher.name}`} />
+
     <div class="prose-park mt-6 max-w-3xl">
       <p>
         <strong class="text-park-900 dark:text-park-50">whitsundayislandsnationalpark.com.au</strong> is an independent, unofficial visitor guide.
@@ -28,6 +45,12 @@ const crumbs = [
         We are <strong>not</strong> Queensland Parks (QPWS), the Department of the Environment, Tourism, Science and Innovation, GBRMPA,
         Ngaro Traditional Owners, commercial tour operators, Tourism Whitsundays, or any other government or commercial attraction operator.
       </p>
+      <h2>Publisher</h2>
+      <p>
+        Published by <strong>{publisher.org}</strong> (ABN {publisher.abn}) for <strong>{publisher.name}</strong>
+        {' '}({publisher.role}). More at{' '}
+        <a href={publisher.url} target="_blank" rel="noopener noreferrer">{publisher.url.replace('https://', '')}</a>.
+      </p>
       <p>
         We acknowledge the Ngaro people as Traditional Owners of the Whitsunday islands and surrounding Sea Country.
         This guide does not retell restricted sacred stories. Use public interpretive material, authorised cultural products and official park communications only.
@@ -37,13 +60,17 @@ const crumbs = [
         <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">official Queensland Parks pages</a>
         {' '}and{' '}
         <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.gbrmpaWhitsundays} target="_blank" rel="noopener noreferrer">GBRMPA Whitsundays</a>
-        {' '}before you travel.
+        {' '}before you travel. Content reviewed {contentMeta.siteReviewed}.
       </p>
-      <h2>Farming Domains portfolio</h2>
-      <p>This site is part of a family of unofficial Australian national park guides:</p>
+      <h2>National Parks Guide network</h2>
+      <p>
+        This site is part of the{' '}
+        <a href={portfolioHub.href} target="_blank" rel="noopener noreferrer">{portfolioHub.label}</a>
+        {' '}network of independent Australian park guides. Browse the full directory on the hub — related peers for this park:
+      </p>
       <ul>
         {
-          sisterParks.map((p) => (
+          relatedSisterParks.map((p) => (
             <li>
               <a href={p.href} target="_blank" rel="noopener noreferrer">
                 {p.label}
@@ -53,8 +80,18 @@ const crumbs = [
           ))
         }
       </ul>
+      <p class="mt-4">
+        <a
+          class="btn-primary !text-sm"
+          href={portfolioHub.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {portfolioHub.ctaLabel}
+        </a>
+      </p>
       <p>
-        Questions about this website (not park emergencies): <a href="/contact/">contact form</a>.
+        Questions about this website (not park emergencies): <a href="/contact/">contact</a>.
         For emergencies call <strong>000</strong>. For official park help use Queensland Parks channels.
       </p>
     </div>

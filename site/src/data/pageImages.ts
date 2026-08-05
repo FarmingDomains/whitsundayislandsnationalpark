@@ -183,3 +183,27 @@ export function imageForTrail(slug: string): SiteImage {
   const key = trailImageKey[slug] ?? 'homeHero';
   return siteImages[key];
 }
+
+/** Stay hub commercial cards — place context only, not hotel exteriors */
+export function imageForStay(destination: string): SiteImage {
+  const d = destination.toLowerCase();
+  if (d.includes('hamilton')) return siteImages.boatArrival;
+  if (d.includes('proserpine') || d.includes('cannonvale') || d.includes('shute'))
+    return siteImages.boatArrival;
+  if (d.includes('airlie')) return siteImages.homeHero;
+  return siteImages.campingBeach;
+}
+
+/** Itinerary index/detail card heroes */
+export function imageForItinerary(slug: string): SiteImage {
+  if (slug.includes('camping') || slug.includes('overnight') || slug.includes('secluded'))
+    return siteImages.campingBeach;
+  if (slug.includes('snorkel') || slug.includes('half-day-walk')) return siteImages.fringingReef;
+  if (slug.includes('sailing') || slug.includes('multi-day') || slug.includes('advanced'))
+    return siteImages.boatArrival;
+  if (slug.includes('hill-inlet') || slug.includes('photography') || slug.includes('tide'))
+    return siteImages.hillInlet;
+  if (slug.includes('ngaro') || slug.includes('lookout')) return siteImages.islandLookout;
+  if (slug.includes('airlie') || slug.includes('family')) return siteImages.boatArrival;
+  return siteImages.homeHero;
+}

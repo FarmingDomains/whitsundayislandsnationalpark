@@ -1,27 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import MapEmbed from '../components/MapEmbed.astro';
 import LeadCapture from '../components/LeadCapture.astro';
 import OfficialResources from '../components/OfficialResources.astro';
+import ContentDate from '../components/ContentDate.astro';
 import { official } from '../data/seo';
-
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Maps & resources' },
-];
 ---
 
 <Layout
   title="Maps & resources"
   fullTitle="Whitsunday Maps, Downloads & Resources"
   description="Whitsunday Islands maps: Whitehaven Beach, Hill Inlet, Airlie Beach and Shute Harbour. Free Practical Planner download and official Queensland Parks resources."
-  breadcrumbs={crumbs}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Maps & resources' },
+  ]}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Maps & resources</h1>
-    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Maps & resources</h1>
+    <ContentDate prefix="Guide updated" class="mt-3" note="· orientation only — verify landings and alerts officially" />
+    <p class="mt-4 max-w-3xl body-copy">
       Orientation only — then verify track status, camping availability and marine rules on{' '}
       <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks — Whitsunday Islands</a>
       {' '}and{' '}
@@ -38,11 +36,11 @@ const crumbs = [
     <div class="mt-10">
       <LeadCapture
         heading="Free Whitsunday Islands Practical Planner"
-        blurb="Printable boat-access decision tree, Whitehaven + Hill Inlet tide notes, camping vs day-trip comparison, stinger packing and official links."
+        blurb="Printable boat-access decision tree, Whitehaven + Hill Inlet tide notes, camping vs day-trip comparison, stinger packing and official links. No email gate — direct download."
         downloadPath="/downloads/whitsunday-practical-planner.html"
       />
       <p class="mt-4 text-sm text-mist-700 dark:text-park-300">
-        Direct download (no email required):{' '}
+        Direct download (ungated, no email required):{' '}
         <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/downloads/whitsunday-practical-planner.html">
           whitsunday-practical-planner.html
         </a>

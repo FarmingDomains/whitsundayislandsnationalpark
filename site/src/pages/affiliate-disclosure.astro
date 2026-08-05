@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContentDate from '../components/ContentDate.astro';
 import { official } from '../data/seo';
+import { affiliates } from '../data/affiliates';
 
 const crumbs = [
   { name: 'Home', href: '/' },
@@ -15,9 +16,9 @@ const crumbs = [
   description="Affiliate and advertising disclosure for whitsundayislandsnationalpark.com.au — Amazon, Booking.com, GetYourGuide and AdSense."
   breadcrumbs={crumbs}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Affiliate disclosure</h1>
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Affiliate disclosure</h1>
+    <ContentDate prefix="Last updated" class="mt-3" />
     <div class="prose-park mt-6 max-w-3xl">
       <p>
         This website may earn a commission when you book stays, tours or buy gear through certain links — at no extra cost to you.
@@ -26,11 +27,29 @@ const crumbs = [
       <h2>Programs we use</h2>
       <ul>
         <li>
-          <strong>Booking.com</strong> (via CJ Affiliate) — active accommodation search links for Airlie Beach,
-          Proserpine / Whitsunday Coast, Hamilton Island and related hubs
+          <strong>Booking.com</strong> (via CJ Affiliate) —{' '}
+          {affiliates.hasBookingAffiliate ? (
+            <span>active accommodation search links for Airlie Beach, Proserpine / Whitsunday Coast, Hamilton Island and related hubs</span>
+          ) : (
+            <span>configured when partner tracking is live</span>
+          )}
         </li>
-        <li><strong>GetYourGuide</strong> — Whitehaven day tours, sailing, snorkel and related activities</li>
-        <li><strong>Amazon Associates (AU)</strong> — tropical boat, stinger, camping and sun gear product searches</li>
+        <li>
+          <strong>GetYourGuide</strong> —{' '}
+          {affiliates.hasGygAffiliate ? (
+            <span>Whitehaven day tours, sailing, snorkel and related activities (partner tracking active; campaign <code>{affiliates.gygCampaign}</code>)</span>
+          ) : (
+            <span>tour convenience links; affiliate tracking when <code>PUBLIC_GETYOURGUIDE_PARTNER</code> is set at build</span>
+          )}
+        </li>
+        <li>
+          <strong>Amazon Associates (AU)</strong> —{' '}
+          {affiliates.hasAmazonAffiliate ? (
+            <span>tropical boat, stinger, camping and sun gear product searches (tag active)</span>
+          ) : (
+            <span>search links; tag when configured</span>
+          )}
+        </li>
         <li><strong>Google AdSense</strong> — display advertising when configured</li>
       </ul>
       <h2>What we never monetise</h2>

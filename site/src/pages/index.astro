@@ -20,11 +20,42 @@ import OfficialResources from '../components/OfficialResources.astro';
 import AdSense from '../components/AdSense.astro';
 import TrailCard from '../components/TrailCard.astro';
 import WeatherWidget from '../components/WeatherWidget.astro';
-import { official } from '../data/seo';
+import FaqList from '../components/FaqList.astro';
+import { official, faqJsonLd } from '../data/seo';
 import { getTrail } from '../data/trails';
 import { itineraries } from '../data/itineraries';
 import { contentMeta } from '../data/contentMeta';
 import { siteImages, attributionHtml } from '../data/pageImages';
+import { affiliateDisclosureShort } from '../data/affiliates';
+
+const homeFaqs = [
+  {
+    question: 'Can I drive to Whitehaven Beach?',
+    answer:
+      'No. Whitehaven Beach and Hill Inlet are boat-access only. Base in Airlie Beach (or a resort island), then use a day tour, camping transfer, private vessel or multi-day charter.',
+  },
+  {
+    question: 'Do I need a camping permit for a day trip?',
+    answer:
+      'No. Commercial day tours do not use national park camping permits. Overnight camping requires a Queensland Parks booking and displayed tag. This site never sells permits.',
+  },
+  {
+    question: 'What is the Hill Inlet lookout walk like?',
+    answer:
+      'About 1.3–1.4 km return, moderate effort with steps, roughly 40 minutes walking under typical planning figures. Closed-toe shoes matter. Confirm status on Queensland Parks.',
+  },
+  {
+    question: 'When is stinger season?',
+    answer:
+      'Marine stinger risk is typically highest from November to May in tropical Queensland. Full-body suits are common for snorkelling in season — follow operator and Queensland Health guidance.',
+  },
+  {
+    question: 'Where should I stay?',
+    answer:
+      'Airlie Beach is the practical mainland hub for day tours and camping transfers. Hamilton Island is the resort-island alternative. Peak dry season fills early — book beds and boats with a weather buffer.',
+  },
+];
+
 
 const featuredTrails = [
   getTrail('hill-inlet-lookout')!,
@@ -110,6 +141,7 @@ const decisionTree = [
   title="Whitsunday Islands National Park"
   fullTitle="Whitsunday Islands National Park: Whitehaven Beach, Hill Inlet & Boat Access Guide"
   description="Unofficial practical guide to Whitsunday Islands National Park — Whitehaven Beach & Hill Inlet, boat-access decisions, camping permits, stinger season, tides and Airlie Beach logistics. Always verify with Queensland Parks."
+  jsonLd={faqJsonLd(homeFaqs)}
 >
   <PageHero
     title="Whitsunday Islands"
@@ -298,6 +330,16 @@ const decisionTree = [
       </div>
     </section>
 
+    <section class="mt-16" aria-labelledby="home-faq-heading">
+      <h2 id="home-faq-heading" class="text-2xl font-bold sm:text-3xl">Quick FAQs</h2>
+      <p class="mt-2 max-w-2xl text-sm text-mist-700 dark:text-park-300">
+        Boat-first answers. Always re-check Queensland Parks and your operator the morning you go.
+      </p>
+      <div class="mt-6 max-w-3xl">
+        <FaqList items={homeFaqs} labelledBy="home-faq-heading" />
+      </div>
+    </section>
+
     <section class="mt-16">
       <LeadCapture />
     </section>
@@ -305,6 +347,7 @@ const decisionTree = [
     <AdSense slot="home-mid" class="mt-12" />
 
     <section class="mt-16">
+      <p class="affiliate-note mb-4">{affiliateDisclosureShort}</p>
       <MonetisationPanel
         primaryStay="airlieBeach"
         title="Stays, tours & gear"

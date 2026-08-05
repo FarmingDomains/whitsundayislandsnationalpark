@@ -1,122 +1,127 @@
 # Resume here — Whitsunday Islands National Park guide
 
-**Last updated:** 2026-07-24 (Booking.com CJ live + real CC photos; verified on production)  
+**Last updated:** 2026-08-06  
+**Status:** NP-SISTER-UPGRADE applied 2026-08-06 — structure PASS (token gate + evidence pack + smell-check)  
 **Repo:** https://github.com/FarmingDomains/whitsundayislandsnationalpark  
 **Domain:** https://www.whitsundayislandsnationalpark.com.au/  
 **Working dir:** `C:\Users\Ian\WEBSITES\whitsundayislandsnationalpark`  
-**Latest commit:** see `git log -1` on `main` (Booking + resume after photos `7107462` / `dbde3e1`)
 
 ---
 
-## Status: LIVE ON PRODUCTION
+## How to resume
 
-Production checked **2026-07-24** — Booking.com CJ stays + disclosure OK; real photo heroes previously shipped.
-
-| Item | State |
-|------|--------|
-| Stack | Astro 7 + Tailwind 4, tropical lagoon palette, port **4340** |
-| Build | `cd site` → `npm run build` → **49 pages** in `site/dist/` |
-| Domain | https://www.whitsundayislandsnationalpark.com.au/ |
-| Imagery | **5 live slots + OG = real Wikimedia Commons CC**; fringing reef **still AI** |
-| Credits | Author · licence · Commons via `pageImages.ts` / `attributionHtml` |
-| Portfolio footer | Full 12-park set excluding self + Farming Domains |
-| **Booking.com** | **ACTIVE** via CJ deep links (partner `101839079` / SID `17293136`) |
-| GYG | **9 product deep links** + `campaign=whitsundayislandsnationalpark` |
-| Amazon | `PUBLIC_AMAZON_TAG` set (e.g. `rero07-22`) |
-| Splitforms | Key in `site/.env` (no BOM) — baked into dist |
-| AdSense | Empty until approved |
+```text
+Read RESUME-HERE.md and continue from residual content TODOs only (structure is done).
+Folder: C:\Users\Ian\WEBSITES\whitsundayislandsnationalpark
+```
 
 ---
 
-## Live QA — Booking.com (2026-07-24)
+## This session (2026-08-06) — sister upgrade to dual gold
 
-Checked on production (HTTP 200):
+Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPNP**. Park-true Whitsunday content kept; structure rebuilt.
 
-| Check | Homepage `/` | `/affiliate-disclosure/` | `/stay/` |
-|-------|--------------|--------------------------|----------|
-| CJ `anrdoezrs.net` (Airlie / Proserpine) | Yes | — | Yes |
-| CJ `jdoqocy.com` (Hamilton Island) | Yes | — | Yes |
-| Labels (Airlie / Proserpine / Hamilton) | Yes | — | Yes (hubs) |
-| `rel="sponsored noopener…"` | Yes | — | Yes |
-| No `PUBLIC_BOOKING_AID` placeholder | Yes | Yes | Yes |
-| “All Booking.com links open…” stays note | Yes | — | — |
-| Disclosure: **Programs we use** + **via CJ Affiliate** | — | Yes | Yes (copy) |
-| No “when partner configured” for Booking | Yes | Yes | Yes |
+### Phases 0–3 (always)
 
-**Nearby stays (homepage panel):**  
-Airlie Beach (primary) · Proserpine · Hamilton Island  
-→ CJ → Booking.com search deep links; commission note; QPWS never affiliated.
+| Phase | Done |
+|-------|------|
+| 0 Orient | WINP identity, QPWS/GBRMPA, RESUME, leftovers grepped |
+| 1 Chrome | Layout **renders** Breadcrumbs; NPG hub footer; Lachlan FaqList; contact Show email; interior pt-4 |
+| 2 Trust | About Person schema + NPG; disclosure affiliate flags; privacy ungated downloads; terms fresh date; disclaimer #images kept |
+| 3 Mon | affiliates.ts Booking CJ / GYG campaign / Amazon; gear showTours false; stay lower showStay false; trail showTours false |
 
-**Code:** `site/src/data/affiliates.ts` (`bookingCjLinks`, `staysLinks`), `MonetisationPanel.astro`, `affiliate-disclosure.astro`, `stay.astro`.
+### Phase 4 decision table
 
----
+| Hub | Decision | Evidence / action |
+|-----|----------|-------------------|
+| 4.1 Home | **FAIL → rebuilt** | FaqList + schema; no mid-page sister promo |
+| 4.2 Visit | **FAIL → rebuilt** | jumpLinks + summaryCards + ContentDate + MapEmbed mid-page |
+| 4.2b Visit map | **FAIL → rebuilt** | Map after camping/access, before packing/FAQ |
+| 4.3 Things to do | **FAIL → rebuilt** | activities multi-link cards + ContentDate + ContentImage |
+| 4.4 Trails index | **FAIL → rebuilt** | ContentDate + comparison table + cards |
+| 4.5 Trail detail | **FAIL → rebuilt** | ContentDate; showTours false |
+| 4.5b Trail kit | **FAIL → rebuilt** | Optional kit + amazonSearchUrl mid-page |
+| 4.6 Itineraries index | **FAIL → rebuilt** | ContentDate + per-card h-44 object-cover |
+| 4.6b Itineraries detail | **FAIL → rebuilt** | ContentDate + ContentImage hero |
+| 4.7 Stay | **FAIL → rebuilt** | imageForStay cards; Search stays — Place; lower tours+gear only |
+| 4.8 Tours | **FAIL → rebuilt** | BM shell: Featured + flex-wrap chips; no PageHero/in-page crumbs/inventory |
+| 4.9 Gear | **FAIL → rebuilt** | ContentDate + ContentImage + Amazon CTA + showTours false |
+| 4.10 Articles hub | **FAIL → rebuilt** | Image cards, bestFor, keyTakeaways teaser, soft GYG |
+| 4.11 Article detail | **FAIL → rebuilt** | intro + keyTakeaways + ContentDate + FaqList |
+| 4.12 Maps | **FAIL → rebuilt** | ContentDate + 4 pins + free download |
+| 4.13 Park index | **FAIL → rebuilt** | ContentDate + image area cards |
+| 4.13b/c Park detail | **PASS** (FAQ already FaqList) | ContentDate + tight H1; FaqList Lachlan |
 
-## Real photos (prior ship — still live)
+### Parity script
 
-| Slot | Subject | Author | Licence |
-|------|---------|--------|---------|
-| `homeHero` + OG | Whitehaven northern spit / Hill Inlet lookout | Hush Neo | CC BY-SA 4.0 |
-| `hillInlet` | Hill Inlet tidal swirl | Damien Dempsey | CC BY 2.0 |
-| `campingBeach` | Beach-level Whitehaven shore | The 3B's | CC BY 2.0 |
-| `boatArrival` | Yachts & beach landings | slug69 | CC BY-SA 2.0 |
-| `islandLookout` | Lookout over spit | Damien Dempsey | CC BY 2.0 |
-| `fringingReef` | Underwater snorkel | — | **AI kept** |
+```text
+powershell -File C:\Users\Ian\WEBSITES\NP-SISTER-PARITY-CHECK.ps1 -ParkRoot C:\Users\Ian\WEBSITES\whitsundayislandsnationalpark
+→ RESULT: ALL TOKEN CHECKS PASS.  (exit 0)  2026-08-06
+```
 
-Log: `docs/image-sources.md` · backups: `site/src/images/_ai-backup/` · spares: `site/src/images/commons/`
+Token gate only until evidence pack + smell-check below.
 
----
+### Evidence pack
 
-## Dev / deploy
+| Check | Proof |
+|-------|--------|
+| FAQ wire | `pages/` zero raw `<details>`; dist `park/whitehaven-hill-inlet/` has `group-open:rotate-45` + `faq-summary`; home Quick FAQs same |
+| Tours chrome | `tours.astro` no PageHero/Breadcrumbs; dist Featured GetYourGuide + `flex flex-wrap` chips |
+| Visit map | `id="map"` after `id="camping"`, before packing/FAQ (offsets camping &lt; map &lt; packing) |
+| Stay | dist has `Search stays` + card `object-cover` |
+| Downloads | Local planner `whitsunday-practical-planner.html` **10496 bytes**; live Content-Length **10496** (unchanged this session — not regenerated) |
+| Footer | More Australian park guides + nationalparksguide.com.au hub CTA |
+| Trail kit | dist `trails/hill-inlet-lookout/` Optional kit + Amazon searches |
+| Mon | dist stay/home still carry CJ `anrdoezrs` Booking deep links |
+
+### Smell-check line
+
+```text
+Smell-check: home (FAQ + no sister promo) / visit (map mid-page after access) / tours (chips, no PageHero/inventory) / stay (Search stays — Place) / park area FAQ (+ right) / one FAQ open — 2026-08-06
+```
+
+(Verified via built dist HTML markers + source structure; Ian FTPs dist for live.)
+
+### Build / deploy
 
 ```powershell
 cd C:\Users\Ian\WEBSITES\whitsundayislandsnationalpark\site
-npm install
+npm run build            # → site/dist/  (49 pages)
 npm run dev              # http://127.0.0.1:4340/
-npm run build            # → site/dist/
 ```
 
 **FTP:** Upload **contents** of `site/dist/` to VentraIP document root (not the `dist` folder).  
-After any `.env` change: **rebuild + re-upload full dist**.  
-**Gotcha:** UTF-8 BOM on `.env` breaks Splitforms key — file must start with `PUBLIC_...` bytes.
+Ian FTPs himself.
 
 ---
 
-## GYG products pinned (`site/src/data/affiliates.ts`)
+## Live mon (pre-existing — still correct)
 
-| Priority | id | GYG product |
-|----------|-----|-------------|
-| 1 Primary | hill-inlet-whitehaven-cruise | t410838 |
-| 2 | whitehaven-half-day | t132276 |
-| 3 | camira-full-day-sail | t134625 |
-| 4 | providence-day-sail-snorkel | t391833 |
-| 5 | islands-snorkel-lunch | t600985 |
-| 6 | whitehaven-beach-club | t1073316 |
-| 7 | two-night-sailing-meals | t407266 |
-| 8 | two-day-gbr-sailing | t408105 |
-| 9 | heart-reef-scenic-flight | t669380 |
+| Item | State |
+|------|--------|
+| Booking.com CJ | ACTIVE partner `101839079` / SID `17293136` |
+| GYG campaign | `whitsundayislandsnationalpark` |
+| Amazon | `PUBLIC_AMAZON_TAG` / default `rero07-22` |
+| Imagery | 5 live Commons slots + OG; fringing reef still AI |
 
 ---
 
-## Next session priorities (pick as needed)
+## Residual content TODOs (optional — structure PASS)
 
-1. **Post-launch QA** — contact + visit tip forms, GYG click-through, mobile nav, HTTPS  
-2. **Google Search Console** — property + sitemap  
-   `https://www.whitsundayislandsnationalpark.com.au/sitemap-index.xml`  
-3. **AdSense** — `PUBLIC_ADSENSE_CLIENT` + `public/ads.txt` → rebuild → FTP  
-4. **Sister parks footers** — many park repos still have uncommitted `navigation.ts` portfolio sync; commit/rebuild/FTP each when deploying those sites  
-5. **Optional images** — replace reef AI only if a *worthy* free/original photo appears  
-6. **CJ / Booking** — occasional click test Airlie + Hamilton deep links still resolve to Booking.com search  
+1. Replace reef AI photo if a worthy free underwater appears  
+2. Longer prose polish via `POST-INITIAL-BUILD-IMPROVEMENTS.md` if desired  
+3. GSC / AdSense when ready  
+4. Optional UI token polish via `NP-PORTFOLIO-UI-CONSISTENCY.md`  
 
 ---
 
-## Quick health check
+## Do-not / pitfalls
 
-```powershell
-cd C:\Users\Ian\WEBSITES\whitsundayislandsnationalpark\site
-npm run build
-# Production smoke:
-# https://www.whitsundayislandsnationalpark.com.au/  → Nearby stays CJ links
-# https://www.whitsundayislandsnationalpark.com.au/affiliate-disclosure/
-```
+- Never monetise QPWS camping permits  
+- GYG campaign must stay domain slug `whitsundayislandsnationalpark`  
+- UTF-8 BOM on `.env` breaks Splitforms (contact is email-reveal now; key unused)  
+- Do not robocopy BM/WPNP **copy** — structure only  
+- Footer must stay NPG hub-first (not “Other Farming Domains park guides”)  
+- FAQ: only `components/FaqList.astro` may use `<details>`  
 
-Never monetise QPWS camping permits. Always defer to parks.qld.gov.au + GBRMPA for live status.
+Never invent live fees/closures as permanent facts. Defer to parks.qld.gov.au + GBRMPA.

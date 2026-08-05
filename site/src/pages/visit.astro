@@ -1,15 +1,20 @@
 ---
+/**
+ * Visit IA — WPNP structure, Whitsunday park-true content.
+ * Map after access/camping, before deep packing/FAQ.
+ */
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import WeatherWidget from '../components/WeatherWidget.astro';
 import LeadCapture from '../components/LeadCapture.astro';
 import MonetisationPanel from '../components/MonetisationPanel.astro';
 import OfficialResources from '../components/OfficialResources.astro';
 import AdSense from '../components/AdSense.astro';
 import FaqList from '../components/FaqList.astro';
-import { official } from '../data/seo';
+import ContentDate from '../components/ContentDate.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import { official, faqJsonLd } from '../data/seo';
 import { contentMeta } from '../data/contentMeta';
-import { faqJsonLd } from '../data/seo';
+import { affiliateDisclosureShort } from '../data/affiliates';
 
 const faqs = [
   {
@@ -43,6 +48,57 @@ const crumbs = [
   { name: 'Home', href: '/' },
   { name: 'Plan your visit' },
 ];
+
+const jumpLinks = [
+  { href: '#getting-there', label: 'Getting there' },
+  { href: '#boat-access', label: 'Boat access' },
+  { href: '#camping', label: 'Camping permits' },
+  { href: '#map', label: 'Map' },
+  { href: '#ngaro', label: 'Ngaro culture' },
+  { href: '#marine-safety', label: 'Safety & seasons' },
+  { href: '#packing', label: 'Packing' },
+  { href: '#weather', label: 'Weather' },
+  { href: '#faq', label: 'FAQ' },
+];
+
+const summaryCards = [
+  {
+    href: '#boat-access',
+    title: 'Boat access only',
+    badge: 'No road',
+    lines: [
+      'Day tour · camping transfer · private',
+      'Airlie Beach primary hub',
+      'Weather can cancel boats',
+    ],
+    cta: 'Access hierarchy',
+  },
+  {
+    href: '#camping',
+    title: 'Camping permits',
+    badge: 'QPWS only',
+    lines: [
+      'Overnight needs official booking',
+      'Water packed in · no campfires',
+      'Never affiliated here',
+    ],
+    cta: 'Camping notes',
+  },
+  {
+    href: '#map',
+    title: 'Map',
+    badge: 'Orientation',
+    lines: ['Whitehaven / Hill Inlet', 'Airlie Beach hub', 'Shute Harbour node'],
+    cta: 'Map section',
+  },
+  {
+    href: '#marine-safety',
+    title: 'Safety & seasons',
+    badge: 'Stingers · tides',
+    lines: ['Stingers typically Nov–May', 'Hill Inlet tide-aware', 'Buffer day if icon is must'],
+    cta: 'Safety notes',
+  },
+];
 ---
 
 <Layout
@@ -52,131 +108,164 @@ const crumbs = [
   breadcrumbs={crumbs}
   jsonLd={faqJsonLd(faqs)}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Plan your visit to Whitsunday Islands</h1>
-    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-extrabold tracking-tight sm:text-4xl">Plan your visit</h1>
+    <p class="mt-4 max-w-2xl text-mist-700 dark:text-park-200">
       Use this page for boat logistics, camping realism, packing and safety. For live fees, track status and alerts, always use{' '}
       <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks — Whitsunday Islands</a>.
-      Content reviewed {contentMeta.siteReviewed}.
     </p>
+    <ContentDate prefix="Last reviewed" class="mt-3" note="· verify live park facts with Queensland Parks" />
+    <p class="affiliate-note mt-3">{affiliateDisclosureShort}</p>
 
-    <div class="mt-8">
-      <WeatherWidget />
+    <nav class="mt-6 flex flex-wrap gap-2" aria-label="On this page">
+      {
+        jumpLinks.map((l) => (
+          <a href={l.href} class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        summaryCards.map((card) => (
+          <a href={card.href} class="card block p-5 transition hover:border-park-400 hover:shadow-md">
+            <p class="text-[10px] font-bold uppercase tracking-wide text-park-600 dark:text-park-300">{card.badge}</p>
+            <h2 class="mt-1 text-lg font-bold text-park-900 dark:text-park-50">{card.title}</h2>
+            <ul class="mt-3 space-y-1 text-sm text-mist-700 dark:text-park-300">
+              {card.lines.map((line) => (
+                <li>· {line}</li>
+              ))}
+            </ul>
+            <p class="mt-3 text-xs font-semibold text-park-600 dark:text-park-300">{card.cta} →</p>
+          </a>
+        ))
+      }
     </div>
 
-    <div class="prose-park mt-10 max-w-3xl space-y-10">
-      <section>
-        <h2>Getting there</h2>
-        <p>
-          Fly into <strong>Proserpine / Whitsunday Coast (PPP)</strong> or <strong>Hamilton Island (HTI)</strong>, then base for most visitors at{' '}
-          <strong>Airlie Beach</strong> (mainland hub for day tours and camping transfers). <strong>Shute Harbour</strong> is a key departure node for many vessels.
-        </p>
-        <p>
-          There is <strong>no road to Whitehaven Beach or Hill Inlet</strong>. Access is by commercial day tour, camping transfer / water taxi, private vessel, bareboat or multi-day sail charter.
-          Confirm operator check-in times and weather cancellation policies before you lock non-refundable flights tight against a single boat day.
-        </p>
-      </section>
+    <section id="getting-there" class="mt-14 scroll-mt-28 prose-park">
+      <h2 class="text-2xl font-bold">Getting there</h2>
+      <p class="mt-3 text-mist-700 dark:text-park-200">
+        Fly into <strong>Proserpine / Whitsunday Coast (PPP)</strong> or <strong>Hamilton Island (HTI)</strong>, then base for most visitors at{' '}
+        <strong>Airlie Beach</strong> (mainland hub for day tours and camping transfers). <strong>Shute Harbour</strong> is a key departure node for many vessels.
+      </p>
+      <p class="mt-3 text-mist-700 dark:text-park-200">
+        There is <strong>no road to Whitehaven Beach or Hill Inlet</strong>. Access is by commercial day tour, camping transfer / water taxi, private vessel, bareboat or multi-day sail charter.
+        Confirm operator check-in times and weather cancellation policies before you lock non-refundable flights tight against a single boat day.
+      </p>
+    </section>
 
-      <section>
-        <h2>Boat-access decision hierarchy</h2>
-        <ul>
-          <li><strong>Day tour</strong> — dominant high-volume path; convenience over solitude</li>
-          <li><strong>Camping transfer</strong> — overnight immersion; requires QPWS permit + full self-sufficiency</li>
-          <li><strong>Private vessel / bareboat / multi-day sail</strong> — freedom path; skills and GBRMPA rules required</li>
-        </ul>
-        <p>
-          Deep dive: <a href="/park/boat-access-airlie/">boat access &amp; Airlie Beach hub</a>.
-        </p>
-      </section>
+    <section id="boat-access" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Boat-access decision hierarchy</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-300">
+        <li><strong>Day tour</strong> — dominant high-volume path; convenience over solitude</li>
+        <li><strong>Camping transfer</strong> — overnight immersion; requires QPWS permit + full self-sufficiency</li>
+        <li><strong>Private vessel / bareboat / multi-day sail</strong> — freedom path; skills and GBRMPA rules required</li>
+      </ul>
+      <p class="mt-4 text-sm">
+        Deep dive:{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/park/boat-access-airlie/">boat access &amp; Airlie Beach hub</a>.
+      </p>
+    </section>
 
-      <section>
-        <h2>Camping permits (overnight only)</h2>
-        <p>
-          Overnight camping on national park beaches requires a booking through the{' '}
-          <a href={official.bookings} target="_blank" rel="noopener noreferrer">Queensland Parks Booking Service</a>.
-          Fees apply; a tag with your booking number must be displayed. Day tours do not use camping permits.
-        </p>
-        <p>
-          Plan water carefully — <strong>no reliable fresh water on most sites</strong> (commonly plan 5 L+ per person per day; verify official advice).
-          <strong>No campfires</strong> — stove only. Carry out all waste. Run pest-free / biosecurity checks on boats and gear.
-          <strong>We never take commission on camping permits.</strong>
-        </p>
-        <p>
-          Official camping page:{' '}
-          <a href={official.camping} target="_blank" rel="noopener noreferrer">parks.qld.gov.au — Whitsunday camping</a>.
-        </p>
-      </section>
+    <section id="camping" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Camping permits (overnight only)</h2>
+      <p class="mt-3 max-w-2xl text-mist-700 dark:text-park-200">
+        Overnight camping on national park beaches requires a booking through the{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.bookings} target="_blank" rel="noopener noreferrer">Queensland Parks Booking Service</a>.
+        Fees apply; a tag with your booking number must be displayed. Day tours do not use camping permits.
+      </p>
+      <p class="mt-3 max-w-2xl text-base text-mist-700 dark:text-park-300">
+        Plan water carefully — <strong>no reliable fresh water on most sites</strong> (commonly plan 5 L+ per person per day; verify official advice).
+        <strong> No campfires</strong> — stove only. Carry out all waste. Run pest-free / biosecurity checks on boats and gear.
+        <strong> We never take commission on camping permits.</strong>
+      </p>
+      <p class="mt-4 text-sm">
+        Official camping page:{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.camping} target="_blank" rel="noopener noreferrer">parks.qld.gov.au — Whitsunday camping</a>.
+      </p>
+    </section>
 
-      <section>
-        <h2>Ngaro culture &amp; respectful visiting</h2>
-        <p>
-          We acknowledge the <strong>Ngaro people</strong> as Traditional Owners of the Whitsunday islands and surrounding Sea Country.
-          Visit public cultural sites only, stay on marked tracks, do not touch rock art, and do not invent restricted stories.
-          Prefer authorised guides and operators that respect cultural and marine park protocols.
-        </p>
-      </section>
+    <section id="map" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Map — orientation</h2>
+      <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+        Islands are boat-access only. Mainland pins (Airlie Beach, Shute Harbour) are logistics hubs, not the beaches themselves. Confirm landings and alerts officially.
+      </p>
+      <div class="mt-4">
+        <MapEmbed
+          query="Whitehaven Beach Whitsunday Island Queensland"
+          title="Map — Whitehaven Beach & Whitsunday Islands context"
+          zoom={11}
+          caption="Orientation only. No public road to Whitehaven or Hill Inlet — plan the boat first."
+        />
+      </div>
+      <p class="mt-3 text-sm">
+        More pins:{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/maps/">Maps & downloads</a>.
+      </p>
+    </section>
 
-      <section id="marine-safety">
-        <h2>Marine safety, stingers, tides &amp; weather</h2>
-        <ul>
-          <li>Wind and swell cancel boats — build a buffer day if Whitehaven is non-negotiable.</li>
-          <li>Stinger season is typically <strong>November–May</strong> — full-body suit or avoid swimming; follow operator rules.</li>
-          <li>Hill Inlet swirl photography is <strong>tide-dependent</strong> — check BOM tides, not only social media.</li>
-          <li>Many landings feel easier mid-to-high tide; trust skippers when they change plans.</li>
-          <li>Reef etiquette: no standing on coral, no taking shells/coral, follow GBRMPA zoning if you skipper yourself.</li>
-          <li>Recreational drones need proper authorisation — do not assume you can fly.</li>
-          <li>Check <a href={official.alerts} target="_blank" rel="noopener noreferrer">park alerts</a> the morning you go.</li>
-        </ul>
-        <p>
-          More detail: <a href="/park/marine-safety-seasons/">marine safety &amp; seasons</a>.
-        </p>
-      </section>
+    <section id="ngaro" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Ngaro culture &amp; respectful visiting</h2>
+      <p class="mt-3 max-w-2xl text-mist-700 dark:text-park-200">
+        We acknowledge the <strong>Ngaro people</strong> as Traditional Owners of the Whitsunday islands and surrounding Sea Country.
+        Visit public cultural sites only, stay on marked tracks, do not touch rock art, and do not invent restricted stories.
+        Prefer authorised guides and operators that respect cultural and marine park protocols.
+      </p>
+    </section>
 
-      <section>
-        <h2>Best time / seasons</h2>
-        <p>
-          <strong>Dry season (roughly May–October)</strong> is generally preferred for weather stability and whale opportunities — and peak demand for day tours and Airlie beds.
-          <strong>Wet season</strong> brings humidity, heavy rain risk and cyclone awareness. There is no zero-risk week; choose flexible bookings that match your tolerance.
-        </p>
-      </section>
+    <section id="marine-safety" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Marine safety, stingers, tides &amp; seasons</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-300">
+        <li>Wind and swell cancel boats — build a buffer day if Whitehaven is non-negotiable.</li>
+        <li>Stinger season is typically <strong>November–May</strong> — full-body suit or avoid swimming; follow operator rules.</li>
+        <li>Hill Inlet swirl photography is <strong>tide-dependent</strong> — check BOM tides, not only social media.</li>
+        <li>Many landings feel easier mid-to-high tide; trust skippers when they change plans.</li>
+        <li>Reef etiquette: no standing on coral, no taking shells/coral, follow GBRMPA zoning if you skipper yourself.</li>
+        <li>Recreational drones need proper authorisation — do not assume you can fly.</li>
+        <li>Check <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.alerts} target="_blank" rel="noopener noreferrer">park alerts</a> the morning you go.</li>
+      </ul>
+      <p class="mt-4 text-sm">
+        More detail:{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/park/marine-safety-seasons/">marine safety &amp; seasons</a>.
+        {' '}Dry season (roughly May–October) is generally preferred for weather stability and whale opportunities — and peak demand for day tours and Airlie beds.
+      </p>
+    </section>
 
-      <section>
-        <h2>Packing list (tropical boat + island)</h2>
-        <ul>
-          <li>Dry bag + waterproof phone pouch</li>
-          <li>UPF shirt, wide-brim hat with cord, polarised sunglasses, reef-safe high-SPF sunscreen</li>
-          <li>Closed-toe shoes for Hill Inlet lookout and rocky landings</li>
-          <li>Stinger suit / lycra if swimming or snorkelling in season (typically Nov–May)</li>
-          <li>Water + snacks for day tours (even when lunch is included, pack backup hydration)</li>
-          <li>Campers: collapsible water storage, stove + fuel (no fires), headlamp, waste bags, first aid, comms plan</li>
-          <li>Seasickness plan if you are prone</li>
-          <li>Offline booking QR / screenshots for tours and camping permits</li>
-        </ul>
-        <p>
-          See <a href="/gear/">gear essentials</a> for Amazon AU product searches (affiliate disclosure applies).
-        </p>
-      </section>
+    <section id="packing" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Packing list (tropical boat + island)</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-300">
+        <li>Dry bag + waterproof phone pouch</li>
+        <li>UPF shirt, wide-brim hat with cord, polarised sunglasses, reef-safe high-SPF sunscreen</li>
+        <li>Closed-toe shoes for Hill Inlet lookout and rocky landings</li>
+        <li>Stinger suit / lycra if swimming or snorkelling in season (typically Nov–May)</li>
+        <li>Water + snacks for day tours (even when lunch is included, pack backup hydration)</li>
+        <li>Campers: collapsible water storage, stove + fuel (no fires), headlamp, waste bags, first aid, comms plan</li>
+        <li>Seasickness plan if you are prone; offline booking QR / screenshots</li>
+      </ul>
+      <p class="mt-4 text-sm">
+        See <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/gear/">gear essentials</a> for Amazon AU product searches (affiliate disclosure applies).
+        {' '}Stays: <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/stay/">where to stay</a>.
+      </p>
+    </section>
 
-      <section>
-        <h2>Where to stay</h2>
-        <p>
-          <strong>Airlie Beach</strong> is the practical mainland hub (backpackers to resorts and holiday parks) for day tours and camping transfers.
-          Cannonvale extends the bed pool. <strong>Hamilton Island</strong> is the resort-island alternative — still confirm how you reach Whitehaven from your resort base.
-          Peak dry-season inventory sells out; book early.
-        </p>
-        <p>
-          Details: <a href="/stay/">where to stay</a>.
-        </p>
-      </section>
-    </div>
+    <section id="weather" class="mt-14 scroll-mt-28">
+      <h2 class="text-2xl font-bold">Weather snapshot</h2>
+      <p class="mt-2 text-base text-mist-700 dark:text-park-300">
+        Widget is orientation only — marine forecasts and operator cancel calls win every argument.
+      </p>
+      <div class="mt-4">
+        <WeatherWidget />
+      </div>
+    </section>
 
-    <div class="mt-12 max-w-3xl">
-      <h2 id="visit-faq-heading" class="text-xl font-bold">FAQs</h2>
-      <div class="mt-4 not-prose">
+    <section id="faq" class="mt-14 scroll-mt-28 max-w-3xl" aria-labelledby="visit-faq-heading">
+      <h2 id="visit-faq-heading" class="text-2xl font-bold">FAQs</h2>
+      <div class="mt-4">
         <FaqList items={faqs} labelledBy="visit-faq-heading" />
       </div>
-    </div>
+    </section>
 
     <AdSense unit="inContent" />
 

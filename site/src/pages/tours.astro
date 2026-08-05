@@ -1,93 +1,121 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import MonetisationPanel from '../components/MonetisationPanel.astro';
 import OfficialResources from '../components/OfficialResources.astro';
-import AdSense from '../components/AdSense.astro';
+import MonetisationPanel from '../components/MonetisationPanel.astro';
+import ContentDate from '../components/ContentDate.astro';
 import {
-  featuredTourLinks,
-  externalRel,
   affiliates,
+  externalRel,
+  featuredTourLinks,
   getYourGuideSearchUrl,
+  affiliateDisclosureShort,
 } from '../data/affiliates';
 import { official } from '../data/seo';
 
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Tours & activities' },
+const searches = [
+  { q: 'Whitehaven Beach Whitsundays', label: 'Whitehaven Beach' },
+  { q: 'Hill Inlet lookout tour Airlie Beach', label: 'Hill Inlet lookout' },
+  { q: 'Whitsundays sailing day trip', label: 'Day sailing' },
+  { q: 'Whitsunday snorkel tour Airlie', label: 'Snorkel tours' },
+  { q: 'multi day Whitsundays sailing', label: 'Multi-day sailing' },
+  { q: 'Heart Reef scenic flight Airlie', label: 'Heart Reef flights' },
+  { q: 'Whitehaven half day cruise', label: 'Half-day options' },
+  { q: 'Airlie Beach private charter', label: 'Private / charter' },
 ];
 
-const tours = featuredTourLinks();
+const featured = featuredTourLinks();
 ---
 
 <Layout
   title="Tours & activities"
   fullTitle="Whitsunday Tours · Whitehaven, Hill Inlet, Sailing & Snorkel"
   description="Whitehaven Beach and Hill Inlet day tours, ocean rafting, sailing, snorkel trips, multi-day charters and scenic flights from Airlie Beach. Prefer operators that respect marine park and Ngaro cultural protocols."
-  breadcrumbs={crumbs}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Tours' },
+  ]}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Tours & activities</h1>
-    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Tours & activities</h1>
+    <ContentDate prefix="Guide updated" class="mt-3" note="· confirm inclusions and weather cancels with your operator" />
+    <p class="mt-4 max-w-3xl body-copy">
       Tours are optional logistics helpers — not a substitute for weather windows, camping permits or reef etiquette.
       Read inclusions carefully: not every “Whitehaven” product includes Hill Inlet lookout or a long beach window.
       Prefer operators that follow marine park rules and cultural protocols.
     </p>
+    <p class="affiliate-note mt-3">
+      {affiliateDisclosureShort} GetYourGuide links use partner tracking and campaign{' '}
+      <code>whitsundayislandsnationalpark</code> when configured. Park fees and official Queensland Parks bookings are never affiliated — use{' '}
+      <a href={official.park} target="_blank" rel="noopener noreferrer" class="underline-offset-2 hover:underline">the official park page</a>
+      {' '}and{' '}
+      <a href={official.alerts} target="_blank" rel="noopener noreferrer" class="underline-offset-2 hover:underline">alerts</a>.
+      {' '}See <a href="/affiliate-disclosure/" class="underline-offset-2 hover:underline">affiliate disclosure</a>.
+    </p>
 
-    <div class="mt-8 grid gap-4 md:grid-cols-2">
-      {
-        tours.map((tour) => (
-          <article class="card flex flex-col p-5">
-            <div class="flex flex-wrap gap-2">
-              {tour.tags.map((tag) => (
-                <span class="rounded-full bg-park-50 px-2.5 py-0.5 text-[11px] font-semibold text-park-800 dark:bg-park-950 dark:text-park-200">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h2 class="mt-3 text-lg font-bold text-park-900 dark:text-park-50">{tour.label}</h2>
-            <p class="mt-2 flex-1 text-sm text-mist-700 dark:text-park-300">{tour.summary}</p>
+    <section class="mt-10" aria-labelledby="featured-tours-heading">
+      <h2 id="featured-tours-heading" class="text-2xl font-bold">Featured GetYourGuide tours</h2>
+      <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+        Deep links to specific products (not generic search). Availability and prices change — confirm on GetYourGuide. Inclusions and Hill Inlet access vary by day and weather.
+      </p>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        {
+          featured.map((tour) => (
+            <article class="card flex flex-col p-5">
+              <h3 class="font-bold text-park-900 dark:text-park-50">{tour.label}</h3>
+              <p class="mt-2 flex-1 text-base text-mist-700 dark:text-park-300">{tour.summary}</p>
+              <ul class="mt-3 flex flex-wrap gap-2" aria-label="Highlights">
+                {tour.tags.map((tag) => (
+                  <li class="rounded-full bg-park-100 px-2.5 py-0.5 text-xs font-semibold text-park-800 dark:bg-park-800 dark:text-park-100">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+              <a
+                class="btn-primary mt-4 !text-sm"
+                href={tour.href}
+                target="_blank"
+                rel={externalRel(tour.sponsored)}
+              >
+                View on GetYourGuide →
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mt-12" aria-labelledby="browse-search-heading">
+      <h2 id="browse-search-heading" class="text-2xl font-bold">Browse by search</h2>
+      <p class="mt-2 text-base text-mist-700 dark:text-park-300">
+        Prefer to compare a wider set? These open GetYourGuide search for the topic.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        {
+          searches.map((s) => (
             <a
-              href={tour.href}
+              class="rounded-full border border-park-200 bg-white px-4 py-2 text-sm font-semibold text-park-800 transition hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100"
+              href={getYourGuideSearchUrl(s.q)}
               target="_blank"
-              rel={externalRel(tour.sponsored)}
-              class:list={['mt-4 inline-flex', tour.primary ? 'btn-primary !text-sm' : 'btn-secondary !text-sm']}
+              rel={externalRel(affiliates.hasGygAffiliate)}
             >
-              View options
+              {s.label}
             </a>
-          </article>
-        ))
-      }
-    </div>
-
-    <p class="mt-6 text-sm text-mist-700 dark:text-park-300">
-      Browse more:{' '}
+          ))
+        }
+      </div>
       <a
-        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+        class="btn-secondary mt-6 !text-sm"
         href={getYourGuideSearchUrl('Whitehaven Beach Whitsundays')}
         target="_blank"
         rel={externalRel(affiliates.hasGygAffiliate)}
       >
-        Whitehaven Beach tours on GetYourGuide
+        Browse all Whitsunday tours
       </a>
-      . Scenic flights: choose operators that follow marine park and cultural guidelines.
-      Always re-check{' '}
-      <a href={official.alerts} target="_blank" rel="noopener noreferrer" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">park alerts</a>
-      {' '}and your operator’s weather policy.
-    </p>
-
-    <p class="affiliate-note mt-4">
-      Tour links may earn a commission at no extra cost to you when partner IDs are configured. Camping permits and QPWS fees are never affiliated.
-      <a href="/affiliate-disclosure/">Affiliate disclosure</a>.
-    </p>
-
-    <AdSense unit="inContent" />
+    </section>
 
     <div class="mt-12">
       <MonetisationPanel primaryStay="airlieBeach" showTours={false} title="Stays & gear around your tour day" />
     </div>
-
     <div class="mt-10">
       <OfficialResources />
     </div>

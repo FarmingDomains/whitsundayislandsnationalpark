@@ -1,38 +1,127 @@
 ---
+/**
+ * Hybrid articles hub — image cards, bestFor, takeaway teaser, soft GYG.
+ */
 import Layout from '../../layouts/Layout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { blogPosts } from '../../data/blog';
+import AdSense from '../../components/AdSense.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
+import MonetisationPanel from '../../components/MonetisationPanel.astro';
+import ContentDate from '../../components/ContentDate.astro';
+import { blogPosts, resolveBlogImage } from '../../data/blog';
+import { affiliates, getYourGuideSearchUrl, externalRel } from '../../data/affiliates';
 
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Articles' },
-];
+const gygBrowse = getYourGuideSearchUrl('Whitehaven Beach Whitsundays');
 ---
 
 <Layout
   title="Articles"
   fullTitle="Whitsunday Articles · Whitehaven, Camping & Boat Access Tips"
   description="Whitsunday Islands National Park tips: Whitehaven day trips, camping permits, boat-access decisions, stinger season packing, Hill Inlet tides and Ngaro cultural respect."
-  breadcrumbs={crumbs}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Articles' },
+  ]}
 >
-  <div class="page-container py-8 sm:py-12">
-    <Breadcrumbs items={crumbs} />
-    <h1 class="mt-4 text-3xl font-bold sm:text-4xl">Articles</h1>
-    <p class="mt-3 max-w-3xl text-mist-700 dark:text-park-200">
+  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Articles</h1>
+    <ContentDate prefix="Guide updated" class="mt-3" note="· long-form planning notes — verify live conditions with QPWS" />
+    <p class="mt-4 max-w-3xl body-copy">
       Long-form practical guides for Whitehaven, camping, boat access, stingers and Ngaro respect.
       Always verify track status, fees and marine conditions with Queensland Parks (QPWS) and your operator before you go.
     </p>
-    <div class="mt-8 grid gap-4">
+    <p class="mt-3 max-w-3xl body-copy">
+      {blogPosts.length} guides · printable{' '}
+      <a href="/maps/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">maps & planner</a>
+      {' · '}
+      <a href="/itineraries/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">itineraries</a>
+      {' · '}
+      <a href="/trails/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">walks & lookouts</a>.
+    </p>
+    <p class="mt-3 text-sm text-mist-700 dark:text-park-300">
+      Optional tours:{' '}
+      <a
+        href={gygBrowse}
+        target="_blank"
+        rel={externalRel(affiliates.hasGygAffiliate)}
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+      >
+        Browse Whitehaven tours on GetYourGuide
+      </a>
+      {' '}(affiliate disclosure applies).
+    </p>
+
+    <div class="mt-10 grid gap-8">
       {
-        blogPosts.map((post) => (
-          <a href={`/articles/${post.slug}/`} class="card block p-5 transition hover:border-park-400">
-            <p class="text-xs font-semibold text-park-600 dark:text-park-300">{post.date}</p>
-            <h2 class="mt-1 text-lg font-bold text-park-900 dark:text-park-50">{post.title}</h2>
-            <p class="mt-2 text-sm text-mist-700 dark:text-park-300">{post.description}</p>
-            <p class="mt-3 text-xs font-semibold text-park-600 dark:text-park-300">Read →</p>
-          </a>
-        ))
+        blogPosts.map((post, index) => {
+          const img = resolveBlogImage(post.heroImageKey);
+          const featured = index === 0;
+          return (
+            <article
+              class:list={[
+                'card overflow-hidden transition hover:border-park-400 hover:shadow-md',
+                featured ? 'lg:grid lg:grid-cols-5' : '',
+              ]}
+            >
+              <a
+                href={`/articles/${post.slug}/`}
+                class:list={['block overflow-hidden', featured ? 'lg:col-span-2' : '']}
+              >
+                <img
+                  src={img.src.src}
+                  alt={img.alt}
+                  class:list={[
+                    'w-full object-cover transition hover:scale-[1.02]',
+                    featured ? 'h-56 lg:h-full lg:min-h-[16rem]' : 'h-48',
+                  ]}
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                />
+              </a>
+              <div class:list={['p-5 sm:p-6', featured ? 'lg:col-span-3' : '']}>
+                <p class="text-xs font-semibold uppercase tracking-wide text-park-600 dark:text-park-300">
+                  <time datetime={post.date}>{post.date}</time>
+                  {' · '}~{post.readMinutes} min read
+                  {' · '}
+                  {post.tags.slice(0, 3).join(' · ')}
+                </p>
+                <h2 class:list={['mt-2 font-bold', featured ? 'text-2xl sm:text-3xl' : 'text-xl']}>
+                  <a
+                    href={`/articles/${post.slug}/`}
+                    class="text-park-900 underline-offset-2 hover:underline dark:text-park-50"
+                  >
+                    {post.title}
+                  </a>
+                </h2>
+                <p class="mt-2 text-sm font-medium text-park-800 dark:text-park-200">
+                  Best for: {post.bestFor}
+                </p>
+                <p class="mt-2 text-base text-mist-700 dark:text-park-300">{post.description}</p>
+                {
+                  post.keyTakeaways?.length > 0 && (
+                    <ul class="mt-3 space-y-1 text-sm text-mist-700 dark:text-park-300">
+                      {post.keyTakeaways.slice(0, 2).map((t) => (
+                        <li>· {t}</li>
+                      ))}
+                    </ul>
+                  )
+                }
+                <p class="mt-4 text-sm font-semibold text-park-700 dark:text-park-200">
+                  <a href={`/articles/${post.slug}/`} class="underline-offset-2 hover:underline">
+                    Read guide →
+                  </a>
+                </p>
+              </div>
+            </article>
+          );
+        })
       }
+    </div>
+
+    <AdSense unit="inContent" />
+    <div class="mt-12">
+      <MonetisationPanel primaryStay="airlieBeach" showGear={false} title="Stays & tours after you read" />
+    </div>
+    <div class="mt-10">
+      <OfficialResources />
     </div>
   </div>
 </Layout>

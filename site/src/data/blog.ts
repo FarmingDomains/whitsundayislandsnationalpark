@@ -1,10 +1,21 @@
+import { siteImages, type SiteImage } from './pageImages';
+
+export type BlogImageKey = 'homeHero' | 'hillInlet' | 'campingBeach' | 'boatArrival' | 'fringingReef' | 'islandLookout';
+
 export type BlogPost = {
   slug: string;
   title: string;
   description: string;
   date: string;
+  dateModified?: string;
   tags: string[];
+  bestFor: string;
+  readMinutes: number;
+  heroImageKey: BlogImageKey;
+  intro: string[];
+  keyTakeaways: string[];
   paragraphs: string[];
+  faqs?: { question: string; answer: string }[];
 };
 
 export const blogPosts: BlogPost[] = [
@@ -15,6 +26,22 @@ export const blogPosts: BlogPost[] = [
       'Long-form unofficial guide to a Whitehaven Beach day trip from Airlie Beach — Hill Inlet lookout, tide-aware photography, boat windows, packing and day-trip honesty.',
     date: '2026-07-23',
     tags: ['Whitehaven', 'Hill Inlet', 'day trip', 'tides', 'Airlie Beach'],
+    bestFor: 'First-timers stacking Whitehaven + Hill Inlet on a day tour',
+    readMinutes: 14,
+    heroImageKey: 'hillInlet',
+    intro: [
+      'Whitehaven Beach is the Whitsundays’ global postcard: pure silica sand meeting turquoise water on Whitsunday Island. It is also a logistics product, not a drive-up mainland beach. There is no public road. Almost every first visit arrives by commercial day tour from Airlie Beach or Shute Harbour, with camping transfers and private vessels as the immersion and freedom alternatives. This long-form guide is the practical layer — how to stack Whitehaven with Hill Inlet lookout, read tides without magical thinking, pack for spray and glare, and leave with a good day even when the boat changes the plan. It is unofficial. Always verify track status, park alerts and operator conditions on parks.qld.gov.au and with your booking the morning you go.',
+      ],
+    keyTakeaways: [
+      'No road access — boat logistics win or lose the day',
+      'Hill Inlet lookout is ~1.3 km return, moderate steps — not flip-flop terrain',
+      'Swirl photos are tide-dependent; boat schedule still overrides perfect tide',
+      'Build a weather buffer day if Whitehaven is non-negotiable',
+    ],
+    faqs: [
+      { question: 'Does every Whitehaven tour include Hill Inlet?', answer: 'No. Read inclusions the night before. Not every product that says Whitehaven stacks the lookout and a long beach window.' },
+      { question: 'How long is the Hill Inlet lookout track?', answer: 'Official planning figures put it at about 1.3–1.4 km return, moderate effort, roughly 40 minutes walking. Confirm status on Queensland Parks.' },
+    ],
     paragraphs: [
       'Whitehaven Beach is the Whitsundays’ global postcard: pure silica sand meeting turquoise water on Whitsunday Island. It is also a logistics product, not a drive-up mainland beach. There is no public road. Almost every first visit arrives by commercial day tour from Airlie Beach or Shute Harbour, with camping transfers and private vessels as the immersion and freedom alternatives. This long-form guide is the practical layer — how to stack Whitehaven with Hill Inlet lookout, read tides without magical thinking, pack for spray and glare, and leave with a good day even when the boat changes the plan. It is unofficial. Always verify track status, park alerts and operator conditions on parks.qld.gov.au and with your booking the morning you go.',
       'Start with the access hierarchy. The dominant high-volume path is a crewed day tour: check-in, safety brief, transit, landing, beach and/or lookout, return. The immersion path is overnight camping with a Queensland Parks permit and a transfer window. The freedom path is private vessel, bareboat or multi-day sail charter under marine park rules. If this is your first Whitsunday trip and you have limited time, the day tour is the competent default. Read inclusions the night before — not every product that says “Whitehaven” includes the Hill Inlet lookout track or a long beach window.',
@@ -37,6 +64,22 @@ export const blogPosts: BlogPost[] = [
       'Long-form guide to overnight Whitehaven and Whitsunday Islands camping — QPWS permits, transfers, water planning, no campfires, biosecurity and secluded beach hierarchy.',
     date: '2026-07-23',
     tags: ['camping', 'Whitehaven', 'permits', 'self-sufficiency', 'water'],
+    bestFor: 'Campers planning overnight Whitehaven or secluded beaches',
+    readMinutes: 12,
+    heroImageKey: 'campingBeach',
+    intro: [
+      'Overnight camping on Whitsunday Islands National Park beaches is the immersion upgrade from a day tour. You still need a boat. You also need a Queensland Parks camping booking, a displayed tag, and a self-sufficiency plan that assumes no shops, no reliable fresh water on most sites, and no campfires. This long-form guide covers permit discipline, transfer realism, water and stove logistics, biosecurity, and how Whitehaven compares with quieter beaches. It is unofficial. Book and verify only through official QPWS channels — this website never sells permits and never takes commission on park fees.',
+      ],
+    keyTakeaways: [
+      'QPWS permit + displayed tag — day tours do not use camping permits',
+      'No reliable fresh water on most sites — pack it in',
+      'Stove only — no campfires on national park islands',
+      'This site never sells permits or affiliates park fees',
+    ],
+    faqs: [
+      { question: 'Do I need a permit for day use only?', answer: 'Commercial day tours do not use camping permits. Overnight camping requires a Queensland Parks booking and displayed tag.' },
+      { question: 'How much water should I pack?', answer: 'Common planning figures start around five litres or more per person per day in heat — verify official advice and over-pack rather than under-pack.' },
+    ],
     paragraphs: [
       'Overnight camping on Whitsunday Islands National Park beaches is the immersion upgrade from a day tour. You still need a boat. You also need a Queensland Parks camping booking, a displayed tag, and a self-sufficiency plan that assumes no shops, no reliable fresh water on most sites, and no campfires. This long-form guide covers permit discipline, transfer realism, water and stove logistics, biosecurity, and how Whitehaven compares with quieter beaches. It is unofficial. Book and verify only through official QPWS channels — this website never sells permits and never takes commission on park fees.',
       'Permits first. Overnight camping requires a booking through the Queensland Parks Booking Service. Fees apply and change; planning figures are commonly discussed around a per-adult nightly rate or a family product, with young children free under published policy — always re-check live prices before you pay. A tag with your booking number must be displayed at your site. Day tours do not use camping permits. Confusing a resort hotel booking with national park camping rights is a classic failure mode.',
@@ -59,6 +102,22 @@ export const blogPosts: BlogPost[] = [
       'How to choose commercial day tours, camping transfers, private vessels or multi-day sail charters for Whitsunday Islands National Park — filters, hubs and weather realism.',
     date: '2026-07-23',
     tags: ['boat access', 'planning', 'Airlie Beach', 'sailing', 'tours'],
+    bestFor: 'Planners choosing tour vs transfer vs private vessel',
+    readMinutes: 11,
+    heroImageKey: 'boatArrival',
+    intro: [
+      'Every Whitsunday Islands National Park visit is a boat decision first. There is no bridge and no public road to Whitehaven Beach or Hill Inlet. The right product depends on budget, time, desire for solitude, fitness, group size and skippering skill — not on which photo you saved first. This guide is the decision tree we use across this unofficial site. Always re-check operator inclusions, marine forecasts and park alerts before you lock non-refundable flights tight against a single departure.',
+      ],
+    keyTakeaways: [
+      'Every visit is a boat decision first',
+      'Day tour is the competent default for first visits with limited time',
+      'Camping transfer needs permit + self-sufficiency; private vessel needs zoning literacy',
+      'Weather is the veto player — buffer days beat rigid selfie deadlines',
+    ],
+    faqs: [
+      { question: 'What is the best first-visit path?', answer: 'A crewed day tour from Airlie Beach with clear Whitehaven (and ideally Hill Inlet) inclusions, plus a weather buffer if the icon is non-negotiable.' },
+      { question: 'Is bareboat a good first choice?', answer: 'Only with proven competence and GBRMPA zoning literacy. Freedom is not an exemption from marine park law.' },
+    ],
     paragraphs: [
       'Every Whitsunday Islands National Park visit is a boat decision first. There is no bridge and no public road to Whitehaven Beach or Hill Inlet. The right product depends on budget, time, desire for solitude, fitness, group size and skippering skill — not on which photo you saved first. This guide is the decision tree we use across this unofficial site. Always re-check operator inclusions, marine forecasts and park alerts before you lock non-refundable flights tight against a single departure.',
       'Filter one — time and complexity. If you have one free day from Airlie Beach, a commercial day tour is the high-probability path. If you have two or more nights and camping experience, a permit plus transfer can unlock dawn silica sand. If you have multi-day holiday budget and sailing appetite, a crewed multi-day sail or qualified bareboat expands the archipelago beyond a single beach. Do not buy a multi-day charter because you are angry at day-tour crowds; buy it because you want nights on the water and flexible bay choices.',
@@ -81,6 +140,22 @@ export const blogPosts: BlogPost[] = [
       'Marine stinger season (typically November–May), full-body suits, reef-safe sun protection, dry bags and tropical boat packing that actually gets used on Whitehaven days.',
     date: '2026-07-23',
     tags: ['stingers', 'safety', 'packing', 'snorkel', 'wet season'],
+    bestFor: 'Anyone swimming or snorkelling Nov–May (and year-round packers)',
+    readMinutes: 9,
+    heroImageKey: 'fringingReef',
+    intro: [
+      'Tropical Queensland packing fails in two opposite ways: people bring a city beach tote, or they over-pack festival camping kits that ignore boat spray and silica sand. The Whitsundays reward a tight kit built for sun, salt, humidity, stinger risk and waterproofing. This guide is the packing and stinger realism layer for day tours and overnight camping. Follow Queensland Health and operator guidance for jellyfish risk on the day you travel — advice and risk windows can be refined over time.',
+      ],
+    keyTakeaways: [
+      'Stinger risk is typically highest November–May in tropical Queensland',
+      'Full-body lycra or stinger suits are common on commercial snorkel stops',
+      'Dry bags, UPF and reef-safe SPF matter year-round',
+      'When unsure, cover up or stay dry — beach time without swimming is still excellent',
+    ],
+    faqs: [
+      { question: 'When is stinger season?', answer: 'Marine stinger risk is typically highest from November to May. Follow Queensland Health and operator guidance and re-check current advice.' },
+      { question: 'Can I skip a stinger suit?', answer: 'In season, full-body protection or avoiding swimming is the competent default. Follow your operator rules for snorkel stops.' },
+    ],
     paragraphs: [
       'Tropical Queensland packing fails in two opposite ways: people bring a city beach tote, or they over-pack festival camping kits that ignore boat spray and silica sand. The Whitsundays reward a tight kit built for sun, salt, humidity, stinger risk and waterproofing. This guide is the packing and stinger realism layer for day tours and overnight camping. Follow Queensland Health and operator guidance for jellyfish risk on the day you travel — advice and risk windows can be refined over time.',
       'Marine stinger season is typically discussed as November to May in tropical Queensland waters. Commercial snorkel products often require or strongly recommend full-body lycra or stinger suits in that window. If you are not a confident swimmer, or if conditions are murky, skip the swim without guilt. Whitehaven Beach without entering the water is still a world-class day. Covering skin also reduces sunburn while snorkelling — double win.',
@@ -103,6 +178,22 @@ export const blogPosts: BlogPost[] = [
       'Long-form guidance for respectful visits to Ngaro cultural interpretive sites in the Whitsundays — tracks, photography ethics, Sea Country and reef etiquette.',
     date: '2026-07-23',
     tags: ['Ngaro', 'culture', 'respect', 'Sea Country', 'ethics'],
+    bestFor: 'Visitors planning cultural stops and Sea Country respect',
+    readMinutes: 10,
+    heroImageKey: 'islandLookout',
+    intro: [
+      'The Ngaro people are Traditional Owners of the Whitsunday islands and surrounding Sea Country — often described as seafaring people with deep ongoing connection to land and sea. Public cultural sites and interpretive places exist so visitors can learn appropriate context, not so every ridge and rock face becomes an open exploration zone. This unofficial guide outlines respectful visitor behaviour. It does not retell restricted sacred stories, display restricted imagery, or speak for Ngaro people. Always defer to official park communications, on-site signage and Traditional Owner guidance.',
+      ],
+    keyTakeaways: [
+      'Stay on marked public paths only',
+      'Do not invent or retell restricted sacred stories',
+      'Photography ethics: no restricted rock art; no drones without authorisation',
+      'Reef etiquette is cultural practice as well as ecology',
+    ],
+    faqs: [
+      { question: 'Can I photograph rock art?', answer: 'Only where permitted. If a sign says no photos, stop. Distant landscape frames from public paths are the default.' },
+      { question: 'Does this site speak for Ngaro Traditional Owners?', answer: 'No. This is an independent unofficial guide. Defer to official park communications, signage and Traditional Owner guidance.' },
+    ],
     paragraphs: [
       'The Ngaro people are Traditional Owners of the Whitsunday islands and surrounding Sea Country — often described as seafaring people with deep ongoing connection to land and sea. Public cultural sites and interpretive places exist so visitors can learn appropriate context, not so every ridge and rock face becomes an open exploration zone. This unofficial guide outlines respectful visitor behaviour. It does not retell restricted sacred stories, display restricted imagery, or speak for Ngaro people. Always defer to official park communications, on-site signage and Traditional Owner guidance.',
       'Why this matters on a “beach holiday” website: Whitehaven silica sand sits inside a living cultural landscape and a World Heritage marine context. Treating the islands as an empty theme park produces the same failures seen worldwide — off-track damage, disrespectful photography, and ignorance of Sea Country rules that also protect reefs. Cultural respect and marine park etiquette are the same trip quality system.',
@@ -119,6 +210,11 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 ];
+
+export function resolveBlogImage(key?: BlogImageKey): SiteImage {
+  if (key && key in siteImages) return siteImages[key as keyof typeof siteImages];
+  return siteImages.homeHero;
+}
 
 export function getPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);
