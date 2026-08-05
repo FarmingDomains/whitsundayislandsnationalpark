@@ -1,21 +1,25 @@
 ---
+/**
+ * Portfolio-standard Things to do layout (match Wilsons Prom / Blue Mountains):
+ * intro + affiliate note → one hero image → 3 decision rule cards → numbered list cards
+ * (no per-card photos, no pill-button grids) → all walks index → monetisation → official.
+ */
 import Layout from '../layouts/Layout.astro';
 import MonetisationPanel from '../components/MonetisationPanel.astro';
 import OfficialResources from '../components/OfficialResources.astro';
 import ContentImage from '../components/ContentImage.astro';
 import ContentDate from '../components/ContentDate.astro';
-import AdSense from '../components/AdSense.astro';
 import { official } from '../data/seo';
 import { siteImages } from '../data/pageImages';
+import { trails } from '../data/trails';
 import { affiliateDisclosureShort } from '../data/affiliates';
-
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Things to do' },
-];
 
 type CardLink = { href: string; label: string; primary?: boolean };
 
+/**
+ * Primary CTA + 1–2 secondary internal links only.
+ * Avoid link-stuffing blurbs — hurts scannability and looks spammy.
+ */
 const activities: {
   n: string;
   title: string;
@@ -28,9 +32,9 @@ const activities: {
     n: '1',
     title: 'Whitehaven Beach + Hill Inlet',
     blurb:
-      'The global icon pair: silica sand and the tidal swirl lookout (~1.3 km return). Boat access only — day tour is the volume path; camping unlocks quieter hours.',
-    meta: 'Icon pair · boat-gated · tide-aware photos',
+      'The global icon pair: pure silica sand and the tidal swirl lookout (~1.3 km return, moderate steps). Boat access only — day tour is the volume path; camping unlocks quieter hours.',
     href: '/park/whitehaven-hill-inlet/',
+    meta: 'Icon pair · boat-gated · tide-aware photos',
     links: [
       { href: '/trails/hill-inlet-lookout/', label: 'Hill Inlet lookout', primary: true },
       { href: '/trails/whitehaven-beach/', label: 'Whitehaven beach guide' },
@@ -41,9 +45,9 @@ const activities: {
     n: '2',
     title: 'Boat-access day tours',
     blurb:
-      'Crewed day products from Airlie / Shute Harbour. Read whether Hill Inlet is included. Weather cancels — build a buffer day if the icon is non-negotiable.',
-    meta: 'High volume · logistics first',
+      'Crewed day products from Airlie Beach / Shute Harbour. Read whether Hill Inlet is included. Weather cancels boats — build a buffer day if the icon is non-negotiable.',
     href: '/park/boat-access-airlie/',
+    meta: 'High volume · logistics first · Airlie hub',
     links: [
       { href: '/park/boat-access-airlie/', label: 'Access decision tree', primary: true },
       { href: '/tours/', label: 'Tours hub' },
@@ -54,9 +58,9 @@ const activities: {
     n: '3',
     title: 'Overnight island camping',
     blurb:
-      'QPWS permit + transfer, water packed in, stove only, tag displayed. Whitehaven classic or quieter beaches — solitude costs logistics.',
-    meta: 'Permit · self-sufficient · never affiliated',
+      'QPWS permit + transfer, water packed in, stove only, tag displayed. Whitehaven classic or quieter beaches — solitude costs logistics. This site never sells permits.',
     href: '/park/camping-beaches/',
+    meta: 'Permit · self-sufficient · never affiliated',
     links: [
       { href: '/park/camping-beaches/', label: 'Camping beaches hub', primary: true },
       { href: '/itineraries/overnight-whitehaven-camping/', label: 'Overnight plan' },
@@ -68,8 +72,8 @@ const activities: {
     title: 'Fringing reef snorkel',
     blurb:
       'Conditions-dependent sites on commercial itineraries. Stinger suits typically Nov–May. Never stand on coral; trust skipper site changes.',
-    meta: 'Weather-gated · stinger realism',
     href: '/trails/fringing-reef-snorkel/',
+    meta: 'Weather-gated · stinger realism',
     links: [
       { href: '/trails/fringing-reef-snorkel/', label: 'Snorkel guide', primary: true },
       { href: '/park/snorkel-reef/', label: 'Reef area' },
@@ -81,8 +85,8 @@ const activities: {
     title: 'Island walks & lookouts',
     blurb:
       'Short tracks beyond the icon pair — Solway, Dugong/Sawmill links, Chance Bay and more when your landing and energy allow.',
-    meta: 'Short tracks · boat landings',
     href: '/park/island-walks-lookouts/',
+    meta: 'Short tracks · boat landings',
     links: [
       { href: '/trails/', label: 'All walks', primary: true },
       { href: '/trails/solway-circuit/', label: 'Solway circuit' },
@@ -94,8 +98,8 @@ const activities: {
     title: 'Ngaro cultural sites',
     blurb:
       'Public interpretive tracks only — stay on path, no restricted rock-art photography, no invented sacred stories. Reef etiquette is Sea Country respect.',
-    meta: 'Respect first · public sites only',
     href: '/trails/ngaro-cultural-site/',
+    meta: 'Respect first · public sites only',
     links: [
       { href: '/trails/ngaro-cultural-site/', label: 'Cultural site guide', primary: true },
       { href: '/park/ngaro-culture/', label: 'Culture area' },
@@ -107,8 +111,8 @@ const activities: {
     title: 'Multi-day sailing',
     blurb:
       'Crewed multi-day sail or qualified bareboat for archipelago immersion. Higher cost and weather sensitivity; still need a flexible Whitehaven attempt day.',
-    meta: 'Multi-day · weather buffer',
     href: '/itineraries/multi-day-sailing/',
+    meta: 'Multi-day · weather buffer',
     links: [
       { href: '/itineraries/multi-day-sailing/', label: 'Sailing itinerary', primary: true },
       { href: '/tours/', label: 'Tours & charters' },
@@ -120,8 +124,8 @@ const activities: {
     title: 'Scenic flights (Heart Reef)',
     blurb:
       'Premium aerial context — not a substitute for ground-level beach time. Useful after a boat day or when seas cancel surface plans.',
-    meta: 'Aerial · optional layer',
     href: '/tours/',
+    meta: 'Aerial · optional layer',
     links: [
       { href: '/tours/', label: 'Tours & flights', primary: true },
       { href: '/visit/', label: 'Plan visit' },
@@ -132,115 +136,184 @@ const activities: {
 
 const decisionRules = [
   {
-    title: 'First visit + one free day',
-    detail: 'Crewed day tour with clear Whitehaven (and ideally Hill Inlet) inclusions. Base Airlie Beach. Build a weather buffer if the icon is non-negotiable.',
+    title: 'Day one rule',
+    text: 'Pick one primary path (usually a Whitehaven day tour with Hill Inlet if included). Do not stack camping, multi-day sail and Heart Reef on day one.',
   },
   {
-    title: 'Want dawn silica sand',
-    detail: 'QPWS camping permit + transfer, water weight, stove only. Whitehaven classic or quieter beaches if you accept harder pick-ups.',
+    title: 'Weather / boat bail-out',
+    text: 'Wind and swell cancel departures. A buffer day, mainland recovery or scenic flight beats forcing the sea. Bail-outs are competence.',
   },
   {
-    title: 'Families / mixed mobility',
-    detail: 'Beach-level success over lookout ego. Ask operators about steps, toilets and shade. Partial lookouts still count.',
-  },
-  {
-    title: 'Photographers chasing swirl',
-    detail: 'Tide-aware plan + product that includes Hill Inlet + buffer day. Mid-to-high tide often helps classic patterns — boat schedule still wins.',
+    title: 'Overnight filter',
+    text: 'If the group has never self-sufficient camped, stay on day products. Island camping is earned — water weight, stove only, QPWS permit.',
   },
 ];
+
+const hero = siteImages.homeHero;
 ---
 
 <Layout
   title="Things to do"
   fullTitle="Things to Do at Whitsunday Islands · Whitehaven, Hill Inlet, Snorkel & Camping"
-  description="Whitsunday Islands things to do: Whitehaven Beach, Hill Inlet lookout, short island walks, fringing reef snorkel, camping beaches and Ngaro cultural sites — filtered by boat access, tides and fitness."
-  breadcrumbs={crumbs}
+  description="Whitehaven Beach, Hill Inlet lookout, boat-access day tours, island camping, fringing reef snorkel, Ngaro cultural sites and multi-day sailing — practical things to do at Whitsunday Islands National Park QLD."
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Things to do' },
+  ]}
 >
   <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
-    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Things to do</h1>
-    <ContentDate prefix="Guide updated" class="mt-3" note="· boat logistics first — verify with Queensland Parks" />
+    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Things to do at Whitsunday Islands</h1>
+    <ContentDate prefix="Last reviewed" class="mt-3" note="· verify live conditions with Queensland Parks" />
     <p class="mt-4 max-w-3xl body-copy">
-      Everything in Whitsunday Islands National Park is <strong class="text-park-900 dark:text-park-50">boat-access gated</strong> — there is no public road to Whitehaven or Hill Inlet.
-      Start with how you will reach the islands, then match beaches, lookouts and snorkel stops to weather, tides, fitness and muster times.
+      Everything is <strong class="text-park-900 dark:text-park-50">boat-access gated</strong> — there is no public road to{' '}
+      <a
+        href="/trails/whitehaven-beach/"
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+      >
+        Whitehaven Beach
+      </a>
+      {' '}or{' '}
+      <a
+        href="/trails/hill-inlet-lookout/"
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+      >
+        Hill Inlet lookout
+      </a>
+      . Most first visits use a crewed day tour from Airlie Beach, with optional{' '}
+      <a
+        href="/park/camping-beaches/"
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+      >
+        overnight camping
+      </a>
+      {' '}or{' '}
+      <a
+        href="/trails/fringing-reef-snorkel/"
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+      >
+        snorkel stops
+      </a>
+      {' '}when weather and stinger risk allow. Multi-day sailing is a different sport. Do not try to collect every product on a first visit.
     </p>
     <p class="affiliate-note mt-3">{affiliateDisclosureShort}</p>
-    <p class="mt-3 max-w-3xl text-sm text-mist-700 dark:text-park-300">
-      Official status:{' '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks — Whitsunday Islands</a>
-      {' · '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.hillInlet} target="_blank" rel="noopener noreferrer">Hill Inlet lookout track</a>
-      {' · '}
-      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.alerts} target="_blank" rel="noopener noreferrer">Park alerts</a>.
-    </p>
 
     <div class="mt-8">
       <ContentImage
-        src={siteImages.homeHero.src}
-        alt={siteImages.homeHero.alt}
-        imageMeta={siteImages.homeHero}
+        src={hero.src}
+        alt={hero.alt}
+        imageMeta={hero}
         imgClass="max-h-72 w-full object-cover"
+        loading="eager"
+        priority
       />
     </div>
 
-    <section class="mt-12">
-      <h2 class="text-2xl font-bold">How to choose</h2>
-      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      {
+        decisionRules.map((r) => (
+          <div class="card p-5">
+            <h2 class="font-bold text-park-900 dark:text-park-50">{r.title}</h2>
+            <p class="mt-2 text-base text-mist-700 dark:text-park-300">{r.text}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <ol class="mt-12 space-y-6">
+      {
+        activities.map((a) => {
+          const primary = a.links.find((l) => l.primary) ?? a.links[0];
+          const secondary = a.links.filter((l) => l !== primary);
+          return (
+            <li class="card p-5 sm:p-6">
+              <div class="flex flex-wrap items-start gap-3">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-park-600 text-sm font-bold text-white">
+                  {a.n}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <h2 class="text-xl font-bold">
+                    <a
+                      href={a.href}
+                      class="text-park-900 underline-offset-2 hover:underline dark:text-park-50"
+                    >
+                      {a.title}
+                    </a>
+                  </h2>
+                  <p class="mt-1 text-xs font-semibold uppercase tracking-wide text-park-600 dark:text-park-300">
+                    {a.meta}
+                  </p>
+                  <p class="mt-2 text-base text-mist-700 dark:text-park-300">{a.blurb}</p>
+                  <div class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2">
+                    <a
+                      href={primary.href}
+                      class="inline-flex text-sm font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                    >
+                      {primary.label} →
+                    </a>
+                    {
+                      secondary.map((l) => (
+                        <a
+                          href={l.href}
+                          class="inline-flex text-xs font-medium text-mist-700 underline-offset-2 hover:text-park-800 hover:underline dark:text-park-400 dark:hover:text-park-200"
+                        >
+                          {l.label}
+                        </a>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold">All walks on this guide</h2>
+      <p class="mt-2 text-base text-mist-700 dark:text-park-300">
+        {trails.length} practical walk, beach and lookout pages with logistics. Always confirm on{' '}
+        <a
+          class="font-semibold underline-offset-2 hover:underline"
+          href={official.park}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Queensland Parks
+        </a>
+        .
+      </p>
+      <ul class="mt-4 grid gap-2 sm:grid-cols-2">
         {
-          decisionRules.map((row) => (
-            <li class="card p-5">
-              <h3 class="font-bold text-park-900 dark:text-park-50">{row.title}</h3>
-              <p class="mt-2 text-sm text-mist-700 dark:text-park-300">{row.detail}</p>
+          trails.map((t) => (
+            <li>
+              <a
+                href={`/trails/${t.slug}/`}
+                class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+              >
+                {t.shortName}
+              </a>
+              <span class="text-sm text-mist-700 dark:text-park-400">
+                {' '}
+                — {t.effort} · {t.time}
+              </span>
             </li>
           ))
         }
       </ul>
+      <p class="mt-4 flex flex-wrap gap-2">
+        <a href="/trails/" class="btn-secondary !text-sm">Walks hub</a>
+        <a href="/itineraries/" class="btn-secondary !text-sm">Itineraries</a>
+        <a href="/articles/" class="btn-secondary !text-sm">Articles</a>
+        <a href="/visit/" class="btn-secondary !text-sm">Plan visit</a>
+      </p>
     </section>
-
-    <section class="mt-14">
-      <h2 class="text-2xl font-bold">Activities</h2>
-      <div class="mt-8 grid gap-5 md:grid-cols-2">
-        {
-          activities.map((a) => (
-            <article class="card flex flex-col p-5 sm:p-6">
-              <p class="text-[10px] font-bold uppercase tracking-wide text-park-600 dark:text-park-300">
-                {a.n} · {a.meta}
-              </p>
-              <h3 class="mt-1 text-xl font-bold text-park-900 dark:text-park-50">
-                <a href={a.href} class="underline-offset-2 hover:underline">
-                  {a.title}
-                </a>
-              </h3>
-              <p class="mt-2 flex-1 text-base text-mist-700 dark:text-park-300">{a.blurb}</p>
-              <ul class="mt-4 flex flex-wrap gap-2">
-                {a.links.map((l) => (
-                  <li>
-                    <a
-                      href={l.href}
-                      class:list={[
-                        'inline-flex rounded-full px-3 py-1.5 text-xs font-semibold transition',
-                        l.primary
-                          ? 'bg-park-600 text-white hover:bg-park-700'
-                          : 'border border-park-200 bg-white text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100',
-                      ]}
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <AdSense unit="inContent" />
 
     <div class="mt-12">
       <MonetisationPanel
         primaryStay="airlieBeach"
-        title="Stays, tours & gear for your plan"
-        description="Airlie Beach beds, Whitehaven day tours and tropical boat kit — camping permits stay official-only."
+        title="Stays, tours & gear (optional)"
+        description="Optional next steps after you pick an activity. Camping permits and official Queensland Parks bookings are never affiliated."
       />
     </div>
     <div class="mt-10">

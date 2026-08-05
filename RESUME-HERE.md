@@ -32,6 +32,8 @@ Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPN
 
 **Follow-up 2026-08-06:** Home/maps/visit LeadCapture was still email-gated via Splitforms when key present. Replaced with BM gold pattern — direct “Open free Practical Planner” + contact reveal for tips.
 
+**Follow-up 2026-08-06b:** `/things-to-do/` restyled to WPNP/BM shell — 3 decision cards, numbered vertical activity list (text links, not pill grid), all-walks index.
+
 ### Phase 4 decision table
 
 | Hub | Decision | Evidence / action |
