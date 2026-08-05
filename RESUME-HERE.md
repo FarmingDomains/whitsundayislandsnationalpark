@@ -137,3 +137,6 @@ Ian FTPs himself.
 - FAQ: only `components/FaqList.astro` may use `<details>`  
 
 Never invent live fees/closures as permanent facts. Defer to parks.qld.gov.au + GBRMPA.
+
+**Follow-up 2026-08-06g:** Real CC reef images (Flynn Reef underwater + Heart Reef aerial); home logistics jumps + itinerary card photos; AI reef removed from live slot.
+
