@@ -8,6 +8,7 @@ import Header from '../components/Header.astro';
 import JsonLd from '../components/JsonLd.astro';
 import BrandMark from '../components/BrandMark.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { adsense } from '../data/adsense';
 
 interface Props {
   title?: string;
@@ -42,7 +43,7 @@ if (jsonLd) {
   schemaGraph.push(...extra);
 }
 
-const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT?.trim() || '';
+const adsenseClient = adsense.client;
 ---
 
 <!doctype html>

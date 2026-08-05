@@ -40,6 +40,8 @@ Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPN
 
 **Follow-up 2026-08-06e:** Legal/secondary audit — disclaimer `#images` credits table; About E-E-A-T sections; terms/privacy structured; search placeholder park-true (killed “dove lake”); contact ContentDate.
 
+**Follow-up 2026-08-06f:** AdSense site review — head script `ca-pub-1520278362040469` on all pages; `public/ads.txt` publisher line; unit `<ins>` slots held until real unit IDs (Auto ads / review only for now).
+
 ### Phase 4 decision table
 
 | Hub | Decision | Evidence / action |
