@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ContentDate from '../components/ContentDate.astro';
 import { official } from '../data/seo';
+import { photoCreditList } from '../data/photoCredit';
 
 const crumbs = [
   { name: 'Home', href: '/' },
@@ -12,13 +13,14 @@ const crumbs = [
 <Layout
   title="Disclaimer"
   fullTitle="Disclaimer · Whitsunday Islands National Park Guide"
-  description="Disclaimer for the unofficial Whitsunday Islands National Park guide — independent of Queensland Parks (QPWS), GBRMPA, Ngaro Traditional Owners and commercial operators."
+  description="Disclaimer for the unofficial Whitsunday Islands National Park guide — independence, risk, and Wikimedia Commons photo credits."
   breadcrumbs={crumbs}
 >
   <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
-    <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Disclaimer</h1>
-    <ContentDate prefix="Last updated" class="mt-3" />
-    <div class="prose-park mt-6 max-w-3xl">
+    <article class="prose-park mx-auto max-w-3xl">
+      <h1 class="mt-0">Disclaimer</h1>
+      <ContentDate prefix="Last updated" class="not-prose mt-3" />
+
       <p>
         <strong>whitsundayislandsnationalpark.com.au</strong> is an independent, unofficial visitor planning website operated as part of the Farming Domains portfolio.
         It is <strong>not affiliated with, endorsed by, or representative of</strong> Queensland Parks and Wildlife Service (QPWS), the Department of the Environment, Tourism, Science and Innovation,
@@ -34,15 +36,68 @@ const crumbs = [
       </p>
       <p>
         Tropical marine travel involves risk of injury or death (boats, weather, stingers, heat, isolation). You are responsible for your decisions, fitness, equipment, hydration and weather judgement.
+        Content is provided “as is” without warranties of accuracy or completeness. To the maximum extent permitted by law, the operators of this site are not liable for loss or injury arising from use of the information here.
         This site does not provide emergency services. In an emergency call <strong>000</strong>.
-      </p>
-      <p>
-        Most landscape photos are real Creative Commons photographs from Wikimedia Commons (author and licence credited on each image). A small number of supporting illustrations (currently fringing reef) remain AI-generated for planning context. None are official Queensland Parks photographs and conditions on the day can differ.
-        Cultural protocols prohibit depicting restricted sacred sites, ceremonies, or people without appropriate permission — we aim to avoid such imagery.
       </p>
       <p>
         Affiliate links may earn commissions; see <a href="/affiliate-disclosure/">affiliate disclosure</a>. Camping permits and official park bookings are never affiliated.
       </p>
-    </div>
+
+      <h2 id="images">Images &amp; photo credits</h2>
+      <p>
+        Primary landscape photographs on this site are real images from <strong>Wikimedia Commons</strong>, used under their stated Creative Commons licences.
+        Author, licence and source file are listed below and are also shown in image captions where practical.
+        They are <strong>not</strong> official Queensland Parks photographs and may not show exact current conditions, track access or facilities.
+        Always rely on QPWS, GBRMPA and on-site information for the real place.
+      </p>
+      <p>
+        Licence short names are as recorded on Commons (e.g. CC BY-SA 4.0). For full licence text, follow each file link.
+        We adapt images for web display (resize/compress); attribution still applies.
+        Cultural protocols prohibit depicting restricted sacred sites, ceremonies, or people without appropriate permission — we aim to avoid such imagery.
+      </p>
+
+      <div class="not-prose mt-6 overflow-x-auto rounded-2xl border border-mist-200 dark:border-park-600">
+        <table class="min-w-full text-left text-sm">
+          <thead class="bg-park-50 text-park-900 dark:bg-park-800 dark:text-park-50">
+            <tr class="border-b border-mist-200 dark:border-park-600">
+              <th scope="col" class="px-4 py-3 font-bold">Subject (site use)</th>
+              <th scope="col" class="px-4 py-3 font-bold">Author</th>
+              <th scope="col" class="px-4 py-3 font-bold">Licence</th>
+              <th scope="col" class="px-4 py-3 font-bold">Source</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-mist-200 bg-white dark:divide-park-600 dark:bg-park-950/40">
+            {
+              photoCreditList.map((c) => (
+                <tr>
+                  <td class="px-4 py-3 text-mist-700 dark:text-park-300">{c.subject}</td>
+                  <td class="px-4 py-3 font-medium text-park-900 dark:text-park-100">{c.credit}</td>
+                  <td class="px-4 py-3 text-mist-700 dark:text-park-300">{c.licence}</td>
+                  <td class="px-4 py-3">
+                    {c.sourceUrl ? (
+                      <a
+                        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                        href={c.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Commons file
+                      </a>
+                    ) : (
+                      '—'
+                    )}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-6">
+        For emergencies call <strong>000</strong>. Related:{' '}
+        <a href="/terms/">Terms</a> · <a href="/privacy/">Privacy</a> · <a href="/affiliate-disclosure/">Affiliate disclosure</a> · <a href="/contact/">Contact</a>.
+      </p>
+    </article>
   </div>
 </Layout>

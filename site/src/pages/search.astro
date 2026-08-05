@@ -14,13 +14,18 @@ import { searchIndex } from '../data/searchIndex';
 >
   <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
     <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Search</h1>
-    <p class="mt-3 text-sm text-mist-700 dark:text-park-300">Client-side search of this site's pages (Phase 1). Not a live park conditions search.</p>
+    <p class="mt-3 text-sm text-mist-700 dark:text-park-300">
+      Client-side search of this site’s pages only. Not live park conditions, fees or boat availability — verify with Queensland Parks and operators.
+    </p>
 
     <label for="q" class="contact-label mt-8">Query</label>
-    <input id="q" type="search" class="contact-input max-w-xl" placeholder="e.g. dove lake, shuttle, parks pass" autocomplete="off" />
+    <input id="q" type="search" class="contact-input max-w-xl" placeholder="e.g. Whitehaven, Hill Inlet, camping, stinger, Airlie" autocomplete="off" />
 
     <ul id="results" class="mt-8 space-y-3" role="list"></ul>
-    <p id="empty" class="mt-6 hidden text-sm text-mist-700 dark:text-park-300" hidden>No matches — try a shorter word or browse <a href="/trails/" class="underline">trails</a>.</p>
+    <p id="empty" class="mt-6 hidden text-sm text-mist-700 dark:text-park-300" hidden>
+      No matches — try a shorter word or browse <a href="/trails/" class="underline">walks</a>,{' '}
+      <a href="/visit/" class="underline">plan visit</a> or <a href="/articles/" class="underline">articles</a>.
+    </p>
   </div>
 </Layout>
 

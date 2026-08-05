@@ -38,6 +38,8 @@ Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPN
 
 **Follow-up 2026-08-06d:** Articles → WPNP long-form structure: multi-para intro, key takeaways, on-page TOC, headed sections + mid images, mid mon slot, FAQ, related + more articles (no flat paragraph wall).
 
+**Follow-up 2026-08-06e:** Legal/secondary audit — disclaimer `#images` credits table; About E-E-A-T sections; terms/privacy structured; search placeholder park-true (killed “dove lake”); contact ContentDate.
+
 ### Phase 4 decision table
 
 | Hub | Decision | Evidence / action |

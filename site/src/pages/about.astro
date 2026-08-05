@@ -2,13 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import ContentDate from '../components/ContentDate.astro';
 import { official } from '../data/seo';
-import { contentMeta, publisher } from '../data/contentMeta';
+import { contentMeta, publisher, formatReviewed } from '../data/contentMeta';
 import { portfolioHub, relatedSisterParks } from '../data/portfolio';
 
 const crumbs = [
   { name: 'Home', href: '/' },
   { name: 'About' },
 ];
+
+const reviewed = formatReviewed(contentMeta.siteReviewedIso);
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -27,52 +29,110 @@ const personLd = {
 <Layout
   title="About this guide"
   fullTitle="About This Guide · Whitsunday Islands National Park"
-  description="About the unofficial Whitsunday Islands National Park guide by Farming Domains — independent planning advice, not Queensland Parks (QPWS), GBRMPA or Ngaro Traditional Owners."
+  description="About the unofficial Whitsunday Islands National Park guide by Ian Piggott / Farming Domains — methodology, independence, photo credits and accuracy policy. Not Queensland Parks (QPWS)."
   breadcrumbs={crumbs}
   jsonLd={personLd}
 >
-  <div class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
+  <div class="page-container max-w-3xl pb-10 pt-4 sm:pb-14 sm:pt-5">
     <h1 class="mt-0 text-3xl font-bold sm:text-4xl">About this guide</h1>
-    <ContentDate prefix="Last reviewed" class="mt-3" note={`· publisher ${publisher.name}`} />
+    <ContentDate prefix="Last reviewed" class="mt-3" note="· verify live park facts with Queensland Parks" />
 
-    <div class="prose-park mt-6 max-w-3xl">
+    <div class="mt-6 space-y-4 text-mist-700 dark:text-park-200/90">
       <p>
         <strong class="text-park-900 dark:text-park-50">whitsundayislandsnationalpark.com.au</strong> is an independent, unofficial visitor guide.
         We help people plan boat-access decisions, Whitehaven Beach and Hill Inlet days, camping self-sufficiency, snorkel realism and Airlie Beach logistics
-        for Whitsunday Islands National Park, Queensland.
+        for Whitsunday Islands National Park, Queensland — with a practical focus on <strong>boat logistics first</strong> and day-tour vs camping honesty.
       </p>
       <p>
         We are <strong>not</strong> Queensland Parks (QPWS), the Department of the Environment, Tourism, Science and Innovation, GBRMPA,
         Ngaro Traditional Owners, commercial tour operators, Tourism Whitsundays, or any other government or commercial attraction operator.
       </p>
-      <h2>Publisher</h2>
-      <p>
-        Published by <strong>{publisher.org}</strong> (ABN {publisher.abn}) for <strong>{publisher.name}</strong>
-        {' '}({publisher.role}). More at{' '}
-        <a href={publisher.url} target="_blank" rel="noopener noreferrer">{publisher.url.replace('https://', '')}</a>.
-      </p>
       <p>
         We acknowledge the Ngaro people as Traditional Owners of the Whitsunday islands and surrounding Sea Country.
-        This guide does not retell restricted sacred stories. Use public interpretive material, authorised cultural products and official park communications only.
+        This guide does not retell restricted sacred stories or speak for Traditional Owners. Use public interpretive material, authorised cultural products and official park communications only.
       </p>
-      <p>
-        Always verify camping fees, track status, marine conditions and safety on the{' '}
-        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">official Queensland Parks pages</a>
-        {' '}and{' '}
-        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.gbrmpaWhitsundays} target="_blank" rel="noopener noreferrer">GBRMPA Whitsundays</a>
-        {' '}before you travel. Content reviewed {contentMeta.siteReviewed}.
+    </div>
+
+    <section class="mt-10 rounded-2xl border border-park-200 bg-park-50/80 p-5 dark:border-park-700 dark:bg-park-900/40 sm:p-6">
+      <h2 class="text-xl font-bold text-park-900 dark:text-park-50">Who publishes this site</h2>
+      <p class="mt-3 text-base text-mist-700 dark:text-park-200/90">
+        <strong class="text-park-900 dark:text-park-50">{publisher.name}</strong>
+        {' · '}
+        {publisher.role}
+        {' · '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={publisher.url} target="_blank" rel="noopener noreferrer">ianpiggott.com</a>
       </p>
-      <h2>National Parks Guide network</h2>
-      <p>
-        This site is part of the{' '}
-        <a href={portfolioHub.href} target="_blank" rel="noopener noreferrer">{portfolioHub.label}</a>
-        {' '}network of independent Australian park guides. Browse the full directory on the hub — related peers for this park:
+      <p class="mt-2 text-base text-mist-700 dark:text-park-200/90">
+        Published under <strong>{publisher.org}</strong> (ABN {publisher.abn}) —{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={publisher.orgUrl} target="_blank" rel="noopener noreferrer">farmingdomains.com</a>.
       </p>
-      <ul>
+      <p class="mt-3 text-base text-mist-700 dark:text-park-200/90">
+        We write practical decision frameworks visitors can act on — boat access, tides, camping self-sufficiency and packing realism — so free guides can stay useful without inventing live closures or official fee tables as permanent facts.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-bold">How we work (accuracy policy)</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-200/90">
+        <li>
+          Camping fees, track status, boat access, marine park rules and stinger guidance must be verified on{' '}
+          <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">official Queensland Parks pages</a>,
+          {' '}
+          <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.gbrmpaWhitsundays} target="_blank" rel="noopener noreferrer">GBRMPA</a>
+          {' '}and with operators before you travel. We never invent live closures.
+        </li>
+        <li>
+          Planning figures (distances, times, tide habits) are orientation only — re-check BOM tides, marine forecasts and product inclusions the morning you go.
+        </li>
+        <li>
+          Site-wide content review date: <time datetime={reviewed.iso}>{reviewed.label}</time>. Individual pages may note the same stamp.
+        </li>
+        <li>
+          Corrections welcome via <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/contact/">Contact</a> (email reveal).
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-bold">Images &amp; attribution</h2>
+      <p class="mt-3 text-mist-700 dark:text-park-200/90">
+        Primary site photos are real photographs from <strong>Wikimedia Commons</strong> (Creative Commons), used with attribution under images where shown.
+        One supporting reef illustration is AI-generated. They are not official Queensland Parks photography and may not match exact current conditions — always verify on site.
+        Full author / licence / source table:{' '}
+        <a href="/disclaimer/#images" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">Disclaimer · photo credits</a>.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-bold">Advertising &amp; affiliates</h2>
+      <p class="mt-3 text-mist-700 dark:text-park-200/90">
+        The site may display advertising and affiliate links (stays, tours, gear) to fund free content. Disclosures appear on relevant pages and in the{' '}
+        <a href="/affiliate-disclosure/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">affiliate disclosure</a>.
+        Park camping fees, permits and official Queensland Parks bookings are <strong>never</strong> affiliated.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-bold">National Parks Guide network</h2>
+      <p class="mt-3 text-mist-700 dark:text-park-200/90">
+        This is one <strong>deep park guide</strong> (Whitsunday Islands) in a larger network of independent Australian national park visitor guides. The visitor-facing hub is{' '}
+        <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={portfolioHub.href} target="_blank" rel="noopener noreferrer">{portfolioHub.label}</a>
+        {' '}— browse the full directory and multi-park planning. The publisher behind the network remains Farming Domains; the hub is how travellers find other parks.
+      </p>
+      <p class="mt-4">
+        <a class="btn-primary !text-sm" href={portfolioHub.href} target="_blank" rel="noopener noreferrer">
+          {portfolioHub.ctaLabel}
+        </a>
+      </p>
+      <h3 class="mt-8 text-lg font-bold">Related guides (examples)</h3>
+      <p class="mt-2 text-sm text-mist-700 dark:text-park-400">
+        A short, relevant set for Whitsunday planners — QLD coast / reef peers and strong sisters, not the full network. Complete list on the hub.
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-200/90">
         {
           relatedSisterParks.map((p) => (
             <li>
-              <a href={p.href} target="_blank" rel="noopener noreferrer">
+              <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={p.href} target="_blank" rel="noopener noreferrer">
                 {p.label}
               </a>
               {p.note ? ` — ${p.note}` : ''}
@@ -80,20 +140,11 @@ const personLd = {
           ))
         }
       </ul>
-      <p class="mt-4">
-        <a
-          class="btn-primary !text-sm"
-          href={portfolioHub.href}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {portfolioHub.ctaLabel}
-        </a>
-      </p>
-      <p>
-        Questions about this website (not park emergencies): <a href="/contact/">contact</a>.
-        For emergencies call <strong>000</strong>. For official park help use Queensland Parks channels.
-      </p>
-    </div>
+    </section>
+
+    <p class="mt-10 text-base text-mist-700 dark:text-park-200/90">
+      Questions about this website (not park emergencies): <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href="/contact/">contact</a>.
+      For emergencies call <strong>000</strong>. For official park help use Queensland Parks channels.
+    </p>
   </div>
 </Layout>
