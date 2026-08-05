@@ -135,24 +135,16 @@ function packingAmazonKeywords(label: string): string | undefined {
       }
     </nav>
 
-    <section id="timeline" class="mt-12 scroll-mt-28">
+    <section id="timeline" class="mt-10 scroll-mt-28">
       <h2 class="text-2xl font-bold">Timeline</h2>
-      <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
-        {it.blocks.length} steps — boat clocks and weather can rewrite the order. Protect muster times and cancel policies.
-      </p>
       <ol class="mt-6 space-y-4">
         {
-          it.blocks.map((b, i) => (
-            <li class="card flex flex-col gap-2 p-5 sm:flex-row sm:gap-6">
-              <div class="flex shrink-0 items-start gap-3 sm:w-44 sm:flex-col sm:gap-1">
-                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-park-600 text-xs font-bold text-white sm:mb-1">
-                  {i + 1}
-                </span>
-                <p class="text-sm font-bold text-park-600 dark:text-park-300">{b.time}</p>
-              </div>
-              <div class="min-w-0 flex-1">
-                <h3 class="text-lg font-bold text-park-900 dark:text-park-50">{b.title}</h3>
-                <p class="mt-2 text-base leading-relaxed text-mist-700 dark:text-park-200/90">{b.detail}</p>
+          it.blocks.map((b) => (
+            <li class="card flex flex-col gap-1 p-4 sm:flex-row sm:gap-6">
+              <p class="shrink-0 text-sm font-bold text-park-600 dark:text-park-300 sm:w-40">{b.time}</p>
+              <div>
+                <h3 class="font-bold text-park-900 dark:text-park-50">{b.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-mist-700 dark:text-park-200/90">{b.detail}</p>
               </div>
             </li>
           ))
