@@ -140,3 +140,17 @@ Never invent live fees/closures as permanent facts. Defer to parks.qld.gov.au + 
 
 **Follow-up 2026-08-06g:** Real CC reef images (Flynn Reef underwater + Heart Reef aerial); home logistics jumps + itinerary card photos; AI reef removed from live slot.
 
+
+## LIVE ON PRODUCTION — 2026-08-06 (Ian FTP complete)
+
+Smoke-checked live:
+- Home 200 — AdSense `ca-pub-1520278362040469`, NPG footer, FAQ markers
+- `ads.txt` 200 — publisher line present (re-upload clean no-BOM file if AdSense ads.txt fails)
+- `sitemap-index.xml` 200
+
+**GSC:** submit `https://www.whitsundayislandsnationalpark.com.au/sitemap-index.xml`
+
+**AdSense:** site code + ads.txt live — complete ownership review in AdSense UI if still pending.
+
+**Next (optional):** GSC property + sitemap; AdSense approval then real unit slot IDs; click-test Booking/GYG; replace nothing urgent.
+
