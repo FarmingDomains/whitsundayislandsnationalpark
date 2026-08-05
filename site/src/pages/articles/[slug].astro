@@ -1,14 +1,126 @@
 ---
+/**
+ * Article detail — WPNP gold structure:
+ * H1 → meta → verify callout → hero → intro → key takeaways → TOC →
+ * headed sections (+ optional images) → optional mid mon → FAQ → related → more articles → mon.
+ */
 import Layout from '../../layouts/Layout.astro';
-import AdSense from '../../components/AdSense.astro';
 import OfficialResources from '../../components/OfficialResources.astro';
 import ContentDate from '../../components/ContentDate.astro';
 import ContentImage from '../../components/ContentImage.astro';
 import FaqList from '../../components/FaqList.astro';
 import MonetisationPanel from '../../components/MonetisationPanel.astro';
-import { blogPosts, getPost, resolveBlogImage } from '../../data/blog';
-import { absoluteUrl, faqJsonLd } from '../../data/seo';
-import { affiliateDisclosureShort } from '../../data/affiliates';
+import LeadCapture from '../../components/LeadCapture.astro';
+import { blogPosts, getPost, resolveBlogImage, type BlogImageKey } from '../../data/blog';
+import { absoluteUrl, faqJsonLd, official } from '../../data/seo';
+import { publisher } from '../../data/contentMeta';
+import {
+  affiliateDisclosureShort,
+  amazonSearchUrl,
+  externalRel,
+  affiliates,
+  getYourGuideSearchUrl,
+  bookingSearchUrl,
+} from '../../data/affiliates';
+
+type ArticleAffiliateSlot = {
+  heading: string;
+  blurb: string;
+  links: { label: string; href: string; rel: string }[];
+};
+
+function affiliateSlotFor(slug: string): ArticleAffiliateSlot | null {
+  if (slug === 'whitehaven-hill-inlet-day-trip-guide') {
+    return {
+      heading: 'Optional tours & stays after the plan is solid',
+      blurb:
+        'If you still need a Whitehaven day product or Airlie beds, these open GetYourGuide / Booking searches — not a substitute for weather buffers or QPWS advice.',
+      links: [
+        {
+          label: 'Whitehaven tours (GetYourGuide)',
+          href: getYourGuideSearchUrl('Whitehaven Beach Whitsundays'),
+          rel: externalRel(affiliates.hasGygAffiliate),
+        },
+        {
+          label: 'Search stays — Airlie Beach',
+          href: bookingSearchUrl('airlieBeach'),
+          rel: externalRel(affiliates.hasBookingAffiliate),
+        },
+        {
+          label: 'Dry bag search (Amazon)',
+          href: amazonSearchUrl('dry bag waterproof 20L boat'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+      ],
+    };
+  }
+  if (slug === 'whitehaven-camping-self-sufficiency') {
+    return {
+      heading: 'Optional camping kit searches',
+      blurb:
+        'Only after your QPWS permit and transfer plan are solid. Amazon searches for common gaps — not brand rankings. Park camping fees are never affiliated.',
+      links: [
+        {
+          label: 'Collapsible water jugs',
+          href: amazonSearchUrl('collapsible water container camping 10L'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+        {
+          label: 'Camping stove + fuel',
+          href: amazonSearchUrl('camping stove canister fuel lightweight'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+        {
+          label: 'Headlamp',
+          href: amazonSearchUrl('camping headlamp rechargeable waterproof'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+      ],
+    };
+  }
+  if (slug === 'stinger-season-packing-whitsundays') {
+    return {
+      heading: 'Optional packing searches',
+      blurb: 'Amazon.com.au searches for common tropical gaps — useful after you decide swim vs sand-only.',
+      links: [
+        {
+          label: 'Stinger suit / lycra',
+          href: amazonSearchUrl('stinger suit lycra full body snorkel'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+        {
+          label: 'Reef-safe SPF',
+          href: amazonSearchUrl('reef safe SPF 50 sunscreen zinc'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+        {
+          label: 'Dry bag',
+          href: amazonSearchUrl('dry bag waterproof 20L boat'),
+          rel: externalRel(affiliates.hasAmazonAffiliate),
+        },
+      ],
+    };
+  }
+  if (slug === 'boat-access-decision-tree') {
+    return {
+      heading: 'Optional next steps',
+      blurb: 'Browse tours or Airlie beds once your access path is chosen — camping permits stay official-only.',
+      links: [
+        {
+          label: 'Browse Whitsunday tours',
+          href: getYourGuideSearchUrl('Whitehaven Beach Whitsundays'),
+          rel: externalRel(affiliates.hasGygAffiliate),
+        },
+        {
+          label: 'Search stays — Airlie Beach',
+          href: bookingSearchUrl('airlieBeach'),
+          rel: externalRel(affiliates.hasBookingAffiliate),
+        },
+      ],
+    };
+  }
+  return null;
+}
 
 export function getStaticPaths() {
   return blogPosts.map((p) => ({ params: { slug: p.slug } }));
@@ -18,16 +130,24 @@ const { slug } = Astro.params;
 const post = getPost(slug!);
 if (!post) throw new Error(`Unknown post: ${slug}`);
 
-const hero = resolveBlogImage(post.heroImageKey);
-const bodyParas =
-  post.intro?.length && post.paragraphs[0] === post.intro[0]
-    ? post.paragraphs.slice(1)
-    : post.paragraphs;
+const hero = post.heroImageKey ? resolveBlogImage(post.heroImageKey) : undefined;
+const midAffiliate = affiliateSlotFor(post.slug);
+const otherPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 4);
 
-const crumbs = [
-  { name: 'Home', href: '/' },
-  { name: 'Articles', href: '/articles/' },
-  { name: post.title },
+function sectionId(heading: string): string {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+const toc = [
+  ...post.sections.map((s) => ({
+    id: sectionId(s.heading),
+    label: s.heading,
+  })),
+  ...(post.faqs?.length ? [{ id: 'faq', label: 'FAQ' }] : []),
+  ...(post.relatedLinks?.length ? [{ id: 'related', label: 'Related guides' }] : []),
 ];
 
 const articleLd = {
@@ -37,25 +157,54 @@ const articleLd = {
   description: post.description,
   datePublished: post.date,
   dateModified: post.dateModified ?? post.date,
-  author: { '@type': 'Organization', name: 'Farming Domains' },
+  author: {
+    '@type': 'Person',
+    name: publisher.name,
+    url: publisher.url,
+  },
   mainEntityOfPage: absoluteUrl(`/articles/${post.slug}/`),
 };
 
 const jsonLd = post.faqs?.length ? [articleLd, faqJsonLd(post.faqs)] : articleLd;
+
+/** Mid-article mon after ~halfway through sections */
+const midAfterIndex = Math.min(4, Math.max(2, Math.floor(post.sections.length / 2) - 1));
 ---
 
 <Layout
   title={post.title}
   fullTitle={`${post.title} · Whitsunday Articles`}
   description={post.description}
-  breadcrumbs={crumbs}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Articles', href: '/articles/' },
+    { name: post.title },
+  ]}
   jsonLd={jsonLd}
 >
   <article class="page-container pb-10 pt-4 sm:pb-14 sm:pt-5">
-    <h1 class="mt-0 max-w-4xl text-3xl font-bold sm:text-4xl">{post.title}</h1>
-    <ContentDate prefix="Published" class="mt-3" note={`· ~${post.readMinutes} min read · Unofficial practical guide`} />
-    <p class="mt-4 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{post.description}</p>
-    <p class="mt-2 text-sm font-medium text-park-800 dark:text-park-200">Best for: {post.bestFor}</p>
+    <h1 class="mt-0 max-w-3xl text-3xl font-bold sm:text-4xl">{post.title}</h1>
+    <p class="mt-4 max-w-3xl text-lg text-mist-700 dark:text-park-200/90">{post.description}</p>
+
+    <p class="mt-4 text-sm text-mist-700 dark:text-park-300">
+      By{' '}
+      <a
+        class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+        href={publisher.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {publisher.name}
+      </a>
+      {' · '}
+      {publisher.org}
+      {' · '}
+      Unofficial guide
+      {' · '}
+      ~{post.readMinutes} min read
+    </p>
+    <ContentDate date={post.date} prefix="Published" note="· re-check Queensland Parks before travel" />
+
     <div class="mt-4 flex flex-wrap gap-2">
       {
         post.tags.map((t) => (
@@ -65,71 +214,209 @@ const jsonLd = post.faqs?.length ? [articleLd, faqJsonLd(post.faqs)] : articleLd
         ))
       }
     </div>
+
+    <p class="mt-3 text-sm font-medium text-park-800 dark:text-park-200">Best for: {post.bestFor}</p>
+
+    <p class="mt-6 max-w-3xl rounded-xl border border-park-200 bg-park-50/80 px-4 py-3 text-sm text-park-900 dark:border-park-700 dark:bg-park-900/50 dark:text-park-100">
+      Unofficial guide — always verify camping, track status, boat conditions and marine rules with{' '}
+      <a
+        class="font-semibold underline-offset-2 hover:underline"
+        href={official.park}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Queensland Parks
+      </a>
+      {' '}and your operator. Photos below are Wikimedia Commons / CC where credited (or AI as noted) — not official QPWS imagery and not live conditions.
+    </p>
     <p class="affiliate-note mt-3 max-w-3xl">{affiliateDisclosureShort}</p>
 
-    <div class="mt-8">
-      <ContentImage
-        src={hero.src}
-        alt={hero.alt}
-        imageMeta={hero}
-        imgClass="max-h-96 w-full object-cover"
-      />
-    </div>
-
     {
-      post.intro?.length > 0 && (
-        <div class="prose-park mt-8 max-w-3xl">
-          {post.intro.map((p) => (
-            <p class="text-base leading-relaxed sm:text-lg">{p}</p>
-          ))}
+      hero && (
+        <div class="mt-8 max-w-3xl">
+          <ContentImage
+            src={hero.src}
+            alt={hero.alt}
+            imageMeta={hero}
+            imgClass="max-h-[28rem] w-full object-cover"
+            loading="eager"
+            priority
+          />
         </div>
       )
     }
 
+    <div class="mt-10 max-w-3xl space-y-5 text-base leading-relaxed text-mist-700 dark:text-park-200/90">
+      {post.intro.map((p) => <p>{p}</p>)}
+    </div>
+
     {
       post.keyTakeaways?.length > 0 && (
-        <section class="mt-8 max-w-3xl rounded-2xl border border-park-200 bg-park-50/80 p-5 dark:border-park-700 dark:bg-park-900/40">
+        <aside class="mt-10 max-w-3xl rounded-2xl border border-park-200 bg-white p-5 shadow-sm dark:border-park-700 dark:bg-park-900/40 sm:p-6">
           <h2 class="text-lg font-bold text-park-900 dark:text-park-50">Key takeaways</h2>
-          <ul class="mt-3 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-300">
+          <ul class="mt-3 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-200">
             {post.keyTakeaways.map((t) => (
               <li>{t}</li>
             ))}
           </ul>
-        </section>
+        </aside>
       )
     }
 
-    <div class="prose-park mt-10 max-w-3xl">
-      {bodyParas.map((p) => <p>{p}</p>)}
-    </div>
+    <nav
+      class="mt-10 max-w-3xl rounded-2xl border border-mist-200 bg-mist-50/80 p-5 dark:border-park-700 dark:bg-park-950/40"
+      aria-label="On this page"
+    >
+      <p class="text-xs font-bold uppercase tracking-[0.14em] text-park-600 dark:text-park-300">On this page</p>
+      <ol class="mt-3 columns-1 gap-x-8 space-y-1.5 text-sm sm:columns-2">
+        {
+          toc.map((item, i) => (
+            <li class="break-inside-avoid">
+              <a
+                class="font-medium text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                href={`#${item.id}`}
+              >
+                {i + 1}. {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    {
+      post.sections.map((section, idx) => {
+        const sectionImg = section.imageKey
+          ? resolveBlogImage(section.imageKey as BlogImageKey)
+          : undefined;
+        const id = sectionId(section.heading);
+        return (
+          <>
+            <section id={id} class="mt-12 max-w-3xl scroll-mt-28">
+              <h2 class="text-2xl font-bold text-park-900 dark:text-park-50">{section.heading}</h2>
+              {
+                sectionImg && (
+                  <div class="mt-5">
+                    <ContentImage
+                      src={sectionImg.src}
+                      alt={sectionImg.alt}
+                      imageMeta={sectionImg}
+                      imgClass="max-h-72 w-full object-cover"
+                    />
+                  </div>
+                )
+              }
+              <div class="mt-4 space-y-4 text-base leading-relaxed text-mist-700 dark:text-park-200/90">
+                {section.paragraphs.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+            </section>
+            {
+              midAffiliate && idx === midAfterIndex && (
+                <aside class="no-print mt-12 max-w-3xl rounded-2xl border border-park-200 bg-park-50/70 p-5 dark:border-park-700 dark:bg-park-900/40 sm:p-6">
+                  <p class="text-xs font-bold uppercase tracking-[0.14em] text-park-600 dark:text-park-300">
+                    Optional · affiliate
+                  </p>
+                  <h2 class="mt-1 text-lg font-bold text-park-900 dark:text-park-50">{midAffiliate.heading}</h2>
+                  <p class="mt-2 text-base text-mist-700 dark:text-park-300">{midAffiliate.blurb}</p>
+                  <ul class="mt-4 flex flex-wrap gap-2">
+                    {midAffiliate.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          class="inline-flex rounded-full border border-park-300 bg-white px-3.5 py-2 text-xs font-semibold text-park-800 transition hover:border-park-500 hover:bg-park-50 dark:border-park-600 dark:bg-park-950 dark:text-park-100 dark:hover:border-park-400"
+                          target="_blank"
+                          rel={link.rel}
+                        >
+                          {link.label} ↗
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="affiliate-note mt-3 text-[11px]">
+                    {affiliateDisclosureShort}{' '}
+                    <a href="/affiliate-disclosure/" class="underline-offset-2 hover:underline">
+                      Full disclosure
+                    </a>
+                  </p>
+                </aside>
+              )
+            }
+          </>
+        );
+      })
+    }
 
     {
       post.faqs && post.faqs.length > 0 && (
-        <section id="faq" class="mt-12 max-w-3xl scroll-mt-28" aria-labelledby="article-faq-heading">
-          <h2 id="article-faq-heading" class="text-2xl font-bold">FAQ</h2>
-          <div class="mt-4">
+        <section id="faq" class="mt-14 max-w-3xl scroll-mt-28" aria-labelledby="article-faq-heading">
+          <h2 id="article-faq-heading" class="text-2xl font-bold">
+            FAQ
+          </h2>
+          <div class="mt-6">
             <FaqList items={post.faqs} labelledBy="article-faq-heading" />
           </div>
         </section>
       )
     }
 
-    <div class="mt-10 max-w-3xl rounded-2xl border border-park-200 bg-park-50/80 p-5 text-sm dark:border-park-700 dark:bg-park-900/40">
-      <p class="font-semibold text-park-900 dark:text-park-50">Keep planning</p>
-      <ul class="mt-2 list-disc space-y-1 pl-5 text-mist-700 dark:text-park-300">
-        <li><a href="/downloads/whitsunday-practical-planner.html">Free Practical Planner</a> (print checklist · no email gate)</li>
-        <li><a href="/itineraries/">Itineraries</a> with boat and tide timelines</li>
-        <li><a href="/tours/">Tours</a> — Whitehaven / Hill Inlet day products</li>
-        <li><a href="/visit/">Plan your visit</a> for permits, packing and seasons</li>
-        <li><a href="/articles/">All articles</a></li>
-      </ul>
+    {
+      post.relatedLinks && post.relatedLinks.length > 0 && (
+        <section id="related" class="mt-12 max-w-3xl scroll-mt-28">
+          <h2 class="text-2xl font-bold">Related guides on this site</h2>
+          <ul class="mt-4 grid gap-2 sm:grid-cols-2">
+            {post.relatedLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                >
+                  {link.label} →
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      otherPosts.length > 0 && (
+        <section class="mt-12 max-w-3xl">
+          <h2 class="text-2xl font-bold">More articles</h2>
+          <ul class="mt-4 space-y-3">
+            {otherPosts.map((p) => (
+              <li class="rounded-xl border border-mist-200 bg-white p-4 dark:border-park-700 dark:bg-park-900/40">
+                <a
+                  href={`/articles/${p.slug}/`}
+                  class="font-bold text-park-900 underline-offset-2 hover:underline dark:text-park-50"
+                >
+                  {p.title}
+                </a>
+                <p class="mt-1 text-sm text-mist-700 dark:text-park-300 line-clamp-2">{p.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <div class="mt-12 max-w-3xl">
+      <LeadCapture
+        heading="Free Whitsunday Practical Planner"
+        blurb="Boat-access decision tree, Whitehaven + Hill Inlet notes, camping vs day-trip comparison and official links — free direct download, no email gate."
+      />
     </div>
 
-    <AdSense unit="inContent" />
-    <div class="mt-10">
-      <MonetisationPanel primaryStay="airlieBeach" title="Stays, tours & gear for this topic" />
+    <div class="mt-10 max-w-3xl">
+      <MonetisationPanel
+        primaryStay="airlieBeach"
+        title="Stays, tours & gear for this topic"
+        description="Optional next steps after you plan this topic — camping permits and official Queensland Parks bookings are never affiliated."
+      />
     </div>
-    <div class="mt-10">
+    <div class="mt-10 max-w-3xl">
       <OfficialResources />
     </div>
   </article>

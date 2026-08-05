@@ -36,6 +36,8 @@ Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPN
 
 **Follow-up 2026-08-06c:** Itineraries hub + detail fattened (decision cards, bestFor cards, verify callout, numbered timeline, tip grids, related walk cards; thinner plan copy expanded).
 
+**Follow-up 2026-08-06d:** Articles → WPNP long-form structure: multi-para intro, key takeaways, on-page TOC, headed sections + mid images, mid mon slot, FAQ, related + more articles (no flat paragraph wall).
+
 ### Phase 4 decision table
 
 | Hub | Decision | Evidence / action |
