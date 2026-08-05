@@ -1,7 +1,7 @@
 /**
  * Content-matched imagery for Whitsunday Islands pages.
- * Prefer real Wikimedia Commons landscape photos for named places.
- * Fringing reef remains AI-generated (no strong free underwater match yet).
+ * Prefer Wikimedia Commons CC BY / CC BY-SA photos of named places.
+ * Snorkel slot uses real GBR underwater (Flynn Reef) with honest caption — not a Whitehaven underwater claim.
  * See docs/image-sources.md for full licence log.
  */
 import type { ImageMetadata } from 'astro';
@@ -12,10 +12,12 @@ import campingBeach from '../images/camping-beach.jpg';
 import boatArrival from '../images/boat-arrival.jpg';
 import fringingReef from '../images/fringing-reef.jpg';
 import islandLookout from '../images/island-lookout.jpg';
+import heartReef from '../images/heart-reef.jpg';
 
 const CC = {
   by20: 'https://creativecommons.org/licenses/by/2.0/',
   bySa20: 'https://creativecommons.org/licenses/by-sa/2.0/',
+  bySa30: 'https://creativecommons.org/licenses/by-sa/3.0/',
   bySa40: 'https://creativecommons.org/licenses/by-sa/4.0/',
 } as const;
 
@@ -134,10 +136,12 @@ export const siteImages = {
   },
   fringingReef: {
     src: fringingReef,
-    alt: 'Clear tropical water over fringing reef with coral and fish, ethical snorkelling context Whitsundays',
-    caption: 'Fringing reef snorkel',
-    isAi: true,
-    licence: 'AI-generated',
+    alt: 'Coral outcrop underwater on Flynn Reef, Great Barrier Reef near Cairns — real coral for snorkel education (not a Whitehaven beach reef claim)',
+    caption: 'GBR coral (Flynn Reef) — snorkel context',
+    author: 'Toby Hudson',
+    licence: 'CC BY-SA 3.0',
+    licenceUrl: CC.bySa30,
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Coral_Outcrop_Flynn_Reef.jpg',
   },
   islandLookout: {
     src: islandLookout,
@@ -147,6 +151,16 @@ export const siteImages = {
     licence: 'CC BY 2.0',
     licenceUrl: CC.by20,
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Whitsunday_Island_-_Whitehaven_Beach_01.jpg',
+  },
+  /** Whitsunday Heart Reef aerial — scenic flight / tours context */
+  heartReef: {
+    src: heartReef,
+    alt: 'Aerial view of Heart Reef and lagoon in the Whitsundays, Great Barrier Reef Queensland',
+    caption: 'Heart Reef (Whitsundays aerial)',
+    author: 'Alphasauce',
+    licence: 'CC BY-SA 4.0',
+    licenceUrl: CC.bySa40,
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Heart_Reef_and_Lagoon_Great_Barrier_Reef.jpg',
   },
 } as const satisfies Record<string, SiteImage>;
 
@@ -158,7 +172,7 @@ export const areaImageKey: Record<string, keyof typeof siteImages> = {
   'island-walks-lookouts': 'islandLookout',
   'snorkel-reef': 'fringingReef',
   'ngaro-culture': 'islandLookout',
-  'advanced-multi-day': 'islandLookout',
+  'advanced-multi-day': 'heartReef',
   'marine-safety-seasons': 'homeHero',
 };
 
@@ -200,7 +214,7 @@ export function imageForItinerary(slug: string): SiteImage {
     return siteImages.campingBeach;
   if (slug.includes('snorkel') || slug.includes('half-day-walk')) return siteImages.fringingReef;
   if (slug.includes('sailing') || slug.includes('multi-day') || slug.includes('advanced'))
-    return siteImages.boatArrival;
+    return siteImages.heartReef;
   if (slug.includes('hill-inlet') || slug.includes('photography') || slug.includes('tide'))
     return siteImages.hillInlet;
   if (slug.includes('ngaro') || slug.includes('lookout')) return siteImages.islandLookout;

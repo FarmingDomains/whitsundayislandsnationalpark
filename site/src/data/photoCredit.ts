@@ -1,7 +1,7 @@
 /** Site imagery credits — Wikimedia Commons CC where real; reef remains AI. */
 
 export const photoCreditDefault =
-  'Most landscape photos on this site are real Creative Commons photographs from Wikimedia Commons (photographers credited on each image). One supporting illustration (fringing reef) is AI-generated for atmosphere and is not an official Queensland Parks photograph. Always verify real conditions on site and with parks.qld.gov.au.';
+  'Landscape and reef photos on this site are real Creative Commons photographs from Wikimedia Commons (photographers credited on each image). The snorkel slot uses a real Great Barrier Reef underwater photo (Flynn Reef near Cairns) for coral education — it is not a claim about Whitehaven Beach underwater scenery. Heart Reef aerial is Whitsunday-true. None are official Queensland Parks photographs. Always verify real conditions on site and with parks.qld.gov.au.';
 
 /** Used by LightboxGallery for Ian-owned wildlife-style credits if present */
 export const PHOTO_CREDIT = {
@@ -54,8 +54,15 @@ export const photoCreditList: PhotoCreditRow[] = [
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Whitsunday_Island_-_Whitehaven_Beach_01.jpg',
   },
   {
-    subject: 'Fringing reef snorkel illustration',
-    credit: 'AI-generated (site illustration)',
-    licence: 'AI-generated — not a photograph',
+    subject: 'Snorkel / reef education (Flynn Reef GBR underwater — not Whitehaven-specific)',
+    credit: 'Toby Hudson',
+    licence: 'CC BY-SA 3.0',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Coral_Outcrop_Flynn_Reef.jpg',
+  },
+  {
+    subject: 'Heart Reef aerial (Whitsundays) — scenic flight / multi-day context',
+    credit: 'Alphasauce',
+    licence: 'CC BY-SA 4.0',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Heart_Reef_and_Lagoon_Great_Barrier_Reef.jpg',
   },
 ];
