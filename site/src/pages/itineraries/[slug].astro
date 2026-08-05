@@ -1,12 +1,24 @@
 ---
+/**
+ * Portfolio-standard itinerary detail (BM/WPNP shell):
+ * meta + print → summary → hero → fat intro → verify callout → timeline →
+ * packing / access / skip → tip sections → related trails → official → mon.
+ */
 import Layout from '../../layouts/Layout.astro';
 import OfficialResources from '../../components/OfficialResources.astro';
 import MonetisationPanel from '../../components/MonetisationPanel.astro';
 import ContentDate from '../../components/ContentDate.astro';
 import ContentImage from '../../components/ContentImage.astro';
+import {
+  amazonSearchUrl,
+  externalRel,
+  affiliates,
+  affiliateDisclosureShort,
+} from '../../data/affiliates';
 import { itineraries, getItinerary } from '../../data/itineraries';
 import { getTrail } from '../../data/trails';
 import { imageForItinerary } from '../../data/pageImages';
+import { official } from '../../data/seo';
 
 export function getStaticPaths() {
   return itineraries.map((i) => ({ params: { slug: i.slug } }));
@@ -18,6 +30,23 @@ if (!it) throw new Error(`Unknown itinerary: ${slug}`);
 
 const relatedTrails = it.relatedTrailSlugs.map((s) => getTrail(s)).filter(Boolean);
 const hero = imageForItinerary(it.slug);
+
+/** Optional Amazon search chips for common kit phrases in packing lists */
+function packingAmazonKeywords(label: string): string | undefined {
+  const l = label.toLowerCase();
+  if (l.includes('dry bag')) return 'dry bag waterproof 20L boat';
+  if (l.includes('stinger') || l.includes('lycra')) return 'stinger suit lycra full body snorkel';
+  if (l.includes('sunscreen') || l.includes('reef-safe') || l.includes('reef safe'))
+    return 'reef safe SPF 50 sunscreen zinc';
+  if (l.includes('headlamp')) return 'camping headlamp rechargeable waterproof';
+  if (l.includes('stove') || l.includes('fuel')) return 'camping stove canister fuel lightweight';
+  if (l.includes('water') && (l.includes('jug') || l.includes('collaps') || l.includes('5')))
+    return 'collapsible water container camping 10L';
+  if (l.includes('closed-toe') || l.includes('closed shoes') || l.includes('grip'))
+    return 'water shoes trail shoes grip hiking';
+  if (l.includes('polarised') || l.includes('sunglasses')) return 'polarised sunglasses boat marine';
+  return undefined;
+}
 ---
 
 <Layout
@@ -38,49 +67,92 @@ const hero = imageForItinerary(it.slug);
 
     <div class="no-print flex flex-wrap items-start justify-between gap-4">
       <div>
-        <h1 class="mt-0 text-3xl font-bold sm:text-4xl">{it.name}</h1>
-        <ContentDate prefix="Plan updated" class="mt-3" note={`· ${it.duration}`} />
+        <p class="text-sm font-semibold text-park-600 dark:text-park-300">{it.duration}</p>
+        <h1 class="mt-1 text-3xl font-bold sm:text-4xl">{it.name}</h1>
         <p class="mt-2 text-sm font-medium text-park-700 dark:text-park-300">Best for: {it.bestFor}</p>
+        <ContentDate prefix="Guide updated" class="mt-3" note="· verify Queensland Parks & operator the morning you go" />
       </div>
       <div class="flex flex-wrap gap-2">
         <button type="button" class="btn-secondary !text-sm" onclick="window.print()">Print plan</button>
         {
           it.downloadPath && (
-            <a class="btn-primary !text-sm" href={it.downloadPath}>Download checklist PDF</a>
+            <a class="btn-primary !text-sm" href={it.downloadPath}>
+              Free Practical Planner
+            </a>
           )
         }
+        <a class="btn-secondary !text-sm" href="/itineraries/">All itineraries</a>
       </div>
     </div>
 
     <p class="mt-6 max-w-3xl text-base text-mist-700 dark:text-park-200/90 sm:text-lg">{it.summary}</p>
+    <p class="affiliate-note mt-3 max-w-3xl no-print">{affiliateDisclosureShort}</p>
 
-    <div class="mt-8">
+    <div class="mt-8 max-w-3xl">
       <ContentImage
         src={hero.src}
         alt={hero.alt}
         imageMeta={hero}
         imgClass="max-h-80 w-full object-cover"
+        loading="eager"
+        priority
       />
     </div>
 
-    <div class="mt-6 max-w-3xl space-y-4 text-mist-700 dark:text-park-200/90">
+    <div class="prose-park mt-8 max-w-3xl space-y-4 text-base leading-relaxed text-mist-700 dark:text-park-200/90">
       {it.intro.map((p) => <p>{p}</p>)}
     </div>
 
-    <p class="mt-6 max-w-3xl text-sm text-mist-700 dark:text-park-400">
-      Track status and weather change — verify on Queensland Parks before you leave, then follow the timeline below.
-    </p>
+    <aside class="mt-8 max-w-3xl rounded-2xl border border-park-200 bg-park-50/90 p-5 dark:border-park-600 dark:bg-park-900/50">
+      <p class="text-xs font-bold uppercase tracking-[0.14em] text-park-600 dark:text-park-300">Before you commit</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-base text-mist-700 dark:text-park-300">
+        <li>
+          Verify track status, camping and alerts on{' '}
+          <a class="font-semibold underline-offset-2 hover:underline" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks</a>
+          {' '}and{' '}
+          <a class="font-semibold underline-offset-2 hover:underline" href={official.alerts} target="_blank" rel="noopener noreferrer">park alerts</a>.
+        </li>
+        <li>Re-check operator inclusions, weather cancel policy and check-in times the night before and morning of.</li>
+        <li>Marine forecasts and BOM tides matter — boats and Hill Inlet swirl both fail on rigid selfie deadlines.</li>
+        <li>This timeline is a planning skeleton only. Your skipper’s safety call wins every argument.</li>
+      </ul>
+    </aside>
 
-    <section class="mt-10">
+    <nav class="mt-8 flex flex-wrap gap-2 no-print" aria-label="On this plan">
+      <a href="#timeline" class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">Timeline</a>
+      <a href="#packing" class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">Packing</a>
+      <a href="#access" class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">Access tips</a>
+      <a href="#skip" class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">Skip if short</a>
+      {
+        it.tipSections && it.tipSections.length > 0 && (
+          <a href="#extra-tips" class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">Extra tips</a>
+        )
+      }
+      {
+        relatedTrails.length > 0 && (
+          <a href="#related-walks" class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 hover:border-park-400 dark:border-park-600 dark:bg-park-900 dark:text-park-100">Related walks</a>
+        )
+      }
+    </nav>
+
+    <section id="timeline" class="mt-12 scroll-mt-28">
       <h2 class="text-2xl font-bold">Timeline</h2>
+      <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+        {it.blocks.length} steps — boat clocks and weather can rewrite the order. Protect muster times and cancel policies.
+      </p>
       <ol class="mt-6 space-y-4">
         {
-          it.blocks.map((b) => (
-            <li class="card flex flex-col gap-1 p-4 sm:flex-row sm:gap-6">
-              <p class="shrink-0 text-sm font-bold text-park-600 dark:text-park-300 sm:w-36">{b.time}</p>
-              <div>
-                <h3 class="font-bold text-park-900 dark:text-park-50">{b.title}</h3>
-                <p class="mt-1 text-sm text-mist-700 dark:text-park-200/90">{b.detail}</p>
+          it.blocks.map((b, i) => (
+            <li class="card flex flex-col gap-2 p-5 sm:flex-row sm:gap-6">
+              <div class="flex shrink-0 items-start gap-3 sm:w-44 sm:flex-col sm:gap-1">
+                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-park-600 text-xs font-bold text-white sm:mb-1">
+                  {i + 1}
+                </span>
+                <p class="text-sm font-bold text-park-600 dark:text-park-300">{b.time}</p>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-bold text-park-900 dark:text-park-50">{b.title}</h3>
+                <p class="mt-2 text-base leading-relaxed text-mist-700 dark:text-park-200/90">{b.detail}</p>
               </div>
             </li>
           ))
@@ -88,22 +160,55 @@ const hero = imageForItinerary(it.slug);
       </ol>
     </section>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
-      <section class="card p-5">
-        <h2 class="font-bold">Packing</h2>
-        <ul class="mt-3 list-disc space-y-1 pl-4 text-sm text-mist-700 dark:text-park-200/90">
-          {it.packing.map((p) => <li>{p}</li>)}
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <section id="packing" class="card scroll-mt-28 p-5 sm:p-6">
+        <h2 class="text-lg font-bold">Packing</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-4 text-base text-mist-700 dark:text-park-200/90">
+          {
+            it.packing.map((p) => {
+              const kw = packingAmazonKeywords(p);
+              return (
+                <li>
+                  {
+                    kw ? (
+                      <>
+                        <a
+                          class="font-medium text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                          href={amazonSearchUrl(kw)}
+                          target="_blank"
+                          rel={externalRel(affiliates.hasAmazonAffiliate)}
+                        >
+                          {p}
+                        </a>
+                        <span class="text-[10px] text-mist-700 dark:text-park-500"> · Amazon search</span>
+                      </>
+                    ) : (
+                      p
+                    )
+                  }
+                </li>
+              );
+            })
+          }
         </ul>
+        <p class="affiliate-note mt-3 text-[11px] leading-snug">
+          Kit links are optional Amazon.com.au searches
+          {affiliates.hasAmazonAffiliate ? ' (may earn a commission)' : ''}
+          {' · '}not brand rankings · park fees never ·{' '}
+          <a href="/affiliate-disclosure/" class="underline-offset-2 hover:underline">Disclosure</a>
+          {' · '}
+          <a href="/gear/" class="underline-offset-2 hover:underline">Gear list</a>
+        </p>
       </section>
-      <section class="card p-5">
-        <h2 class="font-bold">Parking tips</h2>
-        <ul class="mt-3 list-disc space-y-1 pl-4 text-sm text-mist-700 dark:text-park-200/90">
+      <section id="access" class="card scroll-mt-28 p-5 sm:p-6">
+        <h2 class="text-lg font-bold">Access & logistics tips</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-4 text-base text-mist-700 dark:text-park-200/90">
           {it.parkingTips.map((p) => <li>{p}</li>)}
         </ul>
       </section>
-      <section class="card p-5">
-        <h2 class="font-bold">Skip if short on time</h2>
-        <ul class="mt-3 list-disc space-y-1 pl-4 text-sm text-mist-700 dark:text-park-200/90">
+      <section id="skip" class="card scroll-mt-28 p-5 sm:p-6">
+        <h2 class="text-lg font-bold">Skip if short on time / energy</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-4 text-base text-mist-700 dark:text-park-200/90">
           {it.skipIfShort.map((p) => <li>{p}</li>)}
         </ul>
       </section>
@@ -111,15 +216,18 @@ const hero = imageForItinerary(it.slug);
 
     {
       it.tipSections && it.tipSections.length > 0 && (
-        <section class="mt-12" aria-labelledby="itinerary-tips-heading">
+        <section id="extra-tips" class="mt-12 scroll-mt-28" aria-labelledby="itinerary-tips-heading">
           <h2 id="itinerary-tips-heading" class="text-2xl font-bold">
             Extra tips
           </h2>
-          <div class="mt-6 space-y-6">
+          <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+            Condition filters and booking honesty for this plan — read after the timeline, not instead of official sources.
+          </p>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
             {it.tipSections.map((section) => (
               <div class="card p-5 sm:p-6">
                 <h3 class="text-lg font-bold text-park-900 dark:text-park-50">{section.title}</h3>
-                <ul class="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-mist-700 dark:text-park-200/90">
+                <ul class="mt-3 list-disc space-y-2 pl-5 text-base leading-relaxed text-mist-700 dark:text-park-200/90">
                   {section.items.map((item) => (
                     <li>{item}</li>
                   ))}
@@ -133,15 +241,26 @@ const hero = imageForItinerary(it.slug);
 
     {
       relatedTrails.length > 0 && (
-        <section class="mt-10">
-          <h2 class="text-2xl font-bold">Related trail guides</h2>
-          <ul class="mt-3 space-y-2 text-sm">
+        <section id="related-walks" class="mt-12 scroll-mt-28">
+          <h2 class="text-2xl font-bold">Related walk & activity guides</h2>
+          <p class="mt-2 text-base text-mist-700 dark:text-park-300">
+            Open the how-to pages that sit under this plan — grades, hazards and maps.
+          </p>
+          <ul class="mt-6 grid gap-4 sm:grid-cols-2">
             {relatedTrails.map(
               (t) =>
                 t && (
                   <li>
-                    <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={`/trails/${t.slug}/`}>
-                      {t.name}
+                    <a
+                      href={`/trails/${t.slug}/`}
+                      class="card block p-5 transition hover:border-park-400"
+                    >
+                      <p class="text-xs font-bold uppercase tracking-wide text-park-600 dark:text-park-300">
+                        {t.effort} · {t.time}
+                      </p>
+                      <h3 class="mt-1 font-bold text-park-900 dark:text-park-50">{t.name}</h3>
+                      <p class="mt-2 text-sm text-mist-700 dark:text-park-300 line-clamp-2">{t.summary}</p>
+                      <p class="mt-3 text-xs font-semibold text-park-600 dark:text-park-300">Open guide →</p>
                     </a>
                   </li>
                 ),
@@ -151,23 +270,35 @@ const hero = imageForItinerary(it.slug);
       )
     }
 
-    <section class="mt-10">
+    <section class="mt-12">
       <h2 class="text-2xl font-bold">Official links to verify</h2>
-      <ul class="mt-3 space-y-2 text-sm">
+      <ul class="mt-4 space-y-2 text-base">
         {
           it.officialUrls.map((url) => (
             <li>
-              <a class="font-medium text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={url} target="_blank" rel="noopener noreferrer">
+              <a
+                class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {url.replace('https://', '')}
               </a>
             </li>
           ))
         }
       </ul>
+      <p class="mt-4 flex flex-wrap gap-2 no-print">
+        <a href="/visit/" class="btn-secondary !text-sm">Plan your visit</a>
+        <a href="/tours/" class="btn-secondary !text-sm">Tours</a>
+        <a href="/stay/" class="btn-secondary !text-sm">Where to stay</a>
+        <a href="/maps/" class="btn-secondary !text-sm">Maps & planner</a>
+      </p>
     </section>
 
     <section class="no-print mt-12 space-y-6" aria-label="Stays, tours and official resources">
       <MonetisationPanel
+        primaryStay="airlieBeach"
         title="Stays, tours & gear for this plan"
         description="Optional next steps once your timeline is set — camping permits and official Queensland Parks bookings are never affiliated."
       />

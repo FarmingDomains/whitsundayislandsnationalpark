@@ -231,9 +231,10 @@ export const itineraries: Itinerary[] = [
     summary:
       'Dugong, Chance Bay, Joes, Curlew, Maureens Cove, Crayfish and related sites — quieter sand, harder logistics, same permit and self-sufficiency rules.',
     intro: [
-      'Secluded does not mean unregulated. Same QPWS permit system, same no-fire rules, same water discipline. Boat access may be less frequent — plan fixed pick-ups with margin.',
-      'Choose beaches that match your vessel draft, tide comfort, walking ambitions and group experience. Quieter sand trades rescue options and social safety nets for atmosphere.',
-      'Who should pick this: campers who already handle self-sufficient coastal nights. Who should start elsewhere: first overnight — consider classic Whitehaven camping before remote sites.',
+      'Secluded does not mean unregulated. Same QPWS permit system, same no-fire rules, same water discipline. Boat access may be less frequent — plan fixed pick-ups with margin. Quieter sand trades rescue options and social safety nets for atmosphere.',
+      'Choose beaches that match your vessel draft, tide comfort, walking ambitions and group experience. Dugong, Chance Bay, Joes, Curlew, Maureens Cove, Crayfish and related sites each have different logistics flavours — read official camping notes per site, not only a blog list.',
+      'Who should pick this: campers who already handle self-sufficient coastal nights and can reverse a transfer window without drama. Who should start elsewhere: first overnight — consider classic Whitehaven camping before remote sites.',
+      'Win condition: permit displayed, water never tight, stove meals without fire fantasies, pack-out complete, and pick-up made with margin — solitude is the bonus, not the excuse for thin logistics.',
     ],
     blocks: [
       {
@@ -292,6 +293,15 @@ export const itineraries: Itinerary[] = [
         items: [
           'Fewer boats can mean slower help — skill and conservatism are the price of quiet.',
           'Do not publish live locations that encourage illegal camping or overcrowding of small sites.',
+          'If the forecast is marginal, delay — remote beaches punish stubborn schedules harder than Whitehaven day tours.',
+        ],
+      },
+      {
+        title: 'Water and reverse logistics',
+        items: [
+          'Over-pack water relative to your “usual” camping nights; heat + humidity + walks drain volume fast.',
+          'Confirm reverse transfer before you fall in love with a remote name on a map.',
+          'Share trip plan with a mainland contact; mobile coverage is not guaranteed.',
         ],
       },
     ],
@@ -304,48 +314,57 @@ export const itineraries: Itinerary[] = [
     summary:
       'Operator-led snorkel at a conditions-dependent fringing reef site plus a short island or lookout walk when itineraries allow. Flexibility beats rigid checklists.',
     intro: [
-      'This plan accepts that sites change with wind. The win condition is safe water time + one quality short walk or lookout — not collecting every named bay on Instagram.',
-      'Who should pick this: visitors with a free half day, people who already did Whitehaven, or anyone prioritising snorkel over silica sand. Who should pick a full Whitehaven product instead: first-timers with only one boat day in the whole trip.',
+      'This plan accepts that sites change with wind. The win condition is safe water time + one quality short walk or lookout — not collecting every named bay on Instagram. Operators pick leeward sites for a reason; arguing for a “better” name in bad water is how days go wrong.',
+      'Who should pick this: visitors with a free half day, people who already did Whitehaven, or anyone prioritising snorkel over silica sand. Who should pick a full Whitehaven product instead: first-timers with only one boat day in the whole trip — icons beat variety when time is scarce.',
+      'Stinger season (typically November–May) is not optional reading. Full-body lycra or operator suits are common on commercial snorkel stops. If you are a weak or anxious swimmer, say so at the brief and use flotation without ego. Reef etiquette is non-negotiable: no standing on coral, no chasing turtles for content.',
+      'Win condition: one good snorkel window under guide supervision, optional short walk completed without cutting muster, gear rinsed, and enough energy left that you do not stack a second full boat product the same afternoon.',
     ],
     blocks: [
       {
         time: 'Night before',
         title: 'Confirm product · stinger plan · fitness notes',
         detail:
-          'Read snorkel brief requirements. Pack suit if season or operator requires. Confirm you are comfortable in open water or will use flotation.',
+          'Read snorkel brief requirements and age/fitness notes. Pack suit if season or operator requires. Confirm you are comfortable in open water or will use flotation. Screenshot booking QR. Check cancel SMS channel.',
       },
       {
         time: 'Morning',
         title: 'Depart · snorkel briefing · in-water window',
         detail:
-          'Listen to site choice rationale (leeward vs windward). Buddy system. No coral contact, no standing on reef. Secure cameras. Exit when guides call — fatigue causes mistakes.',
+          'Listen to site choice rationale (leeward vs windward). Buddy system. No coral contact, no standing on reef. Secure cameras. Exit when guides call — fatigue causes mistakes. If you feel cold or tired early, exit early; pride is not a floatation device.',
       },
       {
         time: 'Midday',
         title: 'Short walk or lookout if offered',
         detail:
-          'Closed shoes, water, sun protection. Only start if muster time is realistic. Skip the walk without guilt if heat or schedule is tight — snorkel already counted as success.',
+          'Closed shoes, water, sun protection. Only start if muster time is realistic. Skip the walk without guilt if heat or schedule is tight — snorkel already counted as success. Stay on marked tracks if a cultural or lookout stop is included.',
       },
       {
         time: 'Afternoon',
         title: 'Return · rinse · Airlie recovery',
         detail:
-          'Rinse gear; rehydrate; note skin/sun exposure. Optional: book Whitehaven icon pair for a later day rather than stacking exhaustion.',
+          'Rinse gear; rehydrate; note skin/sun exposure. Optional: book Whitehaven icon pair for a later day rather than stacking exhaustion. Light lunch and shade beat a second marina queue when you are already cooked.',
       },
     ],
     packing: [
       'Stinger suit / lycra as required',
       'Reef-safe sunscreen (apply early)',
-      'Dry bag',
+      'Dry bag + waterproof phone pouch',
       'Water shoes or grip sandals as advised',
       'Towel / dry shirt for return',
       'Water bottle + light snack',
+      'Polarised sunglasses for glare on the boat',
+      'Offline booking QR / ID',
     ],
-    parkingTips: ['Follow operator check-in parking', 'Arrive early — half-day products still queue'],
+    parkingTips: [
+      'Follow operator check-in parking only — half-day products still queue in peak season',
+      'Arrive early; late check-in is how you lose the snorkel window',
+      'Do not leave valuables visible in rental cars at marinas',
+    ],
     skipIfShort: [
       'Forcing Hill Inlet if not on product',
       'Second boat product same afternoon',
       'Deep free-dive ambition without experience',
+      'Chasing every named bay on the marketing brochure',
     ],
     officialUrls: [GBRMPA, PARK, ALERTS],
     relatedTrailSlugs: ['fringing-reef-snorkel', 'solway-circuit'],
@@ -356,6 +375,15 @@ export const itineraries: Itinerary[] = [
           'Skipper may change bays — that is competence, not bait-and-switch.',
           'If you cannot swim confidently, say so at the brief and use flotation.',
           'Heart Reef is usually aerial, not a snorkel platform — different product class.',
+          'Stinger risk is typically highest Nov–May; cover up or stay dry when unsure.',
+        ],
+      },
+      {
+        title: 'When this plan is the wrong plan',
+        items: [
+          'Only one boat day in the whole trip and you have never seen Whitehaven — pick the classic day product first.',
+          'You want empty sand and solitude — snorkel days are often shared and weather-driven.',
+          'You hate open water — beach-level Whitehaven without swimming may make you happier.',
         ],
       },
     ],
@@ -511,64 +539,70 @@ export const itineraries: Itinerary[] = [
     summary:
       'Choose day tours with clear inclusions, shorter lookout expectations, flotation for snorkel and honest “skip the steps” options. Whitehaven beach time can still be excellent without the full lookout.',
     intro: [
-      'Moderate lookouts are not impossible for all families, but heat + steps + boat schedules punish ambition. Pick products with good briefings and flexible swim options. Celebrate partial success.',
-      'Who should pick this: multi-generation groups, visitors with limited mobility, anyone who would rather enjoy sand than negotiate steps. Who should still consider the lookout: steady walkers with closed shoes and a willingness to turn around early.',
-      'Win condition: everyone back at muster safely, at least one happy Whitehaven memory, no one pressured up steps they cannot reverse.',
+      'Moderate lookouts are not impossible for all families, but heat + steps + boat schedules punish ambition. Pick products with good briefings and flexible swim options. Celebrate partial success. Whitehaven beach-level time is still a world-class day without the full Hill Inlet climb.',
+      'Who should pick this: multi-generation groups, visitors with limited mobility, anyone who would rather enjoy sand than negotiate steps. Who should still consider the lookout: steady walkers with closed shoes and a willingness to turn around early — not people who need to “earn” the beach.',
+      'Talk to the operator before you book, not on the gangway. Ask about steps, toilet access, shade, child ages, flotation for snorkel, and what happens if the lookout is dropped for weather. Marketing photos rarely show the midday glare queue.',
+      'Win condition: everyone back at muster safely, at least one happy Whitehaven memory, no one pressured up steps they cannot reverse, and enough energy left for a calm Airlie evening — not a second ambitious boat the same day.',
     ],
     blocks: [
       {
         time: 'Pre-book (days before)',
         title: 'Read accessibility notes · email operator',
         detail:
-          'Ask about Hill Inlet steps, toilet access, shade, child ages, flotation for snorkel, and cancel policy. Do not rely on marketing photos alone. Book Airlie beds walkable to check-in if possible.',
+          'Ask about Hill Inlet steps, toilet access, shade, child ages, flotation for snorkel, and cancel policy. Do not rely on marketing photos alone. Book Airlie beds walkable to check-in if possible. Prefer products that state beach time clearly even if lookout is optional.',
       },
       {
         time: 'Night before',
         title: 'Snacks kids will eat · layers · expectations',
         detail:
-          'Pack familiar food. Set expectation: beach is the prize; lookout is optional. Charge devices; download offline entertainment for transit if needed.',
+          'Pack familiar food. Set expectation: beach is the prize; lookout is optional. Charge devices; download offline entertainment for transit if needed. Pack dry bag and spare clothes for wet landings. Seasickness plan early if anyone is prone.',
       },
       {
         time: 'Morning check-in',
         title: 'Arrive early · say needs once',
         detail:
-          'Tell crew about mobility or nervous swimmers at briefing. Complete waiver calmly. Seasickness plan for prone kids/adults.',
+          'Tell crew about mobility or nervous swimmers at briefing. Complete waiver calmly. Identify toilets and muster points. Do not leave valuables in the car. One clear conversation with crew beats three mid-walk arguments.',
       },
       {
         time: 'On water / beach',
         title: 'Beach priority · lookout optional',
         detail:
-          'If anyone is unsteady, skip the lookout without guilt. Silica sand at sea level is world-class. Swim only with stinger plan and flotation as needed. Hydrate in glare.',
+          'If anyone is unsteady, skip the lookout without guilt. Silica sand at sea level is world-class. Swim only with stinger plan and flotation as needed. Hydrate in glare. Walk a short way from the densest landing only if you can still make muster without sprinting.',
       },
       {
         time: 'Return',
         title: 'Muster together · calm exit',
         detail:
-          'Count heads early. Celebrate the day you actually had. Evening: early dinner, rinse salt, no second ambitious boat the same day.',
+          'Count heads early. Celebrate the day you actually had. Evening: early dinner, rinse salt, no second ambitious boat the same day. If the lookout was skipped, it can wait for a steadier group or a dedicated photography day later in life.',
       },
     ],
     packing: [
       'Hats + spare for kids',
-      'Extra water',
+      'Extra water (glare + kids drain bottles fast)',
       'Snacks children will actually eat',
       'Light long sleeves / UPF',
       'Stinger protection if swimming',
       'Dry bag for spare clothes',
       'Simple first aid + any personal meds',
       'Closed shoes if attempting any lookout section',
+      'Polarised sunglasses for parents on lookout duty',
+      'Offline booking QR + emergency contacts',
     ],
     parkingTips: [
       'Minimise walking distance from car to check-in if possible',
       'Arrive early to avoid rushed transfers with kids',
+      'Use operator coach pickup if it reduces marina walking',
+      'Do not leave valuables visible in rental cars',
     ],
     skipIfShort: [
       'Linking island tracks',
       'Multi-day camping as first trip',
       'Promising empty beach in peak season',
       'Forcing full Hill Inlet on reluctant walkers',
+      'Same-day second boat product after a full family day',
     ],
     officialUrls: [PARK, HILL, ALERTS],
-    relatedTrailSlugs: ['whitehaven-beach'],
+    relatedTrailSlugs: ['whitehaven-beach', 'hill-inlet-lookout'],
     tipSections: [
       {
         title: 'Success metrics that beat hero metrics',
@@ -577,6 +611,16 @@ export const itineraries: Itinerary[] = [
           'Some silica sand time',
           'No tears on steps',
           'Muster made without sprinting',
+          'Still speaking to each other at dinner',
+        ],
+      },
+      {
+        title: 'Questions to ask the operator',
+        items: [
+          'How many steps / how steep is Hill Inlet on your product?',
+          'Is there shade and a toilet window at the beach landing?',
+          'What flotation is available for nervous swimmers?',
+          'What is the cancel / weather rebook policy for families?',
         ],
       },
     ],
@@ -802,6 +846,14 @@ export const itineraries: Itinerary[] = [
           'Snorkel-focused product',
           'Heart Reef scenic flight',
           'Genuine rest — sometimes the expert move',
+        ],
+      },
+      {
+        title: 'Booking order that reduces failure',
+        items: [
+          'Beds first in peak dry season, then two mental boat options — not the reverse.',
+          'Read cancel policies before you stack non-refundable flights tight against a single departure.',
+          'Do not book airport transfers that require sprinting from a morning return cruise.',
         ],
       },
     ],

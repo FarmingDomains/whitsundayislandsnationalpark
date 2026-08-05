@@ -1,10 +1,47 @@
 ---
+/**
+ * Portfolio-standard itineraries hub (BM/WPNP shell, Whitsunday depth):
+ * decision intro → how-to-choose cards → image cards (duration, name, bestFor, summary)
+ * → mon → free planner → official.
+ */
 import Layout from '../../layouts/Layout.astro';
-import LeadCapture from '../../components/LeadCapture.astro';
+import OfficialResources from '../../components/OfficialResources.astro';
 import MonetisationPanel from '../../components/MonetisationPanel.astro';
+import LeadCapture from '../../components/LeadCapture.astro';
 import ContentDate from '../../components/ContentDate.astro';
 import { itineraries } from '../../data/itineraries';
 import { imageForItinerary } from '../../data/pageImages';
+import { official } from '../../data/seo';
+
+const decisionRules = [
+  {
+    title: 'First visit · limited time',
+    text: 'Classic Whitehaven + Hill Inlet day tour from Airlie. One boat product, clear inclusions, weather buffer if the icon is non-negotiable.',
+    href: '/itineraries/whitehaven-hill-inlet-day/',
+  },
+  {
+    title: 'Want dawn silica sand',
+    text: 'Overnight camping with QPWS permit + transfer. Water packed in, stove only. Not a first-time camping experiment.',
+    href: '/itineraries/overnight-whitehaven-camping/',
+  },
+  {
+    title: 'Families / lower mobility',
+    text: 'Beach-level success over lookout ego. Ask operators about steps, shade and flotation before you book.',
+    href: '/itineraries/family-lower-mobility/',
+  },
+  {
+    title: 'Photographers · tide windows',
+    text: 'Dedicated Hill Inlet day with BOM tides, product that names the lookout, and a spare day if wind kills the boat.',
+    href: '/itineraries/photography-tide-hill-inlet/',
+  },
+];
+
+const filters = [
+  { label: 'Day tours', note: 'Volume path from Airlie' },
+  { label: 'Overnight camping', note: 'Permit + water weight' },
+  { label: 'Multi-day sail', note: 'Archipelago immersion' },
+  { label: 'Family pacing', note: 'Skip the steps option' },
+];
 ---
 
 <Layout
@@ -20,48 +57,102 @@ import { imageForItinerary } from '../../data/pageImages';
     <h1 class="mt-0 text-3xl font-bold sm:text-4xl">Itineraries</h1>
     <ContentDate prefix="Guide updated" class="mt-3" note="· boats & tides first — verify with QPWS & operators" />
     <p class="mt-4 max-w-3xl body-copy">
-      These plans are built for real island logistics — boats, tides, weather cancels, camping self-sufficiency and stinger season — not fantasy “tick Whitehaven before lunch” checklists.
-      Pick the plan that matches your group, then open it for a full timeline, packing notes and what to skip.
+      These plans are built for real island logistics — boat access only, tour muster clocks, Hill Inlet tide windows, camping self-sufficiency, stinger season and weather cancels — not fantasy “tick Whitehaven before lunch” checklists.
+      Pick the plan that matches your group, then open it for a full timeline, packing notes, what to skip, and extra tips.
+      Print from any plan page, or grab the free{' '}
+      <a href="/maps/" class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300">Practical Planner</a>
+      {' '}anytime (no email gate).
     </p>
-    <p class="mt-3 max-w-3xl text-sm text-mist-700 dark:text-park-300">
-      Every itinerary still defers to <strong class="text-park-900 dark:text-park-100">Queensland Parks (QPWS)</strong> for track status, camping and alerts,
-      and to operators / BOM for marine weather.
+    <p class="mt-3 max-w-3xl body-copy">
+      Every itinerary still defers to{' '}
+      <a class="font-semibold text-park-700 underline-offset-2 hover:underline dark:text-park-300" href={official.park} target="_blank" rel="noopener noreferrer">Queensland Parks (QPWS)</a>
+      {' '}for track status, camping and alerts, and to operators / BOM for marine weather. This site does not show live closures or sell permits.
     </p>
 
-    <div class="mt-8 grid gap-5 md:grid-cols-2">
+    <ul class="mt-6 flex flex-wrap gap-2" aria-label="Plan types">
       {
-        itineraries.map((it) => {
-          const img = imageForItinerary(it.slug);
-          return (
-            <a href={`/itineraries/${it.slug}/`} class="card overflow-hidden transition hover:border-park-400">
-              <img
-                src={img.src.src}
-                alt={img.alt}
-                class="h-44 w-full object-cover"
-                loading="lazy"
-              />
-              <div class="p-5">
-                <p class="text-xs font-bold uppercase tracking-wide text-park-600 dark:text-park-300">{it.duration}</p>
-                <h2 class="mt-1 text-lg font-bold text-park-900 dark:text-park-50">{it.name}</h2>
-                <p class="mt-2 text-sm text-mist-700 dark:text-park-300">{it.summary}</p>
-                <p class="mt-3 text-xs font-semibold text-park-600 dark:text-park-300">Open plan →</p>
-              </div>
-            </a>
-          );
-        })
+        filters.map((f) => (
+          <li class="rounded-full border border-park-200 bg-white px-3 py-1.5 text-xs font-semibold text-park-800 dark:border-park-600 dark:bg-park-900 dark:text-park-100">
+            {f.label}
+            <span class="ml-1 font-normal text-mist-700 dark:text-park-400">· {f.note}</span>
+          </li>
+        ))
       }
-    </div>
+    </ul>
+
+    <section class="mt-10" aria-labelledby="choose-heading">
+      <h2 id="choose-heading" class="text-2xl font-bold">How to choose a plan</h2>
+      <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+        Start with access and group honesty — not with the prettiest Instagram post. Each card jumps to a matching itinerary.
+      </p>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        {
+          decisionRules.map((r) => (
+            <a href={r.href} class="card block p-5 transition hover:border-park-400 hover:shadow-md">
+              <h3 class="font-bold text-park-900 dark:text-park-50">{r.title}</h3>
+              <p class="mt-2 text-base text-mist-700 dark:text-park-300">{r.text}</p>
+              <p class="mt-3 text-xs font-semibold text-park-600 dark:text-park-300">Open matching plan →</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mt-14" aria-labelledby="all-plans-heading">
+      <h2 id="all-plans-heading" class="text-2xl font-bold">All plans ({itineraries.length})</h2>
+      <p class="mt-2 max-w-2xl text-base text-mist-700 dark:text-park-300">
+        Each plan includes a door-to-door timeline, packing list, access tips, skip filters and condition adjustments.
+      </p>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {
+          itineraries.map((it) => {
+            const img = imageForItinerary(it.slug);
+            return (
+              <a
+                href={`/itineraries/${it.slug}/`}
+                class="card group overflow-hidden transition hover:border-park-400 hover:shadow-md"
+              >
+                <img
+                  src={img.src.src}
+                  alt={img.alt}
+                  class="h-44 w-full object-cover transition group-hover:scale-[1.02]"
+                  loading="lazy"
+                />
+                <div class="p-5">
+                  <p class="text-xs font-bold uppercase tracking-wide text-park-600 dark:text-park-300">
+                    {it.duration}
+                  </p>
+                  <h3 class="mt-1 text-xl font-bold text-park-900 dark:text-park-50">{it.name}</h3>
+                  <p class="mt-1 text-xs font-semibold text-mist-700 dark:text-park-400">Best for: {it.bestFor}</p>
+                  <p class="mt-2 text-base text-mist-700 dark:text-park-300 line-clamp-3">{it.summary}</p>
+                  <p class="mt-3 text-xs font-semibold text-park-600 dark:text-park-300">
+                    Open plan → {it.blocks.length} timeline steps · packing · tips
+                  </p>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </section>
 
     <div class="mt-12">
       <MonetisationPanel
         primaryStay="airlieBeach"
-        title="Stays & tours after you pick a plan"
-        description="Book an Airlie Beach base, browse Whitehaven tours, or grab tropical boat kit — after you pick an itinerary that fits weather and energy."
+        title="Stays, tours & gear for your plan"
+        description="Book an Airlie Beach base, browse Whitehaven tours, or grab tropical boat kit — after you pick an itinerary that fits weather and energy. Camping permits stay official-only."
       />
     </div>
 
     <div class="mt-10">
-      <LeadCapture downloadPath="/downloads/whitsunday-practical-planner.html" />
+      <LeadCapture
+        heading="Free Whitsunday Practical Planner"
+        blurb="Printable boat-access decision tree, Whitehaven + Hill Inlet notes, camping vs day-trip comparison and official links — free direct download, no email gate."
+      />
+    </div>
+
+    <div class="mt-10">
+      <OfficialResources />
     </div>
   </div>
 </Layout>

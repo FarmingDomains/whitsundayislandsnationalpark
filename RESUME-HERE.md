@@ -34,6 +34,8 @@ Executed `NP-SISTER-UPGRADE-TO-CURRENT-STANDARD.md` against dual gold **BM + WPN
 
 **Follow-up 2026-08-06b:** `/things-to-do/` restyled to WPNP/BM shell — 3 decision cards, numbered vertical activity list (text links, not pill grid), all-walks index.
 
+**Follow-up 2026-08-06c:** Itineraries hub + detail fattened (decision cards, bestFor cards, verify callout, numbered timeline, tip grids, related walk cards; thinner plan copy expanded).
+
 ### Phase 4 decision table
 
 | Hub | Decision | Evidence / action |
