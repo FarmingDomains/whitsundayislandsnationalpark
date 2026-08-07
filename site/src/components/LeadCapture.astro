@@ -1,7 +1,7 @@
 ---
 /**
  * Free Practical Planner — direct download (portfolio standard: no email gate).
- * Optional tips mode points people to /contact/ for email reveal.
+ * Contact link explains no public email (CONTACT-POLICY).
  */
 interface Props {
   heading?: string;
@@ -10,7 +10,7 @@ interface Props {
   class?: string;
   /**
    * checklist (default): direct free download
-   * tips: optional contact link for rare tips (no form backend required)
+   * tips: same free download + soft contact policy link
    */
   mode?: 'checklist' | 'tips';
 }
@@ -27,11 +27,11 @@ const isTips = mode === 'tips';
 const htmlPath = downloadPath;
 
 const resolvedHeading =
-  heading ?? (isTips ? 'Optional: planning tips' : 'Free Whitsunday Islands Practical Planner');
+  heading ?? (isTips ? 'Optional: planning tools' : 'Free Whitsunday Islands Practical Planner');
 const resolvedBlurb =
   blurb ??
   (isTips
-    ? 'The Practical Planner is free — no email required. Prefer a human reply? Use Contact and reveal our email address.'
+    ? 'The Practical Planner is free — no email required. This site does not publish a public mailbox; see Contact for official park links.'
     : 'Printable boat-access decision tree, Whitehaven + Hill Inlet tide notes, camping vs day-trip comparison, stinger packing and official Queensland Parks links — free direct download, no email gate.');
 ---
 
@@ -66,12 +66,12 @@ const resolvedBlurb =
           <a class="btn-secondary !text-sm" href={htmlPath} target="_blank" rel="noopener noreferrer">
             View / print HTML
           </a>
-          <a class="btn-secondary !text-sm" href="/contact/">Contact for tips</a>
+          <a class="btn-secondary !text-sm" href="/contact/">Contact policy</a>
         </>
       ) : (
         <>
           <a class="btn-primary" href={downloadPath}>Grab free Practical Planner</a>
-          <a class="btn-secondary !text-sm" href="/contact/">Email us (reveal address)</a>
+          <a class="btn-secondary !text-sm" href="/contact/">Contact policy</a>
         </>
       )
     }
@@ -81,7 +81,7 @@ const resolvedBlurb =
     {
       isTips ? (
         <>
-          Free download anytime — no mailing list required. Website feedback via{' '}
+          Free download anytime — no mailing list. Official park help via Queensland Parks links on{' '}
           <a href="/contact/" class="underline-offset-2 hover:underline">Contact</a>.{' '}
           <a href="/privacy/" class="underline-offset-2 hover:underline">Privacy</a>.
         </>

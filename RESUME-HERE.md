@@ -1,7 +1,8 @@
 # Resume here — Whitsunday Islands National Park guide
 
 **Last updated:** 2026-08-06  
-**Status:** LIVE ON PRODUCTION — dual-gold sister upgrade shipped + Ian FTP complete  
+**Status:** LIVE ON PRODUCTION — dual-gold upgrade + **no public email** contact policy  
+**Contact method:** **no public email** (no mailto / Formspree / reveal) — official QPWS/GBRMPA links only  
 **Repo:** https://github.com/FarmingDomains/whitsundayislandsnationalpark  
 **Domain:** https://www.whitsundayislandsnationalpark.com.au/  
 **Working dir:** `C:\Users\Ian\WEBSITES\whitsundayislandsnationalpark`  
@@ -51,7 +52,7 @@ NP-SISTER-UPGRADE to dual gold (**BM + WPNP**), park-true Whitsunday content.
 - Layout breadcrumbs rendered; NPG hub footer (“More Australian park guides”)
 - Lachlan FaqList site-wide (home, visit, park areas, articles)
 - LeadCapture = free download only (no email gate)
-- Contact = Show email reveal
+- Contact = **no public email** (policy page + official links; reveal/Formspree removed 2026-08-06)
 - Visit MapEmbed mid-page after access/camping
 - Tours BM shell (Featured + chips, no PageHero/inventory)
 - Stay image cards + `Search stays — Place`
@@ -79,11 +80,12 @@ NP-SISTER-UPGRADE to dual gold (**BM + WPNP**), park-true Whitsunday content.
 
 ## Next session (optional residuals)
 
-1. **GSC** — property + sitemap-index.xml (if not already)
-2. **AdSense** — complete review; when approved, create real unit slots → `adsense.ts` `unitsReady: true` + real slot IDs → rebuild → FTP
-3. Click-test **Booking CJ + GYG** on live
-4. Optional content: true Whitsunday-named underwater fringing reef if a worthy free photo appears; PDF planner if desired
-5. Do not robocopy gold park **copy** — structure only
+1. **FTP** this `site/dist/` if contact no-email page not yet live (contact + privacy + LeadCapture + deleted obfuscate)
+2. **GSC** — property + sitemap-index.xml (if not already)
+3. **AdSense** — complete review; when approved, create real unit slots → `adsense.ts` `unitsReady: true` + real slot IDs → rebuild → FTP
+4. Click-test **Booking CJ + GYG** on live
+5. Optional content: true Whitsunday-named underwater fringing reef if a worthy free photo appears; PDF planner if desired
+6. Do not robocopy gold park **copy** — structure only
 
 ---
 
@@ -95,5 +97,6 @@ NP-SISTER-UPGRADE to dual gold (**BM + WPNP**), park-true Whitsunday content.
 - FAQ: only `components/FaqList.astro` may use `<details>`
 - Footer: NPG hub-first, not “Other Farming Domains park guides”
 - Snorkel photo is Flynn Reef (Cairns GBR) for education — do not caption as Whitehaven coral
+- **No public email** — do not reintroduce mailto, Formspree, base64 reveal, or “hello at …” noscript (CONTACT-POLICY)
 
 Never invent live fees/closures. Defer to parks.qld.gov.au + GBRMPA.
