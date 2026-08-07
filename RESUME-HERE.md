@@ -100,3 +100,6 @@ NP-SISTER-UPGRADE to dual gold (**BM + WPNP**), park-true Whitsunday content.
 - **No public email** — do not reintroduce mailto, Formspree, base64 reveal, or “hello at …” noscript (CONTACT-POLICY)
 
 Never invent live fees/closures. Defer to parks.qld.gov.au + GBRMPA.
+
+**Session close 2026-08-06:** Contact no-email live (FTP); dist ~6.66 MB; structure + ads.txt + AdSense shipped. Next: GSC/AdSense approval residuals only.
+
